@@ -8,7 +8,12 @@ const MongoStore = require('connect-mongo');
 const config = require('../util/config');
 
 // API routes
-const nodeRoutes = require('./node');
+const momentRoutes = require('./moment');
+const eventRoutes = require('./event');
+const groupRoutes = require('./group');
+const linkRoutes = require('./link');
+const scrapbookRoutes = require('./scrapbook');
+const userRoutes = require('./user');
 
 const debug = useDebug('api');
 const app = express();
@@ -57,7 +62,12 @@ module.exports = () => new Promise((resolve, reject) => {
 
   // Register routes
   const apiRoutes = express.Router();
-  apiRoutes.use('/node', nodeRoutes); // routes for nodes
+  apiRoutes.use('/moment', momentRoutes); // routes for moments
+  apiRoutes.use('/event', eventRoutes); // routes for events
+  apiRoutes.use('/group', groupRoutes); // routes for groups
+  apiRoutes.use('/link', linkRoutes); // routes for links
+  apiRoutes.use('/scrapbook', scrapbookRoutes); // routes for scrapbooks
+  apiRoutes.use('/user', userRoutes); // routes for users
   app.use('/api', apiRoutes); // mounts all the routes above to the /api route
 
   // Mount the client-side React app
