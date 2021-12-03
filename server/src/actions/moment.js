@@ -24,13 +24,13 @@ async function deleteMoments(ids) {
 }
 
 async function addEmailToMomentsByEventId(eventId, email) {
-  const moments = await Moment.updateMany({ eventId }, { $addToSet: { emails: email } });
-  return moments;
+  const results = await Moment.updateMany({ eventId }, { $addToSet: { emails: email } });
+  return results;
 }
 
 async function removeEmailFromMomentsByEventId(eventId, email) {
-  const moments = await Moment.updateMany({ eventId }, { $pull: { emails: email } });
-  return moments;
+  const results = await Moment.updateMany({ eventId }, { $pull: { emails: email } });
+  return results;
 }
 
 async function getMoment(id) {
@@ -79,10 +79,10 @@ async function searchMoments(options) {
 }
 
 module.exports = {
-  addEmailToMomentsByEventId,
-  removeEmailFromMomentsByEventId,
   createMoment,
   deleteMoments,
+  addEmailToMomentsByEventId,
+  removeEmailFromMomentsByEventId,
   getMoment,
   searchMoments,
 };

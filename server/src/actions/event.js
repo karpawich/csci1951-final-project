@@ -24,17 +24,17 @@ async function stopEvent(id) {
 }
 
 async function changeEventName(id, name) {
-  const event = await Event.findByIdAndUpdate(id, { name });
+  const event = await Event.findByIdAndUpdate(id, { name }, { returnDocument: 'after' });
   return event;
 }
 
 async function addEmailToEvent(id, email) {
-  const event = await Event.findByIdAndUpdate(id, { $addToSet: { emails: email } });
+  const event = await Event.findByIdAndUpdate(id, { $addToSet: { emails: email } }, { returnDocument: 'after' });
   return event;
 }
 
 async function removeEmailFromEvent(id, email) {
-  const event = await Event.findByIdAndUpdate(id, { $pull: { emails: email } });
+  const event = await Event.findByIdAndUpdate(id, { $pull: { emails: email } }, { returnDocument: 'after' });
   return event;
 }
 

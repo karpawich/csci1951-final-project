@@ -26,6 +26,7 @@ routes.post('/', handleErrors(async (req, res) => {
 routes.delete('/:id', isLoggedIn, handleErrors(async (req, res) => {
   const { id } = req.params;
   // TODO: make sure the user is deleting their own account
+  // TODO: handle user data (maybe have a "Ghost" account like GitHub?)
   const user = await deleteUser(id);
   res.status(200).json({ user });
 }));

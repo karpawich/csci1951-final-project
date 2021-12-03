@@ -23,16 +23,16 @@ routes.post('/email/:id', handleErrors(async (req, res) => {
   const { id } = req.params;
   const { email } = req.body;
   // TODO: check if the user's email is in the moment's event's emails
-  const group = await addEmailToMomentsByEventId(id, email);
-  res.status(200).json({ group });
+  const results = await addEmailToMomentsByEventId(id, email);
+  res.status(200).json({ results });
 }));
 
 routes.delete('/email/:id', handleErrors(async (req, res) => {
   const { id } = req.params;
   const { email } = req.body;
   // TODO: check if the user's email is in the moment's event's emails
-  const group = await removeEmailFromMomentsByEventId(id, email);
-  res.status(200).json({ group });
+  const results = await removeEmailFromMomentsByEventId(id, email);
+  res.status(200).json({ results });
 }));
 
 routes.delete('/:id', handleErrors(async (req, res) => {

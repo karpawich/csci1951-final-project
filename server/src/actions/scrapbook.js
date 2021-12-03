@@ -24,12 +24,12 @@ async function deleteScrapbook(id) {
 }
 
 async function changeScrapbookName(id, name) {
-  const scrapbook = await Scrapbook.findByIdAndUpdate(id, { name });
+  const scrapbook = await Scrapbook.findByIdAndUpdate(id, { name }, { returnDocument: 'after' });
   return scrapbook;
 }
 
 async function changeScrapbookStart(id, start) {
-  const scrapbook = await Scrapbook.findByIdAndUpdate(id, { start });
+  const scrapbook = await Scrapbook.findByIdAndUpdate(id, { start }, { returnDocument: 'after' });
   return scrapbook;
 }
 

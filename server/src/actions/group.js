@@ -20,17 +20,17 @@ async function deleteGroup(id) {
 }
 
 async function changeGroupTitle(id, title) {
-  const group = await Group.findByIdAndUpdate(id, { title });
+  const group = await Group.findByIdAndUpdate(id, { title }, { returnDocument: 'after' });
   return group;
 }
 
 async function addMomentIdToGroup(id, momentId) {
-  const group = await Group.findByIdAndUpdate(id, { $addToSet: { momentIds: momentId } });
+  const group = await Group.findByIdAndUpdate(id, { $addToSet: { momentIds: momentId } }, { returnDocument: 'after' });
   return group;
 }
 
 async function removeMomentIdFromGroup(id, momentId) {
-  const group = await Group.findByIdAndUpdate(id, { $pull: { momentIds: momentId } });
+  const group = await Group.findByIdAndUpdate(id, { $pull: { momentIds: momentId } }, { returnDocument: 'after' });
   return group;
 }
 
