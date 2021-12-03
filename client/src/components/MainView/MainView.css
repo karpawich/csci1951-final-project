@@ -1,0 +1,26 @@
+.main-grid {
+    display: grid;
+
+    grid-template-columns: 10vw 1fr;
+    grid-template-rows: 3em 1fr;
+
+    grid-template-areas: 
+    "header header"
+    "left-menu main";
+}
+
+.header {
+    grid-area: header;
+
+    background-color: lightblue;
+}
+.left-menu {
+    grid-area: left-menu;
+
+    background-color: lightgreen;
+}
+.main {
+    grid-area: main;
+
+    background-color: lightcoral;
+}

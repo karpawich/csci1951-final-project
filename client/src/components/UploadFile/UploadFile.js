@@ -1,14 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { uploadFile } from '../actions/firebaseStorage'
-//import './.scss'
-
-// interface UploadFileProps {
-//   text: string
-//   editing: boolean
-//   onEdit: (newText: string) => void
-//   setEditing: (editing: boolean) => void
-// }
-// const { editing, text, onEdit, setEditing } = props
+import { uploadFile } from '../../actions/firebaseStorage'
 
 export const UploadFile = () => {
     const fileInputRef = useRef()
@@ -40,10 +31,8 @@ export const UploadFile = () => {
 
     return (
         <div>
-            <hr />
             <input type="file" onChange={() => uploadFiles()} ref={fileInputRef} multiple></input>
             <p>{progress}</p>
-            <hr />
         </div>
     );
 }

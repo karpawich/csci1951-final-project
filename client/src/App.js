@@ -1,9 +1,8 @@
-import './App.css';
-import { UploadFile } from './components/UploadFile'
+import { MainView } from './components/MainView/MainView'
 
 function App() {
   return (
-    <UploadFile></UploadFile>
+    <MainView />
   );
 }
 
