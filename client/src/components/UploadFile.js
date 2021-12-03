@@ -30,12 +30,20 @@ export const UploadFile = () => {
         
         // reset file input
         fileInputRef.current.value = null;
+
+        goToDB(urls);
+    }
+
+    const goToDB = async (urls) => {
+        // TODO @max
     }
 
     return (
-    <div>
+        <div>
+            <hr />
             <input type="file" onChange={() => uploadFiles()} ref={fileInputRef} multiple></input>
             <p>{progress}</p>
-    </div>
+            <hr />
+        </div>
     );
 }
