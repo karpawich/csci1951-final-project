@@ -11,14 +11,15 @@ const scrapbookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  author: {
+  authorId: {
     type: ObjectId,
     required: true,
   },
-  start: Anchor,
   eventId: {
     type: ObjectId,
+    default: null,
   },
+  start: Anchor,
 }, { versionKey: false });
 
 const Scrapbook = mongoose.model('Scrapbook', scrapbookSchema);

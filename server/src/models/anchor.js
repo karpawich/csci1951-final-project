@@ -4,12 +4,12 @@ const { ObjectId } = mongoose.SchemaTypes;
 
 // The Mongoose Schema configuration for an anchor.
 module.exports = {
-  idType: {
+  anchorType: {
     type: String,
     required: true,
     enum: ['moment', 'group'],
   },
-  id: {
+  anchorId: {
     type: ObjectId,
     required: true,
   },

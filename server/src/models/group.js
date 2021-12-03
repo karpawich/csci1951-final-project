@@ -10,9 +10,17 @@ const groupSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
-  moments: [{
+  momentIds: [{
     type: ObjectId,
   }],
+  eventId: {
+    type: ObjectId,
+    default: null,
+  },
+  authorId: {
+    type: ObjectId,
+    required: true,
+  },
 }, { versionKey: false });
 
 const Group = mongoose.model('Group', groupSchema);

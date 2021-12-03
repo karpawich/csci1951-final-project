@@ -1,5 +1,10 @@
 const User = require('../models/user');
 
+async function doesUserWithEmailExist(email) {
+  const u = await User.findOne({ email });
+  return u !== null;
+}
+
 async function createUser(email, firstName, lastName) {
   // check if user already exists
   const u = await User.findOne({ email });
@@ -21,6 +26,7 @@ async function deleteUser(email) {
 }
 
 module.exports = {
+  doesUserWithEmailExist,
   createUser,
   deleteUser,
 };

@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const config = require('../util/config');
+const { isLoggedIn } = require('../util/api');
 
 // API routes
 const momentRoutes = require('./moment');
@@ -14,6 +15,7 @@ const groupRoutes = require('./group');
 const linkRoutes = require('./link');
 const scrapbookRoutes = require('./scrapbook');
 const userRoutes = require('./user');
+const authRoutes = require('./auth');
 
 const debug = useDebug('api');
 const app = express();
@@ -62,12 +64,13 @@ module.exports = () => new Promise((resolve, reject) => {
 
   // Register routes
   const apiRoutes = express.Router();
-  apiRoutes.use('/moment', momentRoutes); // routes for moments
-  apiRoutes.use('/event', eventRoutes); // routes for events
-  apiRoutes.use('/group', groupRoutes); // routes for groups
-  apiRoutes.use('/link', linkRoutes); // routes for links
-  apiRoutes.use('/scrapbook', scrapbookRoutes); // routes for scrapbooks
+  apiRoutes.use('/moment', isLoggedIn, momentRoutes); // routes for moments
+  apiRoutes.use('/event', isLoggedIn, eventRoutes); // routes for events
+  apiRoutes.use('/group', isLoggedIn, groupRoutes); // routes for groups
+  apiRoutes.use('/link', isLoggedIn, linkRoutes); // routes for links
+  apiRoutes.use('/scrapbook', isLoggedIn, scrapbookRoutes); // routes for scrapbooks
   apiRoutes.use('/user', userRoutes); // routes for users
+  apiRoutes.use('/auth', authRoutes); // routes for authentication
   app.use('/api', apiRoutes); // mounts all the routes above to the /api route
 
   // Mount the client-side React app

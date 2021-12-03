@@ -1,7 +1,15 @@
 const Group = require('../models/group');
 
-async function createGroup(title, moments) {
-  const group = new Group({ title, moments });
+async function createGroup(options) {
+  const {
+    title,
+    momentIds,
+    eventId,
+    authorId,
+  } = options;
+  const group = new Group({
+    title, momentIds, eventId, authorId,
+  });
   await group.save();
   return group;
 }
@@ -16,13 +24,13 @@ async function changeGroupTitle(id, title) {
   return group;
 }
 
-async function addMomentToGroup(id, moment) {
-  const group = await Group.findByIdAndUpdate(id, { $addToSet: { moments: moment } });
+async function addMomentIdToGroup(id, momentId) {
+  const group = await Group.findByIdAndUpdate(id, { $addToSet: { momentIds: momentId } });
   return group;
 }
 
-async function removeMomentFromGroup(id, moment) {
-  const group = await Group.findByIdAndUpdate(id, { $pull: { moments: moment } });
+async function removeMomentIdFromGroup(id, momentId) {
+  const group = await Group.findByIdAndUpdate(id, { $pull: { momentIds: momentId } });
   return group;
 }
 
@@ -30,6 +38,6 @@ module.exports = {
   createGroup,
   deleteGroup,
   changeGroupTitle,
-  addMomentToGroup,
-  removeMomentFromGroup,
+  addMomentIdToGroup,
+  removeMomentIdFromGroup,
 };

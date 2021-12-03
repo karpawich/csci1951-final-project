@@ -30,14 +30,16 @@ async function changeEventName(id, name) {
 
 async function addEmailToEvent(id, email) {
   const event = await Event.findByIdAndUpdate(id, { $addToSet: { emails: email } });
-  // TODO: check if email is already in event
-  // TODO: add that email to all moments of the event
   return event;
 }
 
 async function removeEmailFromEvent(id, email) {
   const event = await Event.findByIdAndUpdate(id, { $pull: { emails: email } });
-  // TODO: remove that email from all moments of the event
+  return event;
+}
+
+async function getEvent(id) {
+  const event = await Event.findById(id);
   return event;
 }
 
@@ -53,5 +55,6 @@ module.exports = {
   changeEventName,
   addEmailToEvent,
   removeEmailFromEvent,
+  getEvent,
   getEventsByEmail,
 };

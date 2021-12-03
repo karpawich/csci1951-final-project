@@ -3,14 +3,14 @@ const Scrapbook = require('../models/scrapbook');
 async function createScrapbook(options) {
   const {
     name,
-    author,
+    authorId,
     start,
     eventId,
   } = options;
 
   const scrapbook = new Scrapbook({
     name,
-    author,
+    authorId,
     start,
     eventId,
   });
