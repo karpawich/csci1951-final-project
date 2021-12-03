@@ -1,6 +1,7 @@
 const Event = require('../models/event');
 
-async function createEvent(name, endTimestamp, emails) {
+async function createEvent(options) {
+  const { name, endTimestamp, emails } = options;
   const event = new Event({
     name,
     startTimestamp: Date.now(),

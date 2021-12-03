@@ -16,6 +16,10 @@ const {
 
 routes.post('/', handleErrors(async (req, res) => {
   const { event: e } = req.body;
+  if (typeof e !== 'object') {
+    res.status(400).json({ error: 'Invalid request' });
+    return;
+  }
   // TODO: make sure that the user's email is in the event
   const event = await createEvent(e);
   res.status(201).json({ event });

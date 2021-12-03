@@ -13,9 +13,11 @@ describe('user: actions', () => {
 
   it('createUser should create a user', (done) => {
     createUser(
-      'andy@brown.edu',
-      'Andy',
-      'Van Dam',
+      {
+        email: 'andy@brown.edu',
+        firstName: 'Andy',
+        lastName: 'Van Dam',
+      },
     )
       .then(() => {
         User.findOne({}).exec()
@@ -31,9 +33,11 @@ describe('user: actions', () => {
 
   it('createUser should only allow Brown email addresses', (done) => {
     createUser(
-      'andy@harvard.edu',
-      'Andy',
-      'Van Dam',
+      {
+        email: 'andy@harvard.edu',
+        firstName: 'Andy',
+        lastName: 'Van Dam',
+      },
     )
       .catch(() => {
         done();
@@ -50,9 +54,11 @@ describe('user: actions', () => {
     )
       .then(() => {
         createUser(
-          'andy@brown.edu',
-          'Andy',
-          'Van Dam',
+          {
+            email: 'andy@brown.edu',
+            firstName: 'Andy',
+            lastName: 'Van Dam',
+          },
         )
           .catch(() => {
             done();

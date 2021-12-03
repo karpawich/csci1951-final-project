@@ -17,7 +17,13 @@ describe('event: actions', () => {
   });
 
   it('createEvent should create an event', (done) => {
-    createEvent('event', null, ['andy@brown.edu'])
+    createEvent(
+      {
+        name: 'event',
+        endTimestamp: null,
+        emails: ['andy@brown.edu'],
+      },
+    )
       .then(() => {
         Event.findOne({}).exec()
           .then((event) => {

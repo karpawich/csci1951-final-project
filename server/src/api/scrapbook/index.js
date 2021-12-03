@@ -14,6 +14,10 @@ const {
 
 routes.post('/', handleErrors(async (req, res) => {
   const { scrapbook: s } = req.body;
+  if (typeof s !== 'object') {
+    res.status(400).json({ error: 'Invalid request' });
+    return;
+  }
   // TODO: check if the user is either the scrapbook author or in the scrapbook's event
   const scrapbook = await createScrapbook(s);
   res.status(201).json({ scrapbook });

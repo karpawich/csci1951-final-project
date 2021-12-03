@@ -8,6 +8,10 @@ const {
 
 routes.post('/', handleErrors(async (req, res) => {
   const { link: l } = req.body;
+  if (typeof l !== 'object') {
+    res.status(400).json({ error: 'Invalid request' });
+    return;
+  }
   const linkExists = await doesLinkExist(l);
   if (linkExists) {
     res.status(409).json({ error: 'Link already exists' });

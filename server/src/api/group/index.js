@@ -13,6 +13,10 @@ const {
 
 routes.post('/', handleErrors(async (req, res) => {
   const { group: g } = req.body;
+  if (typeof g !== 'object') {
+    res.status(400).json({ error: 'Invalid request' });
+    return;
+  }
   // TODO: check if the user is either the group author or in the groups' event
   const group = await createGroup(g);
   res.status(201).json({ group });

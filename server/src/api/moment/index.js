@@ -14,6 +14,10 @@ const {
 
 routes.post('/', handleErrors(async (req, res) => {
   const { moment: m } = req.body;
+  if (typeof m !== 'object') {
+    res.status(400).json({ error: 'Invalid request' });
+    return;
+  }
   // TODO: check if the user's email is in the moment's event's emails
   const moment = await createMoment(m);
   res.status(201).json({ moment });

@@ -5,7 +5,8 @@ async function doesUserWithEmailExist(email) {
   return u !== null;
 }
 
-async function createUser(email, firstName, lastName) {
+async function createUser(options) {
+  const { email, firstName, lastName } = options;
   // check if user already exists
   const u = await User.findOne({ email });
   if (u) {
