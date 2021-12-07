@@ -6,27 +6,26 @@ import AddIcon from '@mui/icons-material/Add';
 
 import './UploadFile.css';
 
-export const AddButton = () => {
-    return (
-        <div className="fab-wrapper">
-            <Fab className="fab" variant="extended" color="primary" aria-label="add">
-                <AddIcon sx={{ mr: 1 }} />
-                Add Moments
-            </Fab>
-        </div>
-    )
-}
-
 export const UploadDialog = (props) => {
-    const { open, setOpen } = props
+  const [open, setOpen] = useState(false)
+  
+  const AddButton = () =>
+    (<div className="fab-wrapper">
+      <Fab className="fab" variant="extended" color="primary" aria-label="add" onClick={() => setOpen(true)}>
+        <AddIcon sx={{ mr: 1 }} />
+        Add Moments
+      </Fab>
+    </div>)
+
     const theme = useTheme()
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
-    
-    return (
-        <Dialog
+  return (
+    <div>
+      {AddButton()}
+      <Dialog
         fullScreen={fullScreen}
         open={open}
-        onClose={setOpen(false)}
+        onClose={() => setOpen(false)}
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">
@@ -39,14 +38,12 @@ export const UploadDialog = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={setOpen(false)}>
-            Disagree
-          </Button>
-          <Button onClick={setOpen(false)} autoFocus>
-            Agree
+          <Button autoFocus onClick={() => setOpen(false)}>
+            Close
           </Button>
         </DialogActions>
-      </Dialog>)
+      </Dialog>
+    </div>)
 }
 
 export const UploadFile = () => {
