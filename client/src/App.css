@@ -1,7 +1,7 @@
 .main-grid {
     display: grid;
 
-    grid-template-columns: 10vw 10vw 1fr;
+    grid-template-columns: 20vw 20vw 1fr;
     grid-template-rows: 0 1fr;
 
     grid-template-areas: 

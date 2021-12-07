@@ -2,7 +2,6 @@ import './App.css';
 
 import {MainContent, PeopleMenu, EventMenu} from './components'
 
-
 function App() {
   return (
     <div className="main-grid">
