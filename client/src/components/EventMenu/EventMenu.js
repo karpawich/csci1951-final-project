@@ -1,7 +1,10 @@
 import React, {useEffect} from 'react'
+import './EventMenu.css'
 
 // material components
-import {List, ListItemText, ListItemButton} from '@mui/material'
+import {List, ListItemText, ListItemButton, IconButton} from '@mui/material'
+import { margin } from '@mui/system'
+import AddIcon from '@mui/icons-material/Add'
 
 
 export const EventMenu = (props) => {
@@ -17,7 +20,7 @@ export const EventMenu = (props) => {
         return events.map(event => 
             <ListItemButton key={event.startTimestamp} disabled={selectedEvent?.startTimestamp === event.startTimestamp} selected={selectedEvent?.startTimestamp === event.startTimestamp}
                 onClick={() => setSelectedEvent(event)}>
-                <ListItemText primary={event.name} />
+                <ListItemText style={{"margin":0}} primary={event.name} />
             </ListItemButton>)
     }
 
@@ -25,10 +28,14 @@ export const EventMenu = (props) => {
         <div className="container">
 
             <div className="event-list">
-                <List subheader="Events">
+                <List style={{"marginTop":20, "marginLeft":5, "fontSize":30, "fontWeight":'bold'}} subheader="Events">
                     {eventsMap()}
                 </List>
             </div>
+            <IconButton>
+                {/* Add action */}
+                <AddIcon color="grey"/>
+            </IconButton>
 
         </div> )
 }
