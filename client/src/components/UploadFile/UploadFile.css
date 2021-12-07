@@ -1,0 +1,9 @@
+.fab-wrapper {
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+}
+
+.fab {
+    position: relative;
+}
