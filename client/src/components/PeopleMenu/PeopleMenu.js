@@ -10,10 +10,10 @@ import HomeIcon from '@mui/icons-material/Home'
 
 export const PeopleMenu = (props) => {
     // can make this async from db, doesn't need to be a prop
-    //const { allPeople } = props;
+    const { selectedPeople, setSelectedPeople } = props;
     const allPeople = [{ email: 'ms', firstName: 'miku', lastName: 'suga' }, { email: 'mf', firstName: 'michele', lastName: 'foiani' }, { email: 'mk', firstName: 'max', lastName: 'karp' }];
 
-    const [selectedPeople, setSelectedPeople] = useState([]);
+
     const [searchedPeople, setSearchedPeople] = useState(allPeople);
 
     useEffect(() => {
@@ -34,6 +34,9 @@ export const PeopleMenu = (props) => {
         )
     
     const searchedPeopleMap = () => {
+        // TODO: reduce extra calls here when event is changed. consider useMemo
+        // console.log('fire')
+
         // make set to be more efficient for lookups
         const emailSet = selectedPeople.reduce((s, person) => s.add(person.email), new Set())
 
@@ -44,7 +47,7 @@ export const PeopleMenu = (props) => {
             </ListItemButton>)
     }
 
-    // consider using null coalescing if one of these fields are undefined
+    // consider using null coalescing if one of these fields can be undefined
     const queryBoolean = (person, queryString) =>
         person.email.includes(queryString) ||
         person.firstName.includes(queryString) ||
