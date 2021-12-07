@@ -15,7 +15,6 @@ export const PeopleMenu = () => {
     useEffect(() => {
         setSelectedPeople(arr => [...arr, { email: 'mf', firstName: 'michele' }])
         setSearchedPeople(arr => [...arr, { email: 'ms', firstName: 'miku' }, { email: 'mf', firstName: 'michele' }, { email: 'mk', firstName: 'max' }])
-        //console.log(listToSet(searchedPeople))
     }, [])
 
     const removeSelectedPerson = (email) => setSelectedPeople(arr => arr.filter(person => person.email !== email))
@@ -32,18 +31,17 @@ export const PeopleMenu = () => {
             </ListItem>
         )
     
-    // idealy use a set for the func below
-    //const listToSet = (people) => people.reduce((s, person) => s.add(person), new Set())
+    const searchedPeopleMap = () => {
+        // make set to be more efficient for lookups
+        const emailSet = selectedPeople.reduce((s, person) => s.add(person.email), new Set())
 
-    const emailInSelected = (email) => selectedPeople.map(person => person.email).includes(email)
-    
-    const searchedPeopleMap = () =>
-        searchedPeople.map(person =>
-            <ListItemButton key={person.email} disabled={emailInSelected(person.email)} selected={emailInSelected(person.email)}
-            onClick={() => setSelectedPeople(people => [...people, person])}>
-                <ListItemText primary={person.firstName}/>
-            </ListItemButton>
-    )
+        return searchedPeople.map(person =>
+            <ListItemButton key={person.email} disabled={emailSet.has(person.email)} selected={emailSet.has(person.email)}
+                onClick={() => setSelectedPeople(people => [...people, person])}>
+                <ListItemText primary={person.firstName} />
+            </ListItemButton>)
+    }
+       
 
     return (
         <div className="container">
