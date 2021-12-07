@@ -6,7 +6,11 @@ import {OutlinedInput, IconButton, List, ListItem, ListItemText, ListItemButton}
 
 // icons
 import CancelIcon from '@mui/icons-material/Cancel'
-import HomeIcon from '@mui/icons-material/Home'
+// import HomeIcon from '@mui/icons-material/Home'
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import AddIcon from '@mui/icons-material/Add'
+import { grey, pink } from '@mui/material/colors';
+import { textAlign } from '@mui/system';
 
 export const PeopleMenu = (props) => {
     // can make this async from db, doesn't need to be a prop
@@ -29,7 +33,7 @@ export const PeopleMenu = (props) => {
                 </IconButton>
             }>
                         
-                <ListItemText primary={person.firstName}/>
+                <ListItemText style={{"margin":0}} primary={person.firstName}/>
             </ListItem>
         )
     
@@ -41,9 +45,9 @@ export const PeopleMenu = (props) => {
         const emailSet = selectedPeople.reduce((s, person) => s.add(person.email), new Set())
 
         return searchedPeople.map(person =>
-            <ListItemButton key={person.email} disabled={emailSet.has(person.email)} selected={emailSet.has(person.email)}
+            <ListItemButton key={person.email} disabled={emailSet.has(person.email)} selected={emailSet.has(person.email) }
                 onClick={() => setSelectedPeople(people => [...people, person])}>
-                <ListItemText primary={person.firstName} />
+                <ListItemText style={{"margin":0}} primary={person.firstName} />
             </ListItemButton>)
     }
 
@@ -63,26 +67,39 @@ export const PeopleMenu = (props) => {
     return (
         <div className="container">
             <div className="home-btn">
-                <IconButton>
-                    <HomeIcon color="green"/>
+                <IconButton >
+                    {/* Add action */}
+                    <MenuBookIcon style={{"fontSize": 40}} color="green"/>
                 </IconButton>
             </div>
 
+            <div style={{"marginTop":30, "marginBottom":10, "marginLeft":5, "fontSize":30, "fontWeight":'bold'}}>
+                People
+            </div>
+
+            <div>
+                <OutlinedInput style={{height:30, "marginBottom":10}} type="search" fullWidth={true} placeholder="Search for people" onChange={handlePersonSearch}/>
+            </div>
+
             <div className="selected-ppl-list" hidden={selectedPeople.length === 0}>
-                <List subheader="Selected People">
+                <List style={{"marginTop":20}} subheader="Selected People">
                     {selectedPeopleMap()}
                 </List>
             </div>
 
-            <div>
-                <OutlinedInput type="search" fullWidth={true} placeholder="Search for people" onChange={handlePersonSearch}/>
-            </div>
+            
 
             <div className="search-ppl-list">
-                <List subheader="People">
+                {/* <List subheader="People"> */}
+                <List>
                     {searchedPeopleMap()}
                 </List>
             </div>
+
+            <IconButton>
+                {/* Add action */}
+                <AddIcon color="grey"/>
+            </IconButton>
 
         </div>
     );

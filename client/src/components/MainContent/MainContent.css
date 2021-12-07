@@ -1,0 +1,28 @@
+.container {
+  margin: 5%;
+}
+
+.main-title {
+  font-size: 40px;
+  font-weight: bold;
+
+}
+
+.float {
+	/* background-color: #F44336; */
+  width: 60px;
+  height: 60px;
+  bottom:40px;
+	right:40px;
+  border-radius: 100%;
+  background: pink;
+  border: none;
+  outline: none;
+  color: #FFF;
+  font-size: 36px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: .3s;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  position: fixed;
+}
+
