@@ -8,13 +8,15 @@ import {OutlinedInput, IconButton, List, ListItem, ListItemText, ListItemButton}
 import CancelIcon from '@mui/icons-material/Cancel'
 import HomeIcon from '@mui/icons-material/Home'
 
-export const PeopleMenu = () => {
+export const PeopleMenu = (props) => {
+    // can make this async from db, doesn't need to be a prop
+    //const { allPeople } = props;
+    const allPeople = [{ email: 'ms', firstName: 'miku', lastName: 'suga' }, { email: 'mf', firstName: 'michele', lastName: 'foiani' }, { email: 'mk', firstName: 'max', lastName: 'karp' }];
+
     const [selectedPeople, setSelectedPeople] = useState([]);
-    const [searchedPeople, setSearchedPeople] = useState([]);
+    const [searchedPeople, setSearchedPeople] = useState(allPeople);
 
     useEffect(() => {
-        setSelectedPeople(arr => [...arr, { email: 'mf', firstName: 'michele' }])
-        setSearchedPeople(arr => [...arr, { email: 'ms', firstName: 'miku' }, { email: 'mf', firstName: 'michele' }, { email: 'mk', firstName: 'max' }])
     }, [])
 
     const removeSelectedPerson = (email) => setSelectedPeople(arr => arr.filter(person => person.email !== email))
@@ -41,6 +43,18 @@ export const PeopleMenu = () => {
                 <ListItemText primary={person.firstName} />
             </ListItemButton>)
     }
+
+    // consider using null coalescing if one of these fields are undefined
+    const queryBoolean = (person, queryString) =>
+        person.email.includes(queryString) ||
+        person.firstName.includes(queryString) ||
+        person.lastName.includes(queryString)
+
+    const handlePersonSearch = event => {
+        const query = event.target.value;
+        query.trim() ? setSearchedPeople(allPeople.filter(person => queryBoolean(person, query)))
+            : setSearchedPeople(allPeople)
+    }
        
 
     return (
@@ -58,11 +72,11 @@ export const PeopleMenu = () => {
             </div>
 
             <div>
-                <OutlinedInput type="search" fullWidth={true} placeholder="Search for people"/>
+                <OutlinedInput type="search" fullWidth={true} placeholder="Search for people" onChange={handlePersonSearch}/>
             </div>
 
             <div className="search-ppl-list">
-                <List subheader="Searched People">
+                <List subheader="People">
                     {searchedPeopleMap()}
                 </List>
             </div>
