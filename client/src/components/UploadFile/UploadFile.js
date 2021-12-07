@@ -7,7 +7,57 @@ import AddIcon from '@mui/icons-material/Add';
 import './UploadFile.css';
 
 export const UploadDialog = (props) => {
-  const [open, setOpen] = useState(false)
+  const { open , setOpen, contentType } = props
+
+  const ogContent = () => (
+    <>
+    <DialogTitle id="responsive-dialog-title">
+          {"Use Google's location service?"}
+    </DialogTitle>
+    <DialogContent>
+      <DialogContentText>
+          Let Google help apps determine location. This means sending anonymous
+          location data to Google, even when no apps are running.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button autoFocus onClick={() => setOpen(false)}>
+          Close
+        </Button>
+      </DialogActions>
+      </>
+  )
+
+  const mikuContent = () => (
+    <>
+    <DialogTitle id="responsive-dialog-title">
+          {"Miku"}
+    </DialogTitle>
+    <DialogContent>
+      <DialogContentText>
+          Let Google help apps determine location. This means sending anonymous
+          location data to Google, even when no apps are running.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button autoFocus onClick={() => setOpen(false)}>
+          Close
+        </Button>
+      </DialogActions>
+      </>
+  )
+
+  const decideContent = () => {
+    switch (contentType) {
+      case 'miku':
+        return mikuContent()
+        break;
+    
+      default:
+        return ogContent()
+        break;
+    }
+  }
   
   const AddButton = () =>
     (<div className="fab-wrapper">
@@ -28,20 +78,7 @@ export const UploadDialog = (props) => {
         onClose={() => setOpen(false)}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={() => setOpen(false)}>
-            Close
-          </Button>
-        </DialogActions>
+        {decideContent()}
       </Dialog>
     </div>)
 }

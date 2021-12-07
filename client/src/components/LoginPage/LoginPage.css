@@ -1,0 +1,7 @@
+.login-container {
+    margin: auto;
+}
+
+.name-input-flex {
+    display: flex;
+}
