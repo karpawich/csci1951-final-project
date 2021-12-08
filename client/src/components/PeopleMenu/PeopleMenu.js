@@ -7,33 +7,28 @@ import {OutlinedInput, IconButton, List, ListItem, ListItemText, ListItemButton}
 // icons
 import CancelIcon from '@mui/icons-material/Cancel'
 // import HomeIcon from '@mui/icons-material/Home'
-import MenuBookIcon from '@mui/icons-material/MenuBook';
+import MenuBookIcon from '@mui/icons-material/MenuBook'
 import AddIcon from '@mui/icons-material/Add'
-import { grey, pink } from '@mui/material/colors';
-import { textAlign } from '@mui/system';
+import { grey, pink } from '@mui/material/colors'
+import { textAlign } from '@mui/system'
 
 export const PeopleMenu = (props) => {
     // can make this async from db, doesn't need to be a prop
-    const { selectedPeople, setSelectedPeople } = props;
-    const allPeople = [{ email: 'ms', firstName: 'miku', lastName: 'suga' }, { email: 'mf', firstName: 'michele', lastName: 'foiani' }, { email: 'mk', firstName: 'max', lastName: 'karp' }];
+    const { selectedEvent, selectedPeople, setSelectedPeople } = props; 
 
+    const [searchedPeople, setSearchedPeople] = useState(selectedEvent.emails);
 
-    const [searchedPeople, setSearchedPeople] = useState(allPeople);
-
-    useEffect(() => {
-    }, [])
-
-    const removeSelectedPerson = (email) => setSelectedPeople(arr => arr.filter(person => person.email !== email))
+    const removeSelectedPerson = (email) => setSelectedPeople(arr => arr.filter(person => person !== email))
 
     const selectedPeopleMap = () =>
         selectedPeople.map(person =>
-            <ListItem key={person.email} secondaryAction={
-                <IconButton edge="end" aria-label="delete" onClick={() => removeSelectedPerson(person.email)}>
+            <ListItem key={person} secondaryAction={
+                <IconButton edge="end" aria-label="delete" onClick={() => removeSelectedPerson(person)}>
                     <CancelIcon />
                 </IconButton>
             }>
                         
-                <ListItemText style={{"margin":0}} primary={person.firstName}/>
+                <ListItemText style={{"margin":0}} primary={person}/>
             </ListItem>
         )
     
@@ -42,20 +37,17 @@ export const PeopleMenu = (props) => {
         // console.log('fire')
 
         // make set to be more efficient for lookups
-        const emailSet = selectedPeople.reduce((s, person) => s.add(person.email), new Set())
+        const emailSet = selectedPeople.reduce((s, person) => s.add(person), new Set())
 
         return searchedPeople.map(person =>
-            <ListItemButton key={person.email} disabled={emailSet.has(person.email)} selected={emailSet.has(person.email) }
+            <ListItemButton key={person} disabled={emailSet.has(person)} selected={emailSet.has(person) }
                 onClick={() => setSelectedPeople(people => [...people, person])}>
-                <ListItemText style={{"margin":0}} primary={person.firstName} />
+                <ListItemText style={{"margin":0}} primary={person} />
             </ListItemButton>)
     }
 
     // consider using null coalescing if one of these fields can be undefined
-    const queryBoolean = (person, queryString) =>
-        person.email.includes(queryString) ||
-        person.firstName.includes(queryString) ||
-        person.lastName.includes(queryString)
+    const queryBoolean = (person, queryString) => person.includes(queryString)
 
     const handlePersonSearch = event => {
         const query = event.target.value;
@@ -65,14 +57,7 @@ export const PeopleMenu = (props) => {
        
 
     return (
-        <div className="container">
-            <div className="home-btn">
-                <IconButton >
-                    {/* Add action */}
-                    <MenuBookIcon style={{"fontSize": 40}} color="green"/>
-                </IconButton>
-            </div>
-
+        <div className="people-container">
             <div style={{"marginTop":30, "marginBottom":10, "marginLeft":5, "fontSize":30, "fontWeight":'bold'}}>
                 People
             </div>
@@ -96,11 +81,30 @@ export const PeopleMenu = (props) => {
                 </List>
             </div>
 
-            <IconButton>
-                {/* Add action */}
+            <IconButton onClick={() => console.log('addUser')}>
                 <AddIcon color="grey"/>
             </IconButton>
 
         </div>
     );
+}
+
+export const addUserDialog = (props) => {
+    return (
+    <>
+      <DialogTitle id="responsive-dialog-title">
+        Upload Moments :)
+      </DialogTitle>
+      <DialogContent>
+        <div>
+            TODO: implement a search of possible people to add to event    
+        </div>
+      </DialogContent>
+      <DialogActions>
+        <Button autoFocus onClick={() => props.setContent(null)}>
+          Close
+        </Button>
+      </DialogActions>
+    </>
+  )
 }

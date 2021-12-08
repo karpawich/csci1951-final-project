@@ -1,25 +1,37 @@
 import './App.css';
 import React, {useEffect, useState} from 'react'
 
-import {MainContent, PeopleMenu, EventMenu, AddButton, UploadDialog} from './components'
+import {MainContent, PeopleMenu, EventMenu, LoginPage, AdaptiveDialog, AddButton} from './components'
 
 function App() {
+  // start logged in for debug
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
+
   const [selectedPeople, setSelectedPeople] = useState([])
 
   const [selectedEvent, setSelectedEvent] = useState(null)
 
-  const [dialogOpen, setDialogOpen] = useState(false);
+  // dialog will open when content is not null
+  const [dialogContent, setDialogContent] = useState(null);
 
   return (
-    <div className="main-wrapper">
-      <UploadDialog open={dialogOpen} setOpen={setDialogOpen} contentType={"miku"}/>
-      <div className="main-grid">
-        <div className="header">header</div>
-        <div className="people-menu"><PeopleMenu selectedPeople={selectedPeople} setSelectedPeople={ setSelectedPeople}/></div>
-        <div className="event-menu"><EventMenu selectedPeople={selectedPeople} selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent} /></div>
-        <div className="main"><MainContent /></div>
-      </div> 
-    </div>
+   <>
+    {
+      isLoggedIn?
+          (
+            <div className="main-wrapper">
+              <AddButton setDialogContent={setDialogContent}/>
+              <AdaptiveDialog content={dialogContent} setContent={setDialogContent}/>
+              <div className="main-grid">
+                <div className="header">header</div>
+                <div className="event-menu"><EventMenu selectedPeople={selectedPeople} selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent} /></div>
+                <div className="people-menu"><PeopleMenu selectedPeople={selectedPeople} setSelectedPeople={ setSelectedPeople}/></div>
+                <div className="main"><MainContent /></div>
+              </div> 
+            </div>
+          )
+          : <LoginPage setIsLoggedIn={setIsLoggedIn} />}
+      </>
   );
 }
 
