@@ -65,7 +65,7 @@ export const PeopleMenu = (props) => {
        
 
     return (
-        <div className="container">
+        <div className="people-container">
             <div className="home-btn">
                 <IconButton >
                     {/* Add action */}

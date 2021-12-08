@@ -25,7 +25,7 @@ export const EventMenu = (props) => {
     }
 
     return (
-        <div className="container">
+        <div className="event-container">
 
             <div className="event-list">
                 <List style={{"marginTop":20, "marginLeft":5, "fontSize":30, "fontWeight":'bold'}} subheader="Events">

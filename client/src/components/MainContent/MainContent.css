@@ -1,5 +1,6 @@
-.container {
-  margin: 5%;
+.main-container {
+  padding: 5%;
+  margin: 0;
 }
 
 .main-title {
