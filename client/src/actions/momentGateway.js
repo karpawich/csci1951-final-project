@@ -15,3 +15,8 @@ export const uploadMoment = async (mediaUrl, mediaType, emails, timestamp, event
     }
     return res.moment
 }
+
+export const getMomentsByEvent = async (eventId) => {
+    const data = {query: {events: [eventId]}}
+    return (await post(baseEndpoint + servicePath + '/search', data)).moments
+}

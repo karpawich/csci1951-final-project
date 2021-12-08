@@ -27,8 +27,6 @@ export const UploadFile = (props) => {
   const getMediaType = (fileType) => fileType.substr(0, fileType.indexOf('/'))
     
   const uploadFiles = async () => {
-      const urls = []
-
       const files = fileInputRef.current.files
       for (let i = 0; i < files.length; i++) {
           const file = files.item(i);

@@ -36,4 +36,13 @@ export const del = async (url) => {
   })
 }
 
+export const patch = async (url, body) => {
+  return await http({
+    data: body,
+    headers: { 'Content-Type': 'application/json' },
+    method: 'PATCH',
+    url: url,
+  })
+}
+
 
