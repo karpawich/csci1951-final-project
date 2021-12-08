@@ -7,16 +7,16 @@ import { baseEndpoint } from '.'
 const servicePath = '/moment'
 
 export const uploadMoment = async (mediaUrl, mediaType, emails, timestamp, eventId) => {
-    const data = {media: {mediaUrl, mediaType}, emails, eventId, timestamp}
-    const res = await post(baseEndpoint + servicePath + '/', data)
-    if (res.error) {
-        console.error(res.error)
-        return null
+    const data = { media: { mediaUrl, mediaType }, emails, eventId, timestamp }
+    try {
+        return (await post(baseEndpoint + servicePath + '/', data)).data.moment
     }
-    return res.moment
+    catch (err) {
+        console.error(error)
+    }
 }
 
 export const getMomentsByEvent = async (eventId) => {
     const data = {query: {events: [eventId]}}
-    return (await post(baseEndpoint + servicePath + '/search', data)).moments
+    return (await post(baseEndpoint + servicePath + '/search', data)).data.moments
 }

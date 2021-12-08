@@ -19,7 +19,7 @@ html, body {
 
   grid-template-areas: 
   "header header header"
-  "people-menu event-menu main";
+  "event-menu people-menu main";
 
 }
 

@@ -6,11 +6,10 @@ import { baseEndpoint } from '.'
 const servicePath = '/auth'
 
 export const login = async (email) => {
-    const res = await post(baseEndpoint + servicePath + '/login', { email })
-    if (res.status === 400) {
-        console.error(res.error)
-        return null
+    try {
+        // supposed to redirect ?
+        await post(baseEndpoint + servicePath + '/login', { email })
+    } catch (err) {
+        console.error(err)
     }
-
-    return res.data
 }

@@ -1,16 +1,30 @@
-import { post, get } from 'axios'
+import { post } from '.'
 
 import { baseEndpoint } from '.'
 
 /** This is the path to the nodes microservice */
 const servicePath = '/event'
 
-export const createEvent = async (event) => {
-    const res = await post(baseEndpoint + servicePath, { event })
-    if (res.status === 400) {
-        console.error(res.error)
-        return null
+export const createEvent = async (name, emails) => {
+    try {
+        return (await post(baseEndpoint + servicePath + '/', { name, emails })).data.event
+    } catch (err) {
+        console.error(err)
     }
+}
 
-    return res.data
+export const getEventsByEmail = async (email) => {
+    try {
+        return (await post(baseEndpoint + servicePath + '/email', { email })).data.events
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+export const addEmailToEvent = async (eventId, email) => {
+    try {
+        return (await post(baseEndpoint + servicePath + `/email${eventId}`, { email })).data.event
+    } catch (err) {
+        console.error(err)
+    }
 }

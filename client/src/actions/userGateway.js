@@ -7,10 +7,9 @@ import { baseEndpoint } from '.'
 const servicePath = '/user'
 
 export const createUser = async (email, firstName, lastName) => {
-    const res = await post(baseEndpoint + servicePath + '/', {email, firstName, lastName})
-    if (res.error) {
-        console.error(res.error)
-        return null
+    try {
+        return (await post(baseEndpoint + servicePath + '/', {email, firstName, lastName})).data.user
+    } catch (err) {
+        console.error(err)
     }
-    return res.user
 }

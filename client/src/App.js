@@ -24,8 +24,8 @@ function App() {
               <AdaptiveDialog content={dialogContent} setContent={setDialogContent}/>
               <div className="main-grid">
                 <div className="header">header</div>
-                <div className="people-menu"><PeopleMenu selectedPeople={selectedPeople} setSelectedPeople={ setSelectedPeople}/></div>
                 <div className="event-menu"><EventMenu selectedPeople={selectedPeople} selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent} /></div>
+                <div className="people-menu"><PeopleMenu selectedPeople={selectedPeople} setSelectedPeople={ setSelectedPeople}/></div>
                 <div className="main"><MainContent /></div>
               </div> 
             </div>
