@@ -6,6 +6,11 @@ import {List, ListItemText, ListItemButton, IconButton} from '@mui/material'
 import { margin } from '@mui/system'
 import AddIcon from '@mui/icons-material/Add'
 
+// eventGateway
+import { createEvent } from '../../actions'
+
+
+
 
 export const EventMenu = (props) => {
     const { selectedPeople, selectedEvent, setSelectedEvent } = props
@@ -32,8 +37,7 @@ export const EventMenu = (props) => {
                     {eventsMap()}
                 </List>
             </div>
-            <IconButton>
-                {/* Add action */}
+            <IconButton onClick={() => console.log('addEvent')}>
                 <AddIcon color="grey"/>
             </IconButton>
 

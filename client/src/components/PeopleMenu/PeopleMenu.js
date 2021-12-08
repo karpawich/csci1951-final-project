@@ -7,10 +7,10 @@ import {OutlinedInput, IconButton, List, ListItem, ListItemText, ListItemButton}
 // icons
 import CancelIcon from '@mui/icons-material/Cancel'
 // import HomeIcon from '@mui/icons-material/Home'
-import MenuBookIcon from '@mui/icons-material/MenuBook';
+import MenuBookIcon from '@mui/icons-material/MenuBook'
 import AddIcon from '@mui/icons-material/Add'
-import { grey, pink } from '@mui/material/colors';
-import { textAlign } from '@mui/system';
+import { grey, pink } from '@mui/material/colors'
+import { textAlign } from '@mui/system'
 
 export const PeopleMenu = (props) => {
     // can make this async from db, doesn't need to be a prop
@@ -96,8 +96,7 @@ export const PeopleMenu = (props) => {
                 </List>
             </div>
 
-            <IconButton>
-                {/* Add action */}
+            <IconButton onClick={() => console.log('addUser')}>
                 <AddIcon color="grey"/>
             </IconButton>
 
