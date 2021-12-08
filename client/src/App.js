@@ -1,16 +1,18 @@
 import './App.css';
 import React, {useEffect, useState} from 'react'
 
-import {MainContent, PeopleMenu, EventMenu, UploadDialog, LoginPage} from './components'
+import {MainContent, PeopleMenu, EventMenu, LoginPage, AdaptiveDialog, AddButton} from './components'
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  // start logged in for debug
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
 
   const [selectedPeople, setSelectedPeople] = useState([])
 
   const [selectedEvent, setSelectedEvent] = useState(null)
 
-  const [dialogOpen, setDialogOpen] = useState(false);
+  // dialog will open when content is not null
+  const [dialogContent, setDialogContent] = useState(null);
 
   return (
    <>
@@ -18,7 +20,8 @@ function App() {
       isLoggedIn?
           (
             <div className="main-wrapper">
-              <UploadDialog open={dialogOpen} setOpen={setDialogOpen} contentType={"miku"}/>
+              <AddButton setDialogContent={setDialogContent}/>
+              <AdaptiveDialog content={dialogContent} setContent={setDialogContent}/>
               <div className="main-grid">
                 <div className="header">header</div>
                 <div className="people-menu"><PeopleMenu selectedPeople={selectedPeople} setSelectedPeople={ setSelectedPeople}/></div>
