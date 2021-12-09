@@ -12,7 +12,7 @@ export const uploadMoment = async (mediaUrl, mediaType, emails, timestamp, event
         return (await post(baseEndpoint + servicePath + '/', data)).data.moment
     }
     catch (err) {
-        console.error(error)
+        console.error(err)
     }
 }
 

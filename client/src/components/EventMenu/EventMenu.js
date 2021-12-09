@@ -1,10 +1,13 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
+import { Fab, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery, useTheme } from '@mui/material'
+
 import './EventMenu.css'
 
 // material components
 import {List, ListItemText, ListItemButton, IconButton, Input, Button} from '@mui/material'
 import { margin } from '@mui/system'
 import AddIcon from '@mui/icons-material/Add'
+import MenuBookIcon from '@mui/icons-material/MenuBook'
 
 // eventGateway
 import { createEvent, getEventsByEmail } from '../../actions'
@@ -13,7 +16,7 @@ import { createEvent, getEventsByEmail } from '../../actions'
 
 
 export const EventMenu = (props) => {
-    const { selectedEvent, setSelectedEvent, userEmail } = props
+    const { selectedEvent, setSelectedEvent, userEmail, setDialogContent } = props
 
     const [events, setEvents] = useState([])
 
@@ -33,19 +36,19 @@ export const EventMenu = (props) => {
 
     return (
         <div className="event-container">
-            <div className="home-btn">
+            {/* <div className="home-btn">
                 <IconButton >
-                    {/* Add action */}
                     <MenuBookIcon style={{"fontSize": 40}} color="green"/>
                 </IconButton>
-            </div>
+            </div> */}
+
 
             <div className="event-list">
-                <List style={{"marginTop":20, "marginLeft":5, "fontSize":30, "fontWeight":'bold'}} subheader="Events">
+                <List style={{"marginTop":10, "marginLeft":5, "fontSize":30, "fontWeight":'bold'}} subheader="Events">
                     {eventsMap()}
                 </List>
             </div>
-            <IconButton onClick={() => console.log('addEvent')}>
+            <IconButton onClick={() => setDialogContent('addEvent')}>
                 <AddIcon color="grey"/>
             </IconButton>
 
@@ -53,7 +56,7 @@ export const EventMenu = (props) => {
 }
 
 
-export const addEventDialog = (props) => {
+export const AddEventDialog = (props) => {
     const [name, setName] = useState('')
     const [emails, setEmails] = useState(['test'])
 
@@ -62,12 +65,12 @@ export const addEventDialog = (props) => {
     return (
     <>
       <DialogTitle id="responsive-dialog-title">
-        Make Event
+        New Event
       </DialogTitle>
       <DialogContent>
             <div>
-                    <Input type="text" placeholder="Event Name" onChange={(e) => setName(e.target.value)} required />
-                    TODO: implement a search of possible people to add to event
+              <Input type="text" placeholder="Event Name" onChange={(e) => setName(e.target.value)} required />
+              TODO: implement a search of possible people to add to event
 
             <Button onClick={() => addEvent()}>Create Event</Button>       
         </div>

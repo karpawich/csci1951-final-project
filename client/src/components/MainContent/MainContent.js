@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import './MainContent.css';
 
-import { VideoMoment, AudioMoment, ImageMoment } from '..';
+
+
+import { VideoMoment, UploadFile, AudioMoment, ImageMoment } from '..';
 import { getMomentsByEvent } from '../../actions';
 
 export const MainContent = (props) => {
@@ -41,6 +43,14 @@ export const MainContent = (props) => {
             <div className="moments-list">
                 {moments.map(moment => displayMedia(moment.media))}
             </div>
+            
+            <div style={{"marginTop": 30 }} >
+                <button className="delete-button">
+                {/* <DeleteForeverIcon color="grey"/> */}
+                    Delete Event
+                </button>
+            </div>
+            
             
         </div>
     );

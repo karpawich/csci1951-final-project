@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react'
 import { uploadFile } from '../../actions/firebaseStorage'
 
-import { Fab, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import { Fab, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
 
 import { uploadMoment } from '../../actions'
 
@@ -16,6 +16,7 @@ export const AddButton = (props) =>
       </Fab>
   </div>)
     
+
 
 
 export const UploadFile = (props) => {
@@ -61,4 +62,5 @@ export const UploadFile = (props) => {
       </DialogActions>
     </>
   )
+
 }

@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+.container {
+  margin: 5%;
+}
+
 .main-title {
   font-size: 40px;
   font-weight: bold;
@@ -21,8 +25,27 @@
   color: #FFF;
   font-size: 36px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  transition: .3s;
+  transition: 0.2s;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   position: fixed;
 }
 
+
+.delete-button {
+  transition-duration: 0.2s;
+  background-color: white;
+  border: none;
+  outline: none;
+  border-radius: 5%;
+  padding: 5px 10px 5px 10px;
+  font-size: 16px;
+
+}
+
+.delete-button:hover {
+  background-color: #F5F5F5; /* Green */
+}
+
+/* .main-footer {
+  margin-top: 30;
+} */

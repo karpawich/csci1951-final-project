@@ -1,34 +1,16 @@
 
-import { UploadFile } from '..';
+import { AddEventDialog, AddUserDialog, UploadFile } from '..';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, useMediaQuery, useTheme } from '@mui/material';
 
 export const AdaptiveDialog = (props) => {
   const { content, setContent } = props
 
-  const mikuContent = () => (
-    <>
-    <DialogTitle id="responsive-dialog-title">
-          {"Miku"}
-    </DialogTitle>
-    <DialogContent>
-      <DialogContentText>
-          Let Google help apps determine location. This means sending anonymous
-          location data to Google, even when no apps are running.
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={() => setContent(null)}>
-          Close
-        </Button>
-      </DialogActions>
-      </>
-  )
-
   const decideContent = () => {
     switch (content) {
-      case 'miku':
-        return mikuContent()
-      
+      case 'addEvent':
+        return <AddEventDialog setContent={setContent}/>
+      case 'addUser':
+        return <AddUserDialog setContent={setContent}/>
       case 'addMoments':
         return <UploadFile setContent={setContent} />
     
