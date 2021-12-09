@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "react-audio-player": "^0.17.0",
-    "react-player": "^2.9.0"
-  }
-}
