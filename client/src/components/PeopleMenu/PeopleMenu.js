@@ -60,6 +60,7 @@ export const PeopleMenu = (props) => {
                 <InfoIcon style={{"fontSize": 20, "margin": 0, "padding": 0}}/>
             </IconButton> */}
             </div>
+            
             )
     }
 

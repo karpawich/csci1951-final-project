@@ -12,6 +12,12 @@
   font-weight: bold;
 }
 
+.main-subtitle {
+  font-size: 20px;
+  color: grey;
+  margin-top: 1%;
+}
+
 .float {
 	/* background-color: #F44336; */
   width: 60px;

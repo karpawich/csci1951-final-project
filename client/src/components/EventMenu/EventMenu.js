@@ -8,6 +8,7 @@ import {List, ListItemText, ListItemButton, IconButton, Input, Button} from '@mu
 import { margin } from '@mui/system'
 import AddIcon from '@mui/icons-material/Add'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
+import LogoutIcon from '@mui/icons-material/Logout';
 
 // eventGateway
 import { createEvent, getEventsByEmail } from '../../actions'
@@ -51,8 +52,15 @@ export const EventMenu = (props) => {
             <IconButton onClick={() => setDialogContent('addEvent')}>
                 <AddIcon color="grey"/>
             </IconButton>
-
-        </div>)
+            <div>
+              <IconButton style={{"position": 'absolute', "bottom": 10}}>
+                  <LogoutIcon style={{"margin": 10}} color="grey"/>
+                  Log out
+              </IconButton>
+            </div>
+            
+        </div>
+        )
 }
 
 
@@ -69,10 +77,27 @@ export const AddEventDialog = (props) => {
       </DialogTitle>
       <DialogContent>
             <div>
-              <Input type="text" placeholder="Event Name" onChange={(e) => setName(e.target.value)} required />
-              TODO: implement a search of possible people to add to event
-
-            <Button onClick={() => addEvent()}>Create Event</Button>       
+              <div >
+                <Input type="text" placeholder="Event Name" onChange={(e) => setName(e.target.value)} required />
+              </div>
+              <div>
+                <Input type="text" placeholder="Location" onChange={(e) => setName(e.target.value)} required />
+                <Input type="text" placeholder="Date" onChange={(e) => setName(e.target.value)} required />
+              </div>
+              <div>
+              <Input type="text" placeholder="People" onChange={(e) => setName(e.target.value)} required />
+              </div>
+              
+              <div>
+              TODO: implement a search of possible people
+              </div>
+              <div className="home-btn">
+                <Button style={{"marginTop": 10, "marginLeft": 100, "backgroundColor": '#FFFAF0'}} autoFocus onClick={() => addEvent()}>
+                    {/* TO-DO: Add action */}
+                    Create Event
+                </Button>
+            </div>
+                  
         </div>
       </DialogContent>
       <DialogActions>

@@ -39,6 +39,9 @@ export const MainContent = (props) => {
             <div className="main-title">
                 hiking w the bois
             </div>
+            <div className="main-subtitle">
+                Florida
+            </div>
 
             <div className="moments-list">
                 {moments.map(moment => displayMedia(moment.media))}

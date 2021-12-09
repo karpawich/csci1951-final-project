@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { uploadFile } from '../../actions/firebaseStorage'
 
-import { Fab, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material'
+import { Fab, DialogActions, DialogContent, DialogTitle, Input, Button } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
 import { uploadMoment } from '../../actions'
@@ -43,8 +43,10 @@ export const UploadFile = (props) => {
       // reset file input
       fileInputRef.current.value = null;
   }
+  const [name, setName] = useState('')
 
   return (
+    
     <>
       <DialogTitle id="responsive-dialog-title">
         Upload Moments :)
@@ -54,6 +56,13 @@ export const UploadFile = (props) => {
             <input type="file" onChange={() => uploadFiles()} ref={fileInputRef} multiple></input>
             <p>{progress}</p>
         </div>
+        <div>
+          <Input type="text" placeholder="People" onChange={(e) => setName(e.target.value)} required />
+        </div>
+        <div>
+        TODO: implement a search of possible people
+        </div>
+
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={() => setContent(null)}>
