@@ -1,5 +1,4 @@
-/** In development mode (locally) the server is at localhost:5000*/
-export const baseEndpoint = 'http://localhost:5000'
+export const baseEndpoint = '/api'
 
 export * from './eventGateway'
 export * from './userGateway'
