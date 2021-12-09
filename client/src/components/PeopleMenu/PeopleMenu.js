@@ -63,7 +63,11 @@ export const PeopleMenu = (props) => {
     }
 
     // consider using null coalescing if one of these fields can be undefined
-    const queryBoolean = (person, queryString) => person.includes(queryString)
+    // const queryBoolean = (person, queryString) => person.includes(queryString)
+    const queryBoolean = (person, queryString) =>
+        person.email.includes(queryString) ||
+        person.firstName.includes(queryString) ||
+        person.lastName.includes(queryString)
 
     const handlePersonSearch = event => {
         const query = event.target.value;
