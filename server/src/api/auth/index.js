@@ -23,6 +23,9 @@ routes.post('/login', handleErrors(async (req, res) => {
   // log the user in
   req.session.email = email;
 
+  // pass their email as a cookie
+  res.cookie('username', email);
+
   res.redirect('/');
 }));
 
