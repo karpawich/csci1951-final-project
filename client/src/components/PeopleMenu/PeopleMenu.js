@@ -116,7 +116,7 @@ export const AddUserDialog = (props) => {
     return (
     <>
       <DialogTitle id="responsive-dialog-title">
-        Upload Moments :)
+        Add People
       </DialogTitle>
       <DialogContent>
         <div>
