@@ -52,13 +52,15 @@ export const EventMenu = (props) => {
             <IconButton onClick={() => setDialogContent('addEvent')}>
                 <AddIcon color="grey"/>
             </IconButton>
-            <div>
-              <IconButton style={{"position": 'absolute', "bottom": 10}}>
-                  <LogoutIcon style={{"margin": 10}} color="grey"/>
-                  Log out
-              </IconButton>
+
+            <div class="dropdown" style={{"position": 'absolute', "bottom": 5, "left": 0 }}>
+                <IconButton >
+                    <LogoutIcon style={{"margin": 10}} color="grey"/>
+                </IconButton>
+              <div class="dropdown-content">
+                <a href="#">Log Out</a>
+              </div>
             </div>
-            
         </div>
         )
 }
