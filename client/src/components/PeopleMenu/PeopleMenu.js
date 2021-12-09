@@ -3,7 +3,7 @@ import './PeopleMenu.css';
 
 // material components
 import {OutlinedInput, IconButton, List, ListItem, ListItemText, ListItemButton, autocompleteClasses} from '@mui/material'
-import { Fab, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, useMediaQuery, useTheme } from '@mui/material';
+import { Fab, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Input, Button, useMediaQuery, useTheme } from '@mui/material';
 
 // icons
 import CancelIcon from '@mui/icons-material/Cancel'
@@ -14,6 +14,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import { grey, pink } from '@mui/material/colors';
 import { textAlign } from '@mui/system';
 import { UploadFile } from '..';
+import { Center } from '@chakra-ui/react';
 
 export const PeopleMenu = (props) => {
     // can make this async from db, doesn't need to be a prop
@@ -117,6 +118,7 @@ export const PeopleMenu = (props) => {
 }
 
 export const AddUserDialog = (props) => {
+    const [name, setName] = useState('')
     return (
     <>
       <DialogTitle id="responsive-dialog-title">
@@ -124,7 +126,19 @@ export const AddUserDialog = (props) => {
       </DialogTitle>
       <DialogContent>
         <div>
-            TODO: implement a search of possible people to add to event    
+            <Input type="text" placeholder="First Name" onChange={(e) => setName(e.target.value)} required />
+            <Input type="text" placeholder="Last Name" onChange={(e) => setName(e.target.value)} required />
+            
+
+            <div style={{"marginTop":10}}>
+                <Input style={{"width":333}} type="text" placeholder="Description" onChange={(e) => setName(e.target.value)} required />
+            </div>
+            <div className="home-btn">
+                <Button style={{"marginTop": 10, "marginLeft": 130, "backgroundColor": '#FFFAF0'}} autoFocus >
+                    {/* TO-DO: Add action */}
+                    Add
+                </Button>
+            </div>
         </div>
       </DialogContent>
       <DialogActions>

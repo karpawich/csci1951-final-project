@@ -31,7 +31,7 @@ html, body {
 .people-menu {
   grid-area: people-menu;
 
-  background-color: #FFFAF0;
+  background-color: #FFFAFA;
 
 }
 .main {
@@ -42,5 +42,5 @@ html, body {
 }
 .event-menu {
   grid-area: event-menu;
-  background-color: #FFFAFA;
+  background-color: #FFFAF0;
 }
