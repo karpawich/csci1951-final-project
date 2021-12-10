@@ -5,9 +5,9 @@ import { baseEndpoint } from '.'
 /** This is the path to the nodes microservice */
 const servicePath = '/event'
 
-export const createEvent = async (name, emails) => {
+export const createEvent = async (name, location, emails) => {
     try {
-        const event = { name, emails }
+        const event = { name, location, emails }
         return await post(baseEndpoint + servicePath + '/', {event})
     } catch (err) {
         console.error(err)

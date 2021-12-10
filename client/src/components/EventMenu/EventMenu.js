@@ -20,8 +20,8 @@ import { Center } from '@chakra-ui/react'
 export const EventMenu = (props) => {
     const { selectedEvent, setSelectedEvent, setDialogContent } = props
 
-    const allEvents = [{ name: 'hiking w the bois', startTimestamp: '2017-10-30*02:47:33:899', endTimestamp: '2017-11-1*02:47:33:899', emails:['ms', 'mk']}, { name: 'CS1951v', startTimestamp: '2021-9-1*02:47:33:899', endTimestamp: '	2017-12-9*02:47:33:899', emails:['ms', 'mk', 'mf']}] // temporary
-    const [events, setEvents] = useState(allEvents)
+    // const allEvents = [{ name: 'hiking w the bois', startTimestamp: '2017-10-30*02:47:33:899', endTimestamp: '2017-11-1*02:47:33:899', emails:['ms', 'mk']}, { name: 'CS1951v', startTimestamp: '2021-9-1*02:47:33:899', endTimestamp: '	2017-12-9*02:47:33:899', emails:['ms', 'mk', 'mf']}] // temporary
+    const [events, setEvents] = useState([])
 
     const fetchEvents = async () => setEvents(await getEventsByEmail(getEmail()))
 
@@ -30,11 +30,11 @@ export const EventMenu = (props) => {
     }, [])
 
     const eventsMap = () => {
-        return events.map(event => 
-            <ListItemButton key={event.startTimestamp} disabled={selectedEvent?.startTimestamp === event.startTimestamp} selected={selectedEvent?.startTimestamp === event.startTimestamp}
-                onClick={() => setSelectedEvent(event)}>
-                <ListItemText style={{"margin":0}} primary={event.name} />
-            </ListItemButton>)
+      return events.map(event => 
+        <ListItemButton key={event.startTimestamp} disabled={selectedEvent?.startTimestamp === event.startTimestamp} selected={selectedEvent?.startTimestamp === event.startTimestamp}
+            onClick={() => setSelectedEvent(event)}>
+            <ListItemText style={{"margin":0}} primary={event.name} />
+        </ListItemButton>)
     }
 
     return (
@@ -70,9 +70,10 @@ export const EventMenu = (props) => {
 
 export const AddEventDialog = (props) => {
     const [name, setName] = useState('')
+    const [location, setLocation] = useState('')
     const [emails, setEmails] = useState([getEmail()])
 
-    const addEvent = async () => (await createEvent(name, emails))
+    const addEvent = async () => (await createEvent(name, location, emails))
 
     const styles = {
         'button': {"marginTop": 20, "marginLeft": 20, "backgroundColor": '#FFFAF0'},
@@ -92,7 +93,7 @@ export const AddEventDialog = (props) => {
                 <Input type="text" placeholder="Event Name" onChange={(e) => setName(e.target.value)} required />
               </div>
               <div>
-                <Input type="text" placeholder="Location" onChange={(e) => setName(e.target.value)} required />
+                <Input type="text" placeholder="Location" onChange={(e) => setLocation(e.target.value)} required />
                 {/* <Input type="text" placeholder="Date" onChange={(e) => setName(e.target.value)} required /> */}
               </div>
 
@@ -104,7 +105,7 @@ export const AddEventDialog = (props) => {
                 <Input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} required />
               </div> */}
               <div>
-                <Input type="text" placeholder="Email" onChange={(e) => setName(e.target.value)} required />
+                <Input type="text" placeholder="Email" onChange={(e) => setEmails(e.target.value)} required />
               </div>
 
               <div className="home-btn">
