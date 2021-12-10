@@ -26,4 +26,4 @@ const getCookiesMap = cookiesString => {
     }, {});
 }
 
-export const getEmail = () => getCookiesMap(document.cookie)['username'].replaceAll('%40', '@');
+export const getEmail = () => (getCookiesMap(document.cookie)['username'] ?? '').replaceAll('%40', '@');

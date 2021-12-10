@@ -6,7 +6,7 @@ import { getEmail } from './actions';
 
 function App() {
   // start logged in for debug
-  const [isLoggedIn, setIsLoggedIn] = useState(!!getEmail()) // changed
+  const [isLoggedIn, setIsLoggedIn] = useState(getEmail() !== '')
 
   const [selectedPeople, setSelectedPeople] = useState([])
 
