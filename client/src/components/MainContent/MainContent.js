@@ -38,7 +38,14 @@ export const MainContent = (props) => {
         <div className="main-container">
             <div className="main-title">
                 {selectedEvent?.name ?? 'No event selected'}
+                <button className="delete-button">
+                {/* <DeleteForeverIcon color="grey"/> */}
+                    Delete Event
+                </button>
+                
+                
             </div>
+            
             <div className="main-subtitle">
                 Florida
             </div>
@@ -47,13 +54,13 @@ export const MainContent = (props) => {
                 {moments.map(moment => displayMedia(moment.media))}
             </div>
             
-            <div style={{"marginTop": 30 }} >
+            {/* <div style={{"marginTop": 30 }} >
                 <button className="delete-button">
-                {/* <DeleteForeverIcon color="grey"/> */}
+         
                     Delete Event
                 </button>
             </div>
-            
+             */}
             
         </div>
     );

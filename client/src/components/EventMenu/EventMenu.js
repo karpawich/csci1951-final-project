@@ -11,7 +11,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook'
 import LogoutIcon from '@mui/icons-material/Logout';
 
 // eventGateway
-import { createEvent, getEventsByEmail, getEmail } from '../../actions'
+import { createEvent, getEventsByEmail,  getEmail} from '../../actions'
 import { Center } from '@chakra-ui/react'
 
 
