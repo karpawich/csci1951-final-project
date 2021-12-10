@@ -20,7 +20,7 @@ export const AddButton = (props) =>
 
 
 export const UploadFile = (props) => {
-  const {setContent, selectedEvent} = props
+  const {setContent, selectedEvent, setMomentUploaded} = props
 
   const fileInputRef = useRef()
   const [progress, setProgress] = useState(0)
@@ -44,7 +44,11 @@ export const UploadFile = (props) => {
       
       // reset file input
       fileInputRef.current.value = null;
+
+    setMomentUploaded(prev => !prev)
+    setContent(null)
   }
+  
   const [emails, setEmails] = useState([])
   const [name, setName] = useState([])
 

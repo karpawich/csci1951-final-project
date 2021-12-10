@@ -1,4 +1,4 @@
-import { post } from '.'
+import { post, del } from '.'
 
 import { baseEndpoint } from '.'
 
@@ -26,6 +26,14 @@ export const addEmailToEvent = async (eventId, email) => {
     console.log(eventId, email)
     try {
         return await post(baseEndpoint + servicePath + `/email/${eventId}`, { email })
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+export const deleteEvent = async (eventId) => {
+    try {
+        return await del(baseEndpoint + servicePath + `/${eventId}`)
     } catch (err) {
         console.error(err)
     }
