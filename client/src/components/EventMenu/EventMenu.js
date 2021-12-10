@@ -72,6 +72,10 @@ export const AddEventDialog = (props) => {
 
     const addEvent = async () => (await createEvent(name, emails))
 
+    const styles = {
+        'button': {"marginTop": 10, "marginLeft": 100, "backgroundColor": '#FFFAF0'}
+    }
+
     return (
     <>
       <DialogTitle id="responsive-dialog-title">
@@ -94,7 +98,7 @@ export const AddEventDialog = (props) => {
               TODO: implement a search of possible people
               </div>
               <div className="home-btn">
-                <Button style={{"marginTop": 10, "marginLeft": 100, "backgroundColor": '#FFFAF0'}} autoFocus onClick={() => addEvent()}>
+                <Button style={styles.button} autoFocus onClick={() => addEvent()}>
                     {/* TO-DO: Add action */}
                     Create Event
                 </Button>
