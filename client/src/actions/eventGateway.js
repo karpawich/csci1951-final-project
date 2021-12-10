@@ -7,7 +7,8 @@ const servicePath = '/event'
 
 export const createEvent = async (name, emails) => {
     try {
-        return (await post(baseEndpoint + servicePath + '/', { name, emails })).data.event
+        const event = { name, emails }
+        return await post(baseEndpoint + servicePath + '/', {event})
     } catch (err) {
         console.error(err)
     }
