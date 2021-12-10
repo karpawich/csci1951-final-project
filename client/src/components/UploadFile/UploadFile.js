@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { uploadFile } from '../../actions/firebaseStorage'
 
-import { Fab, DialogActions, DialogContent, DialogTitle, Input, Button } from '@mui/material'
+import { Fab, DialogActions, DialogContent, DialogTitle, Input, Button, IconButton } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
 import { getEmail, uploadMoment } from '../../actions'
@@ -45,6 +45,13 @@ export const UploadFile = (props) => {
   }
   const [name, setName] = useState('')
 
+  const styles = {
+    'button': {"marginTop": 20, "marginLeft": 20, "backgroundColor": '#FFFAF0'},
+    'subtitle': {"marginTop": 20},
+    'icon': {"marginLeft": 60},
+    'trial': {"margin": '0 auto'}
+  }
+
   return (
     
     <>
@@ -56,11 +63,21 @@ export const UploadFile = (props) => {
             <input type="file" onChange={() => uploadFiles()} ref={fileInputRef} multiple></input>
             <p>{progress}</p>
         </div>
+
+        <div style={styles.subtitle}>
+          Add People
+        </div>
+
+        {/* <div>
+          <Input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} required />
+        </div> */}
         <div>
-          <Input type="text" placeholder="People" onChange={(e) => setName(e.target.value)} required />
+          <Input type="text" placeholder="Email" onChange={(e) => setName(e.target.value)} required />
         </div>
         <div>
-        TODO: implement a search of possible people
+          <IconButton>
+            <AddIcon style={styles.trial} color="grey"/>
+          </IconButton>
         </div>
 
       </DialogContent>

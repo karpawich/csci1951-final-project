@@ -100,9 +100,9 @@ export const AddEventDialog = (props) => {
                 Add People
               </div>
 
-              <div>
+              {/* <div>
                 <Input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} required />
-              </div>
+              </div> */}
               <div>
                 <Input type="text" placeholder="Email" onChange={(e) => setName(e.target.value)} required />
               </div>
