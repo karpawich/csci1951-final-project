@@ -15,7 +15,8 @@ export const createEvent = async (name, emails) => {
 
 export const getEventsByEmail = async (email) => {
     try {
-        return (await post(baseEndpoint + servicePath + '/email', { email })).data.events
+        console.log((await post(baseEndpoint + servicePath + '/email', { email })))
+        return []
     } catch (err) {
         console.error(err)
     }

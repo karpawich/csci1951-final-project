@@ -24,8 +24,7 @@ export const EventMenu = (props) => {
     const fetchEvents = async () => setEvents(await getEventsByEmail(getEmail()))
 
     useEffect(() => {
-        //fetchEvents()
-        console.log(getEmail())
+        fetchEvents()
     }, [])
 
     const eventsMap = () => {
@@ -69,9 +68,9 @@ export const EventMenu = (props) => {
 
 export const AddEventDialog = (props) => {
     const [name, setName] = useState('')
-    const [emails, setEmails] = useState(['test'])
+    const [emails, setEmails] = useState([getEmail()])
 
-    const addEvent = async () => (await createEvent(name, emails)).data
+    const addEvent = async () => (await createEvent(name, emails))
 
     return (
     <>

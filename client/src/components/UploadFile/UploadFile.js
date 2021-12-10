@@ -4,7 +4,7 @@ import { uploadFile } from '../../actions/firebaseStorage'
 import { Fab, DialogActions, DialogContent, DialogTitle, Input, Button } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
-import { uploadMoment } from '../../actions'
+import { getEmail, uploadMoment } from '../../actions'
 
 import './UploadFile.css';
 
@@ -33,7 +33,7 @@ export const UploadFile = (props) => {
           const file = files.item(i);
         try {
             // TODO: replace test with user logged in url
-          const url = await uploadFile(file, setProgress, 'test');
+          const url = await uploadFile(file, setProgress, getEmail());
           //await uploadMoment(url, getMediaType(file.type), ['test'], new Date(), '')
           } catch (error) {
               console.error(`Failure to upload file ${file.name}`);
