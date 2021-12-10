@@ -9,7 +9,7 @@ const servicePath = '/moment'
 export const uploadMoment = async (mediaUrl, mediaType, emails, timestamp, eventId) => {
     const data = { media: { mediaUrl, mediaType }, emails, eventId, timestamp }
     try {
-        return (await post(baseEndpoint + servicePath + '/', data)).data.moment
+        return await post(baseEndpoint + servicePath + '/', data)
     }
     catch (err) {
         console.error(err)
@@ -18,5 +18,5 @@ export const uploadMoment = async (mediaUrl, mediaType, emails, timestamp, event
 
 export const getMomentsByEvent = async (eventId) => {
     const data = {query: {events: [eventId]}}
-    return (await post(baseEndpoint + servicePath + '/search', data)).data.moments
+    return (await post(baseEndpoint + servicePath + '/search', data))
 }

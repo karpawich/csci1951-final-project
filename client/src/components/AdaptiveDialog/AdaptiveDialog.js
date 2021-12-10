@@ -10,9 +10,22 @@ export const AdaptiveDialog = (props) => {
       case 'addEvent':
         return <AddEventDialog setContent={setContent}/>
       case 'addUser':
-        return <AddUserDialog setContent={setContent} eventId={selectedEvent._id} />
+        if (selectedEvent?._id) {
+          return <AddUserDialog setContent={setContent} eventId={selectedEvent._id} />
+        } else {
+          alert('Please select an event first')
+          setContent(null)
+        }
+        break;
+      
       case 'addMoments':
-        return <UploadFile setContent={setContent} />
+         if (selectedEvent?._id) {
+          return <UploadFile setContent={setContent} />
+        } else {
+          alert('Please select an event first')
+          setContent(null)
+        }
+        break;
     
       default:
         return <></>

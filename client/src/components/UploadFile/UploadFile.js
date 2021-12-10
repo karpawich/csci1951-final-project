@@ -33,8 +33,9 @@ export const UploadFile = (props) => {
           const file = files.item(i);
         try {
             // TODO: replace test with user logged in url
-          const url = await uploadFile(file, setProgress, getEmail());
-          //await uploadMoment(url, getMediaType(file.type), ['test'], new Date(), '')
+          const userEmail = getEmail()
+          const url = await uploadFile(file, setProgress, userEmail)
+          await uploadMoment(url, getMediaType(file.type), [...emails, userEmail], new Date(), selectedEvent._id)
           } catch (error) {
               console.error(`Failure to upload file ${file.name}`);
           }
@@ -43,7 +44,8 @@ export const UploadFile = (props) => {
       // reset file input
       fileInputRef.current.value = null;
   }
-  const [name, setName] = useState('')
+  const [emails, setEmails] = useState([])
+  const [name, setName] = useState([])
 
   return (
     
