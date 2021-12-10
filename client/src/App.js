@@ -2,10 +2,11 @@ import './App.css';
 import React, {useEffect, useState} from 'react'
 
 import {MainContent, PeopleMenu, EventMenu, LoginPage, AdaptiveDialog, AddButton} from './components'
+import { getEmail } from './actions';
 
 function App() {
   // start logged in for debug
-  const [isLoggedIn, setIsLoggedIn] = useState(true) // changed
+  const [isLoggedIn, setIsLoggedIn] = useState(getEmail() !== undefined) // changed
 
   const [selectedPeople, setSelectedPeople] = useState([])
 

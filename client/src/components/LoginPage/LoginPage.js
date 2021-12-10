@@ -15,13 +15,10 @@ export const LoginPage = (props) => {
 
     const addUser = async () => {
         const res = await createUser(email, firstName, lastName)
-        console.log(res, email, firstName, lastName)
+        await loginUser();
     }
 
-     const loginUser = async () => {
-        const res = await login(email)
-        console.log(res)
-    }
+     const loginUser = async () => setIsLoggedIn(await login(email))
 
 
     return (

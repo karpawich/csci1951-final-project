@@ -11,20 +11,21 @@ import MenuBookIcon from '@mui/icons-material/MenuBook'
 import LogoutIcon from '@mui/icons-material/Logout';
 
 // eventGateway
-import { createEvent, getEventsByEmail } from '../../actions'
+import { createEvent, getEventsByEmail, getEmail } from '../../actions'
 
 
 
 
 export const EventMenu = (props) => {
-    const { selectedEvent, setSelectedEvent, userEmail, setDialogContent } = props
+    const { selectedEvent, setSelectedEvent, setDialogContent } = props
 
     const [events, setEvents] = useState([])
 
-    const fetchEvents = async () => setEvents(await getEventsByEmail(userEmail))
+    const fetchEvents = async () => setEvents(await getEventsByEmail(getEmail()))
 
     useEffect(() => {
         //fetchEvents()
+        console.log(getEmail())
     }, [])
 
     const eventsMap = () => {
