@@ -12,6 +12,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 // eventGateway
 import { createEvent, getEventsByEmail, getEmail } from '../../actions'
+import { Center } from '@chakra-ui/react'
 
 
 
@@ -19,7 +20,8 @@ import { createEvent, getEventsByEmail, getEmail } from '../../actions'
 export const EventMenu = (props) => {
     const { selectedEvent, setSelectedEvent, setDialogContent } = props
 
-    const [events, setEvents] = useState([])
+    const allEvents = [{ name: 'hiking w the bois', startTimestamp: '2017-10-30*02:47:33:899', endTimestamp: '2017-11-1*02:47:33:899', emails:['ms', 'mk']}, { name: 'CS1951v', startTimestamp: '2021-9-1*02:47:33:899', endTimestamp: '	2017-12-9*02:47:33:899', emails:['ms', 'mk', 'mf']}] // temporary
+    const [events, setEvents] = useState(allEvents)
 
     const fetchEvents = async () => setEvents(await getEventsByEmail(getEmail()))
 
@@ -77,17 +79,25 @@ export const AddEventDialog = (props) => {
       <DialogTitle id="responsive-dialog-title">
         New Event
       </DialogTitle>
-      <DialogContent>
-            <div>
-              <div >
+      <DialogContent className="home-btn">
+            <div style={{"margin": '0 auto'}}>
+              <div>
                 <Input type="text" placeholder="Event Name" onChange={(e) => setName(e.target.value)} required />
               </div>
               <div>
                 <Input type="text" placeholder="Location" onChange={(e) => setName(e.target.value)} required />
-                <Input type="text" placeholder="Date" onChange={(e) => setName(e.target.value)} required />
+                {/* <Input type="text" placeholder="Date" onChange={(e) => setName(e.target.value)} required /> */}
               </div>
+
               <div>
-              <Input type="text" placeholder="People" onChange={(e) => setName(e.target.value)} required />
+                People
+              </div>
+
+
+
+
+              <div>
+              <Input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} required />
               </div>
               
               <div>
