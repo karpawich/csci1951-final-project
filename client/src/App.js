@@ -29,7 +29,7 @@ function App() {
                 <div className="header">header</div>
                 <div className="event-menu"><EventMenu selectedPeople={selectedPeople} selectedEvent={selectedEvent} setSelectedEvent={setSelectedEvent} setDialogContent={setDialogContent}/></div>
                 <div className="people-menu"><PeopleMenu selectedPeople={selectedPeople} setSelectedPeople={setSelectedPeople} selectedEvent={selectedEvent} setDialogContent={setDialogContent}/></div>
-                <div className="main"><MainContent /></div>
+                <div className="main"><MainContent selectedEvent={selectedEvent} /></div>
               </div> 
             </div>
           )

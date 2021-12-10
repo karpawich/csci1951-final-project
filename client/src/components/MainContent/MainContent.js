@@ -16,8 +16,8 @@ export const MainContent = (props) => {
     }
 
     useEffect(() => {
-        //fetchMoments()
-    }, [])
+        fetchMoments()
+    }, [selectedEvent])
 
 
     const displayMedia = (media) => {
@@ -37,7 +37,7 @@ export const MainContent = (props) => {
     return (
         <div className="main-container">
             <div className="main-title">
-                hiking w the bois
+                {selectedEvent?.name ?? 'No event selected'}
             </div>
             <div className="main-subtitle">
                 Florida
