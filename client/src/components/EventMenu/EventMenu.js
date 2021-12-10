@@ -18,16 +18,20 @@ import { Center } from '@chakra-ui/react'
 
 
 export const EventMenu = (props) => {
-    const { selectedEvent, setSelectedEvent, setDialogContent } = props
+    const { selectedEvent, setSelectedEvent, setDialogContent, eventCreated, userAdded, setUpdatePeopleList } = props
 
     // const allEvents = [{ name: 'hiking w the bois', startTimestamp: '2017-10-30*02:47:33:899', endTimestamp: '2017-11-1*02:47:33:899', emails:['ms', 'mk']}, { name: 'CS1951v', startTimestamp: '2021-9-1*02:47:33:899', endTimestamp: '	2017-12-9*02:47:33:899', emails:['ms', 'mk', 'mf']}] // temporary
     const [events, setEvents] = useState([])
 
-    const fetchEvents = async () => setEvents(await getEventsByEmail(getEmail()))
+  const fetchEvents = async () => {
+    setEvents(await getEventsByEmail(getEmail()))
+    setUpdatePeopleList(prev => !prev)
+  }
 
-    useEffect(() => {
-        fetchEvents()
-    }, [])
+  useEffect(() => {
+    fetchEvents()
+    setUpdatePeopleList(prev => !prev)
+    }, [eventCreated, userAdded])
 
     const eventsMap = () => {
       return events.map(event => 
@@ -73,7 +77,11 @@ export const AddEventDialog = (props) => {
     const [location, setLocation] = useState('')
     const [emails, setEmails] = useState([getEmail()])
 
-    const addEvent = async () => (await createEvent(name, location, emails))
+  const addEvent = async () => {
+    await createEvent(name, emails)
+    props.setEventCreated(prev => !prev)
+    props.setContent(null)
+  }
 
     const styles = {
         'button': {"marginTop": 20, "marginLeft": 20, "backgroundColor": '#FFFAF0'},

@@ -19,12 +19,12 @@ import { addEmailToEvent } from '../../actions';
 
 export const PeopleMenu = (props) => {
     // can make this async from db, doesn't need to be a prop
-    const { selectedEvent, selectedPeople, setSelectedPeople, setDialogContent } = props;
+    const { selectedEvent, selectedPeople, setSelectedPeople, setDialogContent, updatePeopleList } = props;
     //const allPeople = [{ email: 'ms', name: 'miku', lastName: 'suga' }, { email: 'mf', firstName: 'michele', lastName: 'foiani' }, { email: 'mk', firstName: 'max', lastName: 'karp' }] // temporary
 
     useEffect(() => {
         setSearchedPeople(selectedEvent?.emails ?? [])
-    }, [selectedEvent])
+    }, [selectedEvent, updatePeopleList])
 
     // const [searchedPeople, setSearchedPeople] = useState(selectedEvent.emails) // this throws an error
     const [searchedPeople, setSearchedPeople] = useState([])
@@ -120,6 +120,7 @@ export const AddUserDialog = (props) => {
 
     const handleAdd = async () => {
         await addEmailToEvent(props.eventId, email)
+        props.setUserAdded(prev => !prev)
         props.setContent(null)
     }
 
