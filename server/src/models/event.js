@@ -17,6 +17,10 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+  location: [{
+    type: String,
+    default: null,
+  }],
   emails: [{
     type: String,
     validate: validator.default.isEmail,

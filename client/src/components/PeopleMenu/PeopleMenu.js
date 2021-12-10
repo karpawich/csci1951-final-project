@@ -19,7 +19,7 @@ import { Center } from '@chakra-ui/react';
 export const PeopleMenu = (props) => {
     // can make this async from db, doesn't need to be a prop
     const { selectedEvent, selectedPeople, setSelectedPeople, setDialogContent } = props;
-    const allPeople = [{ email: 'ms', firstName: 'miku', lastName: 'suga' }, { email: 'mf', firstName: 'michele', lastName: 'foiani' }, { email: 'mk', firstName: 'max', lastName: 'karp' }] // temporary
+    const allPeople = [{ email: 'ms', name: 'miku', lastName: 'suga' }, { email: 'mf', firstName: 'michele', lastName: 'foiani' }, { email: 'mk', firstName: 'max', lastName: 'karp' }] // temporary
     // const allPeople = ['miku', 'michele', 'max']
 
     // const [searchedPeople, setSearchedPeople] = useState(selectedEvent.emails) // this throws an error
