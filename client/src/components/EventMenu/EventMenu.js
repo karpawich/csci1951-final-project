@@ -77,7 +77,8 @@ export const AddEventDialog = (props) => {
     const styles = {
         'button': {"marginTop": 20, "marginLeft": 20, "backgroundColor": '#FFFAF0'},
         'subtitle': {"marginTop": 20},
-        'icon': {"marginLeft": 60}
+        'icon': {"marginLeft": 60},
+        'trial': {"margin": '0 auto'}
     }
 
     return (
@@ -99,9 +100,6 @@ export const AddEventDialog = (props) => {
                 Add People
               </div>
 
-
-
-
               <div>
                 <Input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} required />
               </div>
@@ -109,9 +107,9 @@ export const AddEventDialog = (props) => {
                 <Input type="text" placeholder="Email" onChange={(e) => setName(e.target.value)} required />
               </div>
 
-              <div>
+              <div className="home-btn">
                 <IconButton>
-                  <AddIcon style={styles.icon} color="grey"/>
+                  <AddIcon style={styles.trial} color="grey"/>
                 </IconButton>
               </div>
 

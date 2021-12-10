@@ -120,22 +120,38 @@ export const PeopleMenu = (props) => {
 
 export const AddUserDialog = (props) => {
     const [name, setName] = useState('')
+
+    const styles = {
+        'button': {"marginTop": 10, "marginLeft": 130, "backgroundColor": '#FFFAF0'},
+        'subtitle': {"marginTop": 20},
+        'icon': {"marginLeft": 60},
+        'trial': {"margin": '0 auto'},
+        'blank1': {"width": 200, "marginTop": 20},
+        'blank': {"width": 333, "marginTop": 20}
+
+    }
+
     return (
     <>
       <DialogTitle id="responsive-dialog-title">
         Add People
       </DialogTitle>
-      <DialogContent>
-        <div>
-            <Input type="text" placeholder="First Name" onChange={(e) => setName(e.target.value)} required />
-            <Input type="text" placeholder="Last Name" onChange={(e) => setName(e.target.value)} required />
-            
-
-            <div style={{"marginTop":10}}>
-                <Input style={{"width":333}} type="text" placeholder="Description" onChange={(e) => setName(e.target.value)} required />
+      <DialogContent className="center-things">
+        <div >
+            <div>
+                <Input style={styles.blank} type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} required />
+                {/* <Input type="text" placeholder="Last Name" onChange={(e) => setName(e.target.value)} required /> */}
             </div>
+            
+            <div>
+                <Input style={styles.blank} type="text" placeholder="Email" onChange={(e) => setName(e.target.value)} required />
+            </div>
+
+            {/* <div>
+                <Input style={styles.blank} type="text" placeholder="Description" onChange={(e) => setName(e.target.value)} required />
+            </div> */}
             <div className="home-btn">
-                <Button style={{"marginTop": 10, "marginLeft": 130, "backgroundColor": '#FFFAF0'}} autoFocus >
+                <Button style={styles.button} autoFocus >
                     {/* TO-DO: Add action */}
                     Add
                 </Button>
