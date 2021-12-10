@@ -75,7 +75,10 @@ export const AddEventDialog = (props) => {
     const addEvent = async () => (await createEvent(name, emails))
 
     const styles = {
-        'button': {"marginTop": 10, "marginLeft": 100, "backgroundColor": '#FFFAF0'}
+        'button': {"marginTop": 20, "marginLeft": 20, "backgroundColor": '#FFFAF0'},
+        'subtitle': {"marginTop": 20},
+        'icon': {"marginLeft": 60},
+        'trial': {"margin": '0 auto'}
     }
 
     return (
@@ -84,7 +87,7 @@ export const AddEventDialog = (props) => {
         New Event
       </DialogTitle>
       <DialogContent className="home-btn">
-            <div style={{"margin": '0 auto'}}>
+            <div>
               <div>
                 <Input type="text" placeholder="Event Name" onChange={(e) => setName(e.target.value)} required />
               </div>
@@ -93,21 +96,24 @@ export const AddEventDialog = (props) => {
                 {/* <Input type="text" placeholder="Date" onChange={(e) => setName(e.target.value)} required /> */}
               </div>
 
-              <div>
-                People
+              <div style={styles.subtitle}>
+                Add People
               </div>
 
-
-
-
               <div>
-              <Input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} required />
+                <Input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} required />
               </div>
-              
               <div>
-              TODO: implement a search of possible people
+                <Input type="text" placeholder="Email" onChange={(e) => setName(e.target.value)} required />
               </div>
+
               <div className="home-btn">
+                <IconButton>
+                  <AddIcon style={styles.trial} color="grey"/>
+                </IconButton>
+              </div>
+
+              <div>
                 <Button style={styles.button} autoFocus onClick={() => addEvent()}>
                     {/* TO-DO: Add action */}
                     Create Event
@@ -120,7 +126,7 @@ export const AddEventDialog = (props) => {
         <Button autoFocus onClick={() => props.setContent(null)}>
           Close
         </Button>
-      </DialogActions>
+      </DialogActions >
     </>
   )
 }

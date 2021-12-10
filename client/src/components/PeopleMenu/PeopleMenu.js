@@ -123,6 +123,16 @@ export const AddUserDialog = (props) => {
         props.setContent(null)
     }
 
+    const styles = {
+        'button': {"marginTop": 10, "marginLeft": 'auto', "backgroundColor": '#FFFAF0'},
+        'subtitle': {"marginTop": 20},
+        'icon': {"marginLeft": 60},
+        'trial': {"margin": '0 auto'},
+        'blank1': {"width": 200, "marginTop": 20},
+        'blank': {"width": 333, "marginTop": 20}
+
+    }
+
     return (
     <>
       <DialogTitle id="responsive-dialog-title">
@@ -130,17 +140,11 @@ export const AddUserDialog = (props) => {
       </DialogTitle>
       <DialogContent>
         <div>
-           
-    
-
-            <div style={{"marginTop":10}}>
-                 <Input type="email" placeholder="User email" onChange={(e) => setEmail(e.target.value)} required />
+            <div>
+                <Input style={styles.blank} type="email" placeholder="User email" onChange={(e) => setEmail(e.target.value)} required />
             </div>
-            <div className="home-btn">
-                <Button onClick={() => handleAdd()} style={{"marginTop": 10, "marginLeft": 130, "backgroundColor": '#FFFAF0'}} autoFocus >
-                    {/* TO-DO: Add action */}
-                    Add
-                </Button>
+            <div>
+                <Button style={styles.button} onClick={() => handleAdd()} style={{ "marginTop": 10, "marginLeft": 130, "backgroundColor": '#FFFAF0' }} autoFocus >Add</Button>
             </div>
         </div>
       </DialogContent>

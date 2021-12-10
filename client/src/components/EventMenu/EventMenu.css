@@ -1,3 +1,5 @@
+
+
 .event-container {
     padding: 5%;
 }
@@ -50,4 +52,11 @@
     font-size: 16px;
     border: none;
     cursor: pointer;
-  }
+}
+
+.home-btn {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+}
