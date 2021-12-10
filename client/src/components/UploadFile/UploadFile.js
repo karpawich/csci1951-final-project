@@ -38,6 +38,7 @@ export const UploadFile = (props) => {
           await uploadMoment(url, getMediaType(file.type), [...emails, userEmail], new Date(), selectedEvent._id)
           } catch (error) {
               console.error(`Failure to upload file ${file.name}`);
+              console.error(error)
           }
       }
       
