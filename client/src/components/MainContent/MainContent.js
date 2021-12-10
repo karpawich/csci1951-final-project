@@ -54,14 +54,6 @@ export const MainContent = (props) => {
                 {moments.map(moment => displayMedia(moment.media))}
             </div>
             
-            {/* <div style={{"marginTop": 30 }} >
-                <button className="delete-button">
-         
-                    Delete Event
-                </button>
-            </div>
-             */}
-            
         </div>
     );
 }
