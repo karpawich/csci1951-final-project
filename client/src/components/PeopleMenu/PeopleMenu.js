@@ -15,29 +15,31 @@ import { grey, pink } from '@mui/material/colors';
 import { textAlign } from '@mui/system';
 import { UploadFile } from '..';
 import { Center } from '@chakra-ui/react';
+import { addEmailToEvent } from '../../actions';
 
 export const PeopleMenu = (props) => {
     // can make this async from db, doesn't need to be a prop
     const { selectedEvent, selectedPeople, setSelectedPeople, setDialogContent } = props;
-    const allPeople = [{ email: 'ms', name: 'miku', lastName: 'suga' }, { email: 'mf', firstName: 'michele', lastName: 'foiani' }, { email: 'mk', firstName: 'max', lastName: 'karp' }] // temporary
-    // const allPeople = ['miku', 'michele', 'max']
+    //const allPeople = [{ email: 'ms', name: 'miku', lastName: 'suga' }, { email: 'mf', firstName: 'michele', lastName: 'foiani' }, { email: 'mk', firstName: 'max', lastName: 'karp' }] // temporary
+
+    useEffect(() => {
+        setSearchedPeople(selectedEvent?.emails ?? [])
+    }, [selectedEvent])
 
     // const [searchedPeople, setSearchedPeople] = useState(selectedEvent.emails) // this throws an error
-    const [searchedPeople, setSearchedPeople] = useState(allPeople)
+    const [searchedPeople, setSearchedPeople] = useState([])
 
-    const removeSelectedPerson = (email) => setSelectedPeople(arr => arr.filter(person => person.email !== email))
-
-    
+    const removeSelectedPerson = (email) => setSelectedPeople(arr => arr.filter(person => person !== email))
 
     const selectedPeopleMap = () =>
         selectedPeople.map(person =>
             <ListItem key={person} secondaryAction={
-                <IconButton edge="end" aria-label="delete" onClick={() => removeSelectedPerson(person.email)}>
+                <IconButton edge="end" aria-label="delete" onClick={() => removeSelectedPerson(person)}>
                     <CancelIcon />
                 </IconButton>
             }>
                         
-                <ListItemText style={{"margin":0}} primary={person.firstName}/>
+                <ListItemText style={{"margin":0}} primary={person}/>
             </ListItem>
         )
     
@@ -46,33 +48,28 @@ export const PeopleMenu = (props) => {
         // console.log('fire')
 
         // make set to be more efficient for lookups
-        const emailSet = selectedPeople.reduce((s, person) => s.add(person.email), new Set())
+        const emailSet = selectedPeople.reduce((s, person) => s.add(person), new Set())
 
         return searchedPeople.map(person =>
-            <div>
 
-                <ListItemButton key={person.email} disabled={emailSet.has(person.email)} selected={emailSet.has(person.email) }
+               ( <ListItemButton key={person} disabled={emailSet.has(person)} selected={emailSet.has(person.email) }
                 onClick={() => setSelectedPeople(people => [...people, person])}>
-                    <ListItemText style={{"margin":0}} primary={person.firstName} />
-                </ListItemButton>
+                    <ListItemText style={{"margin":0}} primary={person.substring(0, person.indexOf('@')).replaceAll('_', ' ')} />
+                </ListItemButton>))
 
-            {/* <IconButton >
-                <InfoIcon style={{"fontSize": 20, "margin": 0, "padding": 0}}/>
-            </IconButton> */}
-            </div>
+            //{/* <IconButton >
+            //    <InfoIcon style={{"fontSize": 20, "margin": 0, "padding": 0}}/>
+            //</IconButton> */}
             
-            )
     }
 
     // consider using null coalescing if one of these fields can be undefined
     // const queryBoolean = (person, queryString) => person.includes(queryString)
-    const queryBoolean = (person, queryString) =>
-        person.email.includes(queryString) ||
-        person.firstName.includes(queryString) ||
-        person.lastName.includes(queryString)
+    const queryBoolean = (person, queryString) => person.includes(queryString) 
 
     const handlePersonSearch = event => {
         const query = event.target.value;
+        const allPeople = selectedEvent?.emails ?? [];
         query.trim() ? setSearchedPeople(allPeople.filter(person => queryBoolean(person, query)))
             : setSearchedPeople(allPeople)
     }
@@ -119,7 +116,13 @@ export const PeopleMenu = (props) => {
 }
 
 export const AddUserDialog = (props) => {
-    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+
+    const handleAdd = async () => {
+        await addEmailToEvent(props.eventId, email)
+        props.setContent(null)
+    }
+
     return (
     <>
       <DialogTitle id="responsive-dialog-title">
@@ -127,15 +130,14 @@ export const AddUserDialog = (props) => {
       </DialogTitle>
       <DialogContent>
         <div>
-            <Input type="text" placeholder="First Name" onChange={(e) => setName(e.target.value)} required />
-            <Input type="text" placeholder="Last Name" onChange={(e) => setName(e.target.value)} required />
-            
+           
+    
 
             <div style={{"marginTop":10}}>
-                <Input style={{"width":333}} type="text" placeholder="Description" onChange={(e) => setName(e.target.value)} required />
+                 <Input type="email" placeholder="User email" onChange={(e) => setEmail(e.target.value)} required />
             </div>
             <div className="home-btn">
-                <Button style={{"marginTop": 10, "marginLeft": 130, "backgroundColor": '#FFFAF0'}} autoFocus >
+                <Button onClick={() => handleAdd()} style={{"marginTop": 10, "marginLeft": 130, "backgroundColor": '#FFFAF0'}} autoFocus >
                     {/* TO-DO: Add action */}
                     Add
                 </Button>

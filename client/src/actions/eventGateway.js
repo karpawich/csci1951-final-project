@@ -23,8 +23,9 @@ export const getEventsByEmail = async (email) => {
 }
 
 export const addEmailToEvent = async (eventId, email) => {
+    console.log(eventId, email)
     try {
-        return (await post(baseEndpoint + servicePath + `/email${eventId}`, { email })).data.event
+        return await post(baseEndpoint + servicePath + `/email/${eventId}`, { email })
     } catch (err) {
         console.error(err)
     }
