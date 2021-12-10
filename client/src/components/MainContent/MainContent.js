@@ -46,22 +46,21 @@ export const MainContent = (props) => {
         <div className="main-container">
             <div className="main-title">
                 {selectedEvent?.name ?? 'No event selected'}
+                <button className="delete-button" onClick={() => handleDelete()} color={'warning'}>
+                {/* <DeleteForeverIcon color="grey"/> */}
+                    Delete Event
+                </button>
+                
+                
             </div>
             <div className="main-subtitle" hidden={selectedEvent?.location}>
                 {selectedEvent?.location ?? ''}
             </div>
 
+
             <div className="moments-list">
                 {moments.map(moment => displayMedia(moment.media))}
             </div>
-            
-            <div style={{"marginTop": 30 }} hidden={!selectedEvent?._id}>
-                <Button className="delete-button" onClick={() => handleDelete()} color={'warning'}>
-                {/* <DeleteForeverIcon color="grey"/> */}
-                    Delete Event
-                </Button>
-            </div>
-            
             
         </div>
     );

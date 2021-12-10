@@ -39,17 +39,22 @@
 
 .delete-button {
   transition-duration: 0.2s;
-  background-color: white;
+  background-color: #FFFAFA;
   border: none;
   outline: none;
   border-radius: 5%;
   padding: 5px 10px 5px 10px;
   font-size: 16px;
+  /* position: relative; */
+  position: absolute;
+  /* top: 100px; */
+  right: 80px;
+  /* margin-top:40; */
 
 }
 
 .delete-button:hover {
-  background-color: #F5F5F5; /* Green */
+  background-color: pink; /* Green */
 }
 
 /* .main-footer {
