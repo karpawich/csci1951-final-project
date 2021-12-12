@@ -2,6 +2,8 @@ import {post, get} from 'axios'
 
 import { baseEndpoint } from '.'
 
+import { useCallback } from 'react'
+
 /** This is the path to the nodes microservice */
 const servicePath = '/auth'
 
@@ -26,4 +28,8 @@ const getCookiesMap = cookiesString => {
     }, {});
 }
 
-export const getEmail = () => (getCookiesMap(document.cookie)['username'] ?? '').replaceAll('%40', '@');
+export const useGetEmail = () => {
+    return useCallback(() => {
+        return (getCookiesMap(document.cookie)['username'] ?? '').replaceAll('%40', '@')
+    }, [])
+}

@@ -4,7 +4,7 @@ import { uploadFile } from '../../actions/firebaseStorage'
 import { Fab, DialogActions, DialogContent, DialogTitle, Input, Button, IconButton } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
-import { getEmail, uploadMoment } from '../../actions'
+import { useGetEmail, uploadMoment } from '../../actions'
 
 import './UploadFile.css';
 
@@ -21,6 +21,8 @@ export const AddButton = (props) =>
 
 export const UploadFile = (props) => {
   const {setContent, selectedEvent, setMomentUploaded} = props
+
+  const getEmail = useGetEmail()
 
   const fileInputRef = useRef()
   const [progress, setProgress] = useState(0)
