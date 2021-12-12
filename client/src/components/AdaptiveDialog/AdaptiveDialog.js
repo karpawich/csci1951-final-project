@@ -19,14 +19,7 @@ export const AdaptiveDialog = (props) => {
         break;
       
       case 'addMoments':
-         if (selectedEvent?._id) {
-           return <UploadFile setContent={setDialogContent} selectedEvent={selectedEvent} setMomentUploaded={setMomentUploaded}/>
-        } else {
-          alert('Please select an event first')
-          setDialogContent(null)
-        }
-        break;
-    
+        return <UploadFile setContent={setDialogContent} setMomentUploaded={setMomentUploaded}/>
       default:
         return <></>
     }

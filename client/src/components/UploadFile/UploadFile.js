@@ -18,6 +18,7 @@ export const AddButton = (props) =>
     
 
 
+// TODO: Replace selectedEvent with a dynamic dropdown list of events to select from
 
 export const UploadFile = (props) => {
   const {setContent, selectedEvent, setMomentUploaded} = props
