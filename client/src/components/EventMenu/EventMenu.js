@@ -73,9 +73,32 @@ export const EventMenu = (props) => {
 
 
 export const AddEventDialog = (props) => {
-    const [name, setName] = useState('')
-    const [location, setLocation] = useState('')
-    const [emails, setEmails] = useState([getEmail()])
+  const [name, setName] = useState('')
+  const [location, setLocation] = useState('')
+  const [email, setEmail] = useState('')
+  const [emails, setEmails] = useState([getEmail()])
+
+  const showEmail = async (emailAdded) => {
+    if (email != '') {
+      document.getElementById("popup").style.color = "grey"
+    } else {
+      document.getElementById("popup").style.color = "white"
+    }
+
+  }
+
+  const hideEmail = async (e) => {
+    setEmail(e.target.value)
+    document.getElementById("popup").style.color = "white"
+  }
+
+  const addEmail = async (newEmail) => {
+    if (!(emails.includes(newEmail))) {
+      const currentEmails = emails.concat(newEmail)
+      setEmails(currentEmails)
+      showEmail()
+    }
+  }
 
   const addEvent = async () => {
     await createEvent(name, emails)
@@ -83,51 +106,55 @@ export const AddEventDialog = (props) => {
     props.setContent(null)
   }
 
-    const styles = {
-        'button': {"marginTop": 20, "marginLeft": 20, "backgroundColor": '#FFFAF0'},
-        'subtitle': {"marginTop": 20},
-        'icon': {"marginLeft": 60},
-        'trial': {"margin": '0 auto'}
-    }
+  const styles = {
+    'dialogContent': {"width": 300},
+    'blank': {"width": 290},
+    'subtitle': {"marginTop": 30},
+    'button': {"marginTop": 40, "marginLeft": 80, "backgroundColor": '#FFFAF0'},
+    'popup': {"color": 'white', "fontSize": 12},
+    // 'icon': {"marginLeft": 90},
+    'trial': {"margin": '0 auto'}
+    
+  }
 
     return (
     <>
       <DialogTitle id="responsive-dialog-title">
         New Event
       </DialogTitle>
-      <DialogContent className="home-btn">
-            <div>
-              <div>
-                <Input type="text" placeholder="Event Name" onChange={(e) => setName(e.target.value)} required />
-              </div>
-              <div>
-                <Input type="text" placeholder="Location" onChange={(e) => setLocation(e.target.value)} required />
-                {/* <Input type="text" placeholder="Date" onChange={(e) => setName(e.target.value)} required /> */}
-              </div>
+      <DialogContent style={styles.dialogContent}>
+        <div>
+          <div>
+            <Input style={styles.blank} type="text" placeholder="Event Name" onChange={(e) => setName(e.target.value)} required />
+          </div>
+          <div>
+            <Input style={styles.blank} type="text" placeholder="Location" onChange={(e) => setLocation(e.target.value)} required />
+            {/* <Input type="text" placeholder="Date" onChange={(e) => setName(e.target.value)} required /> */}
+          </div>
 
-              <div style={styles.subtitle}>
-                Add People
-              </div>
+          <div style={styles.subtitle}>
+            Add People
+          </div>
 
-              {/* <div>
-                <Input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} required />
-              </div> */}
-              <div>
-                <Input type="text" placeholder="Email" onChange={(e) => setEmails(e.target.value)} required />
-              </div>
+          <div>
+            <Input style={styles.blank} type="text" placeholder="Email" onChange={(e) => hideEmail(e)} required />
+          </div>
 
-              <div className="home-btn">
-                <IconButton>
-                  <AddIcon style={styles.trial} color="grey"/>
-                </IconButton>
-              </div>
+          <div className="home-btn">
+            <IconButton>
+              <AddIcon style={styles.trial} color="grey" onClick={() => addEmail(email)}/>
+            </IconButton>
+          </div>
 
-              <div>
-                <Button style={styles.button} autoFocus onClick={() => addEvent()}>
-                    {/* TO-DO: Add action */}
-                    Create Event
-                </Button>
-            </div>
+          <div id="popup" style={styles.popup}>
+            Added {email} 
+          </div>
+
+          <div>
+            <Button style={styles.button} autoFocus onClick={() => addEvent()}>
+              Create Event
+            </Button>
+          </div>
                   
         </div>
       </DialogContent>

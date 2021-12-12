@@ -59,4 +59,9 @@
     justify-items: center;
     align-items: center;
     width: 100%;
+
+}
+
+.show {
+    display: block;
 }
