@@ -1,25 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import './MainContent.css';
 
-
-
-import { VideoMoment, UploadFile, AudioMoment, ImageMoment } from '..';
+import { VideoMoment, AudioMoment, ImageMoment } from '..';
 import { deleteEvent, getMomentsByEvent } from '../../actions';
 
-import { Button } from '@mui/material';
-
 export const MainContent = (props) => {
-    const { selectedEvent, momentUploaded, setEventCreated, setSelectedEvent } = props
+    const { event, setEventCreated } = props
 
     const [moments, setMoments] = useState([])
 
-    const fetchMoments = async () => {
-        setMoments(await getMomentsByEvent(selectedEvent))
-    }
-
     useEffect(() => {
-        fetchMoments()
-    }, [selectedEvent, momentUploaded])
+        (async () => {
+            setMoments(await getMomentsByEvent(event))
+        })()
+    }, [event])
 
 
     const displayMedia = (media) => {
@@ -36,16 +30,15 @@ export const MainContent = (props) => {
     }
 
     const handleDelete = async () => {
-        await deleteEvent(selectedEvent._id)
+        await deleteEvent(event._id)
         setEventCreated(prev => !prev)
-        setSelectedEvent(null)
     }
     
 
     return (
         <div className="main-container">
             <div className="main-title">
-                {selectedEvent?.name ?? 'No event selected'}
+                {event?.name ?? 'No event selected'}
                 <button className="delete-button" onClick={() => handleDelete()} color={'warning'}>
                 {/* <DeleteForeverIcon color="grey"/> */}
                     Delete Event
@@ -53,8 +46,8 @@ export const MainContent = (props) => {
                 
                 
             </div>
-            <div className="main-subtitle" hidden={selectedEvent?.location}>
-                {selectedEvent?.location ?? ''}
+            <div className="main-subtitle" hidden={event?.location}>
+                {event?.location ?? ''}
             </div>
 
 

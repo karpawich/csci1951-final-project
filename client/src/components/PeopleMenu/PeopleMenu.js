@@ -19,14 +19,14 @@ import { addEmailToEvent } from '../../actions';
 
 export const PeopleMenu = (props) => {
 	// can make this async from db, doesn't need to be a prop
-	const { selectedEvent, selectedPeople, setSelectedPeople, setDialogContent, updatePeopleList } = props;
+	const { event, selectedPeople, setSelectedPeople, setDialogContent, updatePeopleList } = props;
 	//const allPeople = [{ email: 'ms', name: 'miku', lastName: 'suga' }, { email: 'mf', firstName: 'michele', lastName: 'foiani' }, { email: 'mk', firstName: 'max', lastName: 'karp' }] // temporary
 
 	useEffect(() => {
-			setSearchedPeople(selectedEvent?.emails ?? [])
-	}, [selectedEvent, updatePeopleList])
+			setSearchedPeople(event?.emails ?? [])
+	}, [event, updatePeopleList])
 
-	// const [searchedPeople, setSearchedPeople] = useState(selectedEvent.emails) // this throws an error
+	// const [searchedPeople, setSearchedPeople] = useState(event.emails) // this throws an error
 	const [searchedPeople, setSearchedPeople] = useState([])
 
 	const removeSelectedPerson = (email) => setSelectedPeople(arr => arr.filter(person => person !== email))
@@ -69,7 +69,7 @@ export const PeopleMenu = (props) => {
 
 	const handlePersonSearch = event => {
 			const query = event.target.value;
-			const allPeople = selectedEvent?.emails ?? [];
+			const allPeople = event?.emails ?? [];
 			query.trim() ? setSearchedPeople(allPeople.filter(person => queryBoolean(person, query)))
 					: setSearchedPeople(allPeople)
 	}

@@ -3,15 +3,15 @@ import { AddEventDialog, AddUserDialog, UploadFile } from '..';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, useMediaQuery, useTheme } from '@mui/material';
 
 export const AdaptiveDialog = (props) => {
-  const { content, setDialogContent, selectedEvent, setEventCreated, setUserAdded, setMomentUploaded } = props
+  const { content, setDialogContent, event, setEventCreated, setUserAdded } = props
 
   const decideContent = () => {
     switch (content) {
       case 'addEvent':
         return <AddEventDialog setDialogContent={setDialogContent} setEventCreated={setEventCreated}/>
       case 'addUser':
-        if (selectedEvent?._id) {
-          return <AddUserDialog setContent={setDialogContent} eventId={selectedEvent._id} setUserAdded={setUserAdded}/>
+        if (event?._id) {
+          return <AddUserDialog setContent={setDialogContent} eventId={event._id} setUserAdded={setUserAdded}/>
         } else {
           alert('Please select an event first')
           setDialogContent(null)
@@ -19,7 +19,7 @@ export const AdaptiveDialog = (props) => {
         break;
       
       case 'addMoments':
-        return <UploadFile setContent={setDialogContent} setMomentUploaded={setMomentUploaded}/>
+        return <UploadFile setContent={setDialogContent} />
       default:
         return <></>
     }

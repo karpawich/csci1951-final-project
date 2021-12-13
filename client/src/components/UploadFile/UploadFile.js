@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { uploadFile } from '../../actions/firebaseStorage'
 
-import { Fab, DialogActions, DialogContent, DialogTitle, Input, Button, IconButton } from '@mui/material'
+import { Fab, DialogActions, DialogContent, DialogTitle, Input, Button, IconButton, Select, MenuItem } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
-import { useGetEmail, uploadMoment } from '../../actions'
+import { useGetEmail, uploadMoment, getEventsByEmail } from '../../actions'
 
 import './UploadFile.css';
 
@@ -18,10 +18,8 @@ export const AddButton = (props) =>
     
 
 
-// TODO: Replace selectedEvent with a dynamic dropdown list of events to select from
-
 export const UploadFile = (props) => {
-  const {setContent, selectedEvent, setMomentUploaded} = props
+  const {setContent } = props
 
   const getEmail = useGetEmail()
 
@@ -29,27 +27,44 @@ export const UploadFile = (props) => {
   const [progress, setProgress] = useState(0)
 
   const getMediaType = (fileType) => fileType.substr(0, fileType.indexOf('/'))
-    
-  const uploadFiles = async () => {
-      const files = fileInputRef.current.files
-      for (let i = 0; i < files.length; i++) {
-          const file = files.item(i);
-        try {
-            // TODO: replace test with user logged in url
-          const userEmail = getEmail()
-          const url = await uploadFile(file, setProgress, userEmail)
-          await uploadMoment(url, getMediaType(file.type), [...emails, userEmail], new Date(), selectedEvent._id)
-          } catch (error) {
-              console.error(`Failure to upload file ${file.name}`);
-              console.error(error)
-          }
-      }
-      
-      // reset file input
-      fileInputRef.current.value = null;
 
-    setMomentUploaded(prev => !prev)
-    setContent(null)
+  const email = getEmail()
+  const [events, setEvents] = useState([])
+  const [selectedEvent, setSelectedEvent] = useState('')
+
+  useEffect(() => {
+    (async () => {
+      const events = await getEventsByEmail(email)
+      setEvents(events)
+    })()
+  }, [email])
+
+  const handleSubmit = async (event) => {
+    const files = fileInputRef.current.files
+
+    // reject if the form isn't ready
+    if (files.length === 0 || !selectedEvent) return
+
+    // upload each file to Firebase and each moment to our database
+    for (let i = 0; i < files.length; i++) {
+      const file = files.item(i);
+      try {
+        const userEmail = getEmail()
+        const url = await uploadFile(file, setProgress, userEmail)
+        await uploadMoment(url, getMediaType(file.type), [...emails, userEmail], new Date(), selectedEvent._id)
+      } catch (error) {
+        console.error(`Failure to upload file ${file.name}`);
+        console.error(error)
+      }
+    }
+
+    // reset the form
+    fileInputRef.current.value = null;
+    setSelectedEvent(null)
+  }
+
+  function onEventSelectChange(e) {
+    setSelectedEvent(e.target.value)
   }
   
   const [emails, setEmails] = useState([])
@@ -66,12 +81,24 @@ export const UploadFile = (props) => {
     
     <>
       <DialogTitle id="responsive-dialog-title">
-        Upload Moments :)
+        New moments
       </DialogTitle>
       <DialogContent>
         <div>
-            <input type="file" onChange={() => uploadFiles()} ref={fileInputRef} multiple></input>
+            <input type="file" ref={fileInputRef} multiple></input>
             <p>{progress}</p>
+        </div>
+
+        <div style={styles.subtitle}>
+          Event
+        </div>
+
+        <div>
+          <Select style={{width: '100%'}} onChange={onEventSelectChange} value={selectedEvent}>
+            {events.map(event => (
+              <MenuItem value={event}>{event.name}</MenuItem>
+            ))}
+          </Select>
         </div>
 
         <div style={styles.subtitle}>
@@ -92,6 +119,9 @@ export const UploadFile = (props) => {
 
       </DialogContent>
       <DialogActions>
+      <Button onClick={handleSubmit} autoFocus>
+            Submit
+          </Button>
         <Button autoFocus onClick={() => setContent(null)}>
           Close
         </Button>

@@ -1,14 +1,11 @@
 import './App.css';
 import React, {useState} from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { LoginPage, AdaptiveDialog, Event, Events, Authenticated } from './components'
+import { LoginPage, AdaptiveDialog, Event, Events, Authenticated, AddButton } from './components'
 
 function App() {
   // dialog will open when content is not null
   const [dialogContent, setDialogContent] = useState(null)
-
-  // used for refreshing content
-  const [momentUploaded, setMomentUploaded] = useState(false)
 
   return (
     <div className='main-wrapper'>
@@ -21,7 +18,8 @@ function App() {
           <Authenticated element={<Events setDialogContent={setDialogContent} />}/>
         }/>  
       </Routes>
-      <AdaptiveDialog content={dialogContent} setDialogContent={setDialogContent} setMomentUploaded={setMomentUploaded}/>
+      <AdaptiveDialog content={dialogContent} setDialogContent={setDialogContent}/>
+      <AddButton setDialogContent={setDialogContent}/>
     </div>
   );
 }
