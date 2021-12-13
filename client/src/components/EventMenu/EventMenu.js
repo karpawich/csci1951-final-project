@@ -24,13 +24,14 @@ export const EventMenu = (props) => {
     const [events, setEvents] = useState([])
 
   const fetchEvents = async () => {
-    setEvents(await getEventsByEmail(getEmail()))
-    setUpdatePeopleList(prev => !prev)
+    const dbevents = await getEventsByEmail(getEmail())
+    setEvents(dbevents)
+    // setSelectedEvent(selectedEvent)
+    // setUpdatePeopleList(prev => !prev)
   }
 
   useEffect(() => {
     fetchEvents()
-    setUpdatePeopleList(prev => !prev)
     }, [eventCreated, userAdded])
 
     const eventsMap = () => {
