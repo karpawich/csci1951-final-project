@@ -1,6 +1,7 @@
 const routes = require('express').Router();
 const { handleErrors } = require('../../util/api');
 const {
+  getEvent,
   createEvent,
   deleteEvent,
   stopEvent,
@@ -13,6 +14,13 @@ const {
   addEmailToMomentsByEventId,
   removeEmailFromMomentsByEventId,
 } = require('../../actions/moment');
+
+routes.get('/:id', handleErrors(async (req, res) => {
+  const { id } = req.params;
+  // TODO: make sure that the user's email is in the event
+  const event = await getEvent(id);
+  res.status(201).json({ event });
+}));
 
 routes.post('/', handleErrors(async (req, res) => {
   const { event: e } = req.body;

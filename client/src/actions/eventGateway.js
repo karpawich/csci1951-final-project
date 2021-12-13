@@ -1,9 +1,18 @@
-import { post, del } from '.'
+import { get, post, del } from '.'
 
 import { baseEndpoint } from '.'
 
 /** This is the path to the nodes microservice */
 const servicePath = '/event'
+
+export const getEvent = async(id) => {
+    try {
+        const url = `${baseEndpoint}${servicePath}/${id}`
+        return await get(url)
+    } catch (err) {
+        console.error(err)
+    }
+}
 
 export const createEvent = async (name, emails) => {
     try {
