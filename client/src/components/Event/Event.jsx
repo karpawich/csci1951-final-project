@@ -13,6 +13,7 @@ export const Event = (props) => {
   const [event, setEvent] = useState(e);
   const [selectedPeople, setSelectedPeople] = useState([])
   const [userAdded, setUserAdded] = useState(false)
+  const [userDeleted, setUserDeleted] = useState(false)
   const [updatePeopleList, setUpdatePeopleList] = useState(false)
 
   useEffect(() => {
@@ -34,6 +35,7 @@ export const Event = (props) => {
             event={event}
             setDialogContent={setDialogContent}
             userAdded={userAdded}
+            userDeleted={userDeleted}
             updatePeopleList={updatePeopleList}
           />
         </div>
