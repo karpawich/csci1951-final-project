@@ -38,7 +38,7 @@ export const Event = (props) => {
           />
         </div>
         <div className="main">
-          <MainContent event={event}/>
+          <MainContent event={event} setDialogContent={setDialogContent}/>
         </div>
       </div> 
     </>

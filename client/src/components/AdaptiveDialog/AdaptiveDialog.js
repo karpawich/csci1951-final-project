@@ -1,29 +1,9 @@
 
-import { AddEventDialog, AddUserDialog, UploadFile } from '..';
+import { AddEventDialog, AddUserDialog, UploadFile, MomentView } from '..';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, useMediaQuery, useTheme } from '@mui/material';
 
 export const AdaptiveDialog = (props) => {
-  const { content, setDialogContent, event, setEventCreated, setUserAdded } = props
-
-  const decideContent = () => {
-    switch (content) {
-      case 'addEvent':
-        return <AddEventDialog setDialogContent={setDialogContent} setEventCreated={setEventCreated}/>
-      case 'addUser':
-        if (event?._id) {
-          return <AddUserDialog setContent={setDialogContent} eventId={event._id} setUserAdded={setUserAdded}/>
-        } else {
-          alert('Please select an event first')
-          setDialogContent(null)
-        }
-        break;
-      
-      case 'addMoments':
-        return <UploadFile setContent={setDialogContent} />
-      default:
-        return <></>
-    }
-  }
+  const { content, setDialogContent } = props
 
 
   const theme = useTheme()
@@ -36,7 +16,7 @@ export const AdaptiveDialog = (props) => {
         onClose={() => setDialogContent(null)}
         aria-labelledby="responsive-dialog-title"
       >
-        {decideContent()}
+        {content === null ? <></> : content}
       </Dialog>
     </div>)
 }

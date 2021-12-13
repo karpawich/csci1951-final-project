@@ -11,7 +11,7 @@ import './UploadFile.css';
 
 export const AddButton = (props) =>
   (<div className="fab-wrapper">
-      <Fab className="fab" variant="extended" color="primary" aria-label="add" onClick={() => props.setDialogContent('addMoments')}>
+  <Fab className="fab" variant="extended" color="primary" aria-label="add" onClick={() => props.setDialogContent(<UploadFile setContent={props.setDialogContent}/>)}>
         <AddIcon sx={{ mr: 1 }} />
         Add Moments
       </Fab>
@@ -20,7 +20,7 @@ export const AddButton = (props) =>
 
 
 export const UploadFile = (props) => {
-  const {setContent } = props
+  const { setContent } = props
 
   const getEmail = useGetEmail()
   const location = useLocation()

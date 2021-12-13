@@ -22,3 +22,10 @@ export const getMomentsByEvent = async (eventId) => {
     const data = { query: { events: [eventId] } }
     return (await post(baseEndpoint + servicePath + '/search', data)).moments
 }
+
+
+export const getMomentsBetweenDates = async (eventId, after, before) => {
+    const data = { query: { events: [eventId], dates: { after, before } } }
+        console.log(data)
+    return (await post(baseEndpoint + servicePath + '/search', data)).moments
+}

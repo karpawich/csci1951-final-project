@@ -41,7 +41,7 @@ export const Events = (props) => {
                 </ListItemButton>
             ))}
           </List>
-          <IconButton onClick={() => setDialogContent('addEvent')}>
+          <IconButton onClick={() => setDialogContent(<AddEventDialog setDialogContent={setDialogContent} />)}>
                 <AddIcon color="grey"/>
           </IconButton>
         </div>

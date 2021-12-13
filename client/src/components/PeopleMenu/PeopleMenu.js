@@ -107,7 +107,7 @@ export const PeopleMenu = (props) => {
 				</List>
 			</div>
 
-			<IconButton onClick={() => setDialogContent('addUser')}>
+			<IconButton onClick={() => setDialogContent(<AddUserDialog setContent={setDialogContent}/>)}>
 				<AddIcon color="grey"/>
 			</IconButton>
 
@@ -119,9 +119,9 @@ export const AddUserDialog = (props) => {
 	const [email, setEmail] = useState('')
 
 	const handleAdd = async () => {
-			await addEmailToEvent(props.eventId, email)
-			props.setUserAdded(prev => !prev)
-			props.setContent(null)
+		await addEmailToEvent(props.eventId, email)
+		//props.setUserAdded(prev => !prev)
+		props.setContent(null)
 	}
 
 	const styles = {

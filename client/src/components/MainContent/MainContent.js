@@ -1,13 +1,27 @@
 import React, {useEffect, useState} from 'react'
 import './MainContent.css';
 
-import { VideoMoment, AudioMoment, ImageMoment } from '..';
-import { deleteEvent, getMomentsByEvent } from '../../actions';
+import { VideoMoment, AudioMoment, ImageMoment, OptionsMenu } from '..';
+import { deleteEvent, getMomentsByEvent, getMomentsBetweenDates } from '../../actions';
 
 export const MainContent = (props) => {
-    const { event, setEventCreated } = props
+    const { event, setEventCreated, setDialogContent } = props
 
     const [moments, setMoments] = useState([])
+
+    const [startDate, setStartDate] = useState(new Date(event.startTimestamp))
+    const [endDate, setEndDate] = useState(new Date())
+    const [sortType, setSortType] = useState('new->old')
+    const [filterSort, setFilterSort] = useState(false)
+
+    
+    useEffect(() => {
+        (async () => {
+            const filtered = await getMomentsBetweenDates(event, startDate, endDate)
+            console.log(filtered)
+            setMoments([...filtered.sort((m1, m2) => sortType === 'old->new' ? Date.parse(m1.timestamp) -  Date.parse(m2.timestamp) : Date.parse(m2.timestamp) -  Date.parse(m1.timestamp))])
+        })()
+    }, [filterSort])
 
     useEffect(() => {
         (async () => {
@@ -16,16 +30,17 @@ export const MainContent = (props) => {
     }, [event])
 
 
-    const displayMedia = (media) => {
+    const displayMedia = (moment) => {
+        const { media, _id } = moment
         switch (media.mediaType) {
             case 'video':
-                return <VideoMoment url={media.mediaUrl}/>
+                return <VideoMoment url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/>
             case 'audio':
-                return <AudioMoment url={media.mediaUrl}/>
+                return <AudioMoment url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/>
             case 'image':
-                return <ImageMoment url={media.mediaUrl}/>
+                return <ImageMoment url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/>
             default:
-                return <p></p>
+                return <p>downloadMoment @ {media.mediaUrl}</p>
         }
     }
 
@@ -37,6 +52,8 @@ export const MainContent = (props) => {
 
     return (
         <div className="main-container">
+                <OptionsMenu startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} setFilterSort={setFilterSort} setSortType={setSortType} sortType={sortType} />
+
             <div className="main-title">
                 {event?.name ?? 'No event selected'}
                 <button className="delete-button" onClick={() => handleDelete()} color={'warning'}>
@@ -52,7 +69,7 @@ export const MainContent = (props) => {
 
 
             <div className="moments-list">
-                {moments.map(moment => displayMedia(moment.media))}
+                {moments.map(moment => displayMedia(moment))}
             </div>
             
         </div>
