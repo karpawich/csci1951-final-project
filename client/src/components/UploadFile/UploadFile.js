@@ -3,6 +3,7 @@ import { uploadFile } from '../../actions/firebaseStorage'
 
 import { Fab, DialogActions, DialogContent, DialogTitle, Input, Button, IconButton, Select, MenuItem } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
+import { useLocation } from 'react-router-dom'
 
 import { useGetEmail, uploadMoment, getEventsByEmail } from '../../actions'
 
@@ -22,6 +23,7 @@ export const UploadFile = (props) => {
   const {setContent } = props
 
   const getEmail = useGetEmail()
+  const location = useLocation()
 
   const fileInputRef = useRef()
   const [progress, setProgress] = useState(0)
@@ -36,8 +38,13 @@ export const UploadFile = (props) => {
     (async () => {
       const events = await getEventsByEmail(email)
       setEvents(events)
+      const matches = location.pathname.match(/event\/(.*)/)
+      if (Array.isArray(matches)) {
+        const id = matches[1]
+        setSelectedEvent(events.find((e) => e._id === id))
+      }
     })()
-  }, [email])
+  }, [email, location.pathname])
 
   const handleSubmit = async (event) => {
     const files = fileInputRef.current.files
@@ -119,9 +126,9 @@ export const UploadFile = (props) => {
 
       </DialogContent>
       <DialogActions>
-      <Button onClick={handleSubmit} autoFocus>
-            Submit
-          </Button>
+        <Button onClick={handleSubmit} autoFocus>
+          Submit
+        </Button>
         <Button autoFocus onClick={() => setContent(null)}>
           Close
         </Button>
