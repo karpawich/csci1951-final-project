@@ -29,8 +29,9 @@ export const put = async (url, body) => {
   })
 }
 
-export const del = async (url) => {
+export const del = async (url, body) => {
   return await http({
+    data: body ?? {},
     method: 'DELETE',
     url: url,
   })

@@ -46,7 +46,7 @@ export const MainContent = (props) => {
 
     const handleDelete = async () => {
         await deleteEvent(event._id)
-        setEventCreated(prev => !prev)
+        //setEventCreated(prev => !prev)
     }
     
 

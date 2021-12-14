@@ -5,7 +5,6 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, B
 export const AdaptiveDialog = (props) => {
   const { content, setDialogContent } = props
 
-
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   return (

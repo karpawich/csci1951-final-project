@@ -144,7 +144,7 @@ export const AddEventDialog = (props) => {
         <Button autoFocus onClick={() => setDialogContent(null)}>
           Close
         </Button>
-      </DialogActions >
+      </DialogActions>
     </>
   )
 }
