@@ -45,3 +45,12 @@ export const deleteEmailFromMoment = async (momentId, email) => {
         return err
     }
 }
+
+export const deleteMoment = async (momentId) => {
+    try {
+        return (await del(baseEndpoint + servicePath, { ids: [momentId] })).results
+    } catch (err) {
+        console.error(err)
+        return err
+    }
+}
