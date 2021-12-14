@@ -1,6 +1,8 @@
 const routes = require('express').Router();
 const { handleErrors } = require('../../util/api');
 const {
+  getGroup,
+  getGroupsByIds,
   createGroup,
   deleteGroup,
   changeGroupTitle,
@@ -10,6 +12,20 @@ const {
 const {
   deleteLinksByAnchors,
 } = require('../../actions/link');
+
+routes.post('/ids', handleErrors(async (req, res) => {
+  const { ids } = req.body;
+  // TODO: check if the user's email is in the moment's event's emails
+  const groups = await getGroupsByIds(ids);
+  res.status(200).json({ groups });
+}));
+
+routes.get('/:id', handleErrors(async (req, res) => {
+  const { id } = req.params;
+  // TODO: check if the user's email is in the group's event's emails
+  const group = await getGroup(id);
+  res.status(200).json({ group });
+}));
 
 routes.post('/', handleErrors(async (req, res) => {
   const { group: g } = req.body;

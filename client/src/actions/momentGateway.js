@@ -1,4 +1,4 @@
-import { post, del } from '.'
+import { post, del, get } from '.'
 //import {post} from 'axios'
 
 import { baseEndpoint } from '.'
@@ -22,15 +22,22 @@ export const getMomentsByEvent = async (eventId) => {
     return (await post(baseEndpoint + servicePath + '/search', data)).moments
 }
 
+export const getMomentById = async (id) => {
+    return (await get(baseEndpoint + servicePath + '/' + id)).moment
+}
 
-export const getMomentsBetweenDates = async (eventId, after, before) => {
-    const data = { query: { events: [eventId], dates: { after, before } } }
+export const getMomentsByIds = async (ids) => {
+    return (await post(baseEndpoint + servicePath + '/ids', { ids })).moments
+}
+
+export const getMomentsBetweenDates = async (eventId, after, before, emails) => {
+    const data = { query: { events: [eventId], dates: { after, before }, emails } }
     return (await post(baseEndpoint + servicePath + '/search', data)).moments
 }
 
 export const addEmailToMoment = async (momentId, email) => {
     try {
-        return (await post(baseEndpoint + servicePath + `/email/${momentId}`, {email})).results
+        return (await post(baseEndpoint + servicePath + `/email/${momentId}`, { email })).results
     } catch (err) {
         console.error(err)
         return err
@@ -40,6 +47,15 @@ export const addEmailToMoment = async (momentId, email) => {
 export const deleteEmailFromMoment = async (momentId, email) => {
     try {
         return (await del(baseEndpoint + servicePath + `/email/${momentId}`, { email })).results
+    } catch (err) {
+        console.error(err)
+        return err
+    }
+}
+
+export const deleteMoment = async (momentId) => {
+    try {
+        return (await del(baseEndpoint + servicePath, { ids: [momentId] })).results
     } catch (err) {
         console.error(err)
         return err

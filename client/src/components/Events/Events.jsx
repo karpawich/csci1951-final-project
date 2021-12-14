@@ -3,6 +3,7 @@ import './Events.css';
 
 import AddIcon from '@mui/icons-material/Add'
 import { Input, Button, List, ListItemText, ListItemButton, IconButton, DialogActions, DialogContent, DialogTitle } from '@mui/material'
+import { AddButton } from '..'
 import { createEvent, getEventsByEmail, useGetEmail } from '../../actions'
 import { useNavigate } from 'react-router-dom'
 
