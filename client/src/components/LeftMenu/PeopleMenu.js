@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import CancelIcon from '@mui/icons-material/Cancel'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { addEmailToEvent, deleteEmailFromEvent} from '../../actions';
+import { addEmailToEvent, deleteEmailFromEvent, emailToName} from '../../actions';
 
 export const PeopleMenu = (props) => {
 	// can make this async from db, doesn't need to be a prop
@@ -33,7 +33,7 @@ export const PeopleMenu = (props) => {
 				</IconButton>
 			}>
 								
-			<ListItemText style={{"margin":0}} primary={person}/>
+			<ListItemText style={{"margin":0}} primary={emailToName(person)}/>
 			</ListItem>
 		)
 	
@@ -48,7 +48,7 @@ export const PeopleMenu = (props) => {
 
 			( <ListItemButton key={person} disabled={emailSet.has(person)} selected={emailSet.has(person.email) }
 			onClick={() => setSelectedPeople(people => [...people, person])}>
-					<ListItemText style={{"margin":0}} primary={person.substring(0, person.indexOf('@')).replaceAll('_', ' ')} />
+					<ListItemText style={{"margin":0}} primary={emailToName(person)} />
 			</ListItemButton>))
 
 		// {/* <IconButton >
