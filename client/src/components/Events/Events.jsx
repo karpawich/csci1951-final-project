@@ -11,42 +11,42 @@ export const Events = (props) => {
 
   const getEmail = useGetEmail()
 
-    const [events, setEvents] = useState([])
-    const navigate = useNavigate()
+  const [events, setEvents] = useState([])
+  const navigate = useNavigate()
 
-    useEffect(() => {
-      (async () => {
-        const email = getEmail()
-        const events = await getEventsByEmail(email)
-        setEvents(events)
-      })()
-    }, [getEmail])
+  useEffect(() => {
+    (async () => {
+      const email = getEmail()
+      const events = await getEventsByEmail(email)
+      setEvents(events)
+    })()
+  }, [getEmail])
 
-    function navigateToEvent(event) {
-      navigate(`/event/${event._id}`, { state: event })
-    }
+  function navigateToEvent(event) {
+    navigate(`/event/${event._id}`, { state: event })
+  }
 
-    return (
-      <div className='Events'>
-        <h1>Your events</h1>
-        <div className='list-wrapper'>
-          <List style={{width: '100%', 'overflow-y': 'auto'}}>
-            {events.map(event => (
-                <ListItemButton
-                  style={{ height: '40px'}}
-                  key={event.startTimestamp}
-                  onClick={() => navigateToEvent(event)}
-                >
-                  <ListItemText style={{"margin":0}} primary={event.name} />
-                </ListItemButton>
-            ))}
-          </List>
-          <IconButton onClick={() => setDialogContent(<AddEventDialog setDialogContent={setDialogContent} />)}>
-                <AddIcon color="grey"/>
-          </IconButton>
-        </div>
+  return (
+    <div className='Events'>
+      <h1>Your events</h1>
+      <div className='list-wrapper'>
+        <List style={{width: '100%', 'overflow-y': 'auto'}}>
+          {events.map(event => (
+            <ListItemButton
+              style={{ height: '40px'}}
+              key={event.startTimestamp}
+              onClick={() => navigateToEvent(event)}
+            >
+              <ListItemText style={{"margin":0}} primary={event.name} />
+            </ListItemButton>
+          ))}
+        </List>
+        <IconButton onClick={() => setDialogContent(<AddEventDialog setDialogContent={setDialogContent} />)}>
+          <AddIcon color="grey"/>
+        </IconButton>
       </div>
-    )
+    </div>
+  )
 }
 
 export const AddEventDialog = (props) => {

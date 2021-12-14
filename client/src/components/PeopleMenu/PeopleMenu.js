@@ -4,6 +4,7 @@ import './PeopleMenu.css';
 // material components
 import {OutlinedInput, IconButton, List, ListItem, ListItemText, ListItemButton, autocompleteClasses} from '@mui/material'
 import { Fab, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Input, Button, useMediaQuery, useTheme } from '@mui/material';
+import { useNavigate } from 'react-router-dom'
 
 // icons
 import CancelIcon from '@mui/icons-material/Cancel'
@@ -11,6 +12,7 @@ import CancelIcon from '@mui/icons-material/Cancel'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoIcon from '@mui/icons-material/Info';
 import { grey, pink } from '@mui/material/colors';
 import { textAlign } from '@mui/system';
@@ -21,6 +23,7 @@ import { addEmailToEvent, deleteEmailFromEvent} from '../../actions';
 export const PeopleMenu = (props) => {
 	// can make this async from db, doesn't need to be a prop
 	const { event, selectedPeople, setSelectedPeople, setDialogContent, updatePeopleList } = props;
+	const navigate = useNavigate()
 
 	useEffect(() => {
 			setSearchedPeople(event?.emails ?? [])
@@ -68,22 +71,25 @@ export const PeopleMenu = (props) => {
 	const queryBoolean = (person, queryString) => person.includes(queryString) 
 
 	const handlePersonSearch = event => {
-			const query = event.target.value;
-			const allPeople = event?.emails ?? [];
-			query.trim() ? setSearchedPeople(allPeople.filter(person => queryBoolean(person, query)))
-					: setSearchedPeople(allPeople)
+		const query = event.target.value;
+		const allPeople = event?.emails ?? [];
+		query.trim() ? setSearchedPeople(allPeople.filter(person => queryBoolean(person, query)))
+				: setSearchedPeople(allPeople)
+	}
+
+	const handleBack = async () => {
+		navigate(`/event/`)
 	}
 
 			
 
 	return (
 		<div className="container">
-			{/* <div className="home-btn">
-					<IconButton style={{"margin": '0 auto'}}>
-	
-							<MenuBookIcon style={{"fontSize": 40}} color="green"/>
-					</IconButton>
-			</div> */}
+			<div className="home-btn">
+				<IconButton style={{"margin": '0 auto'}} onClick={() => handleBack()}>
+					<ArrowBackIcon style={{"fontSize": 40}} color="green"/>
+				</IconButton>
+			</div>
 
 			<div style={{"marginTop":20, "marginBottom":10, "marginLeft":5, "fontSize":30, "fontWeight":'bold'}}>
 				People
@@ -108,11 +114,11 @@ export const PeopleMenu = (props) => {
 				</List>
 			</div>
 
-			<IconButton onClick={() => setDialogContent(<AddUserDialog setContent={setDialogContent}/>)}>
+			<IconButton onClick={() => setDialogContent(<AddUserDialog setContent={setDialogContent} eventId={event._id} />)}>
 				<AddIcon color="grey"/>
 			</IconButton>
 
-			<IconButton onClick={() => setDialogContent(<DeleteUserDialog setContent={setDialogContent}/>)}>
+			<IconButton onClick={() => setDialogContent(<DeleteUserDialog setContent={setDialogContent} eventId={event._id}/>)}>
 				<DeleteIcon color="grey"/>
 			</IconButton>
 
@@ -122,11 +128,13 @@ export const PeopleMenu = (props) => {
 
 export const AddUserDialog = (props) => {
 	const [email, setEmail] = useState('')
+	const navigate = useNavigate()
 
 	const handleAdd = async () => {
 		await addEmailToEvent(props.eventId, email)
 		//props.setUserAdded(prev => !prev)
 		props.setContent(null)
+		navigate(`/event/${props.eventId}`)
 	}
 
 	const styles = {
@@ -145,12 +153,12 @@ export const AddUserDialog = (props) => {
 		</DialogTitle>
 		<DialogContent>
 			<div>
-					<div>
-							<Input style={styles.blank} type="email" placeholder="User email" onChange={(e) => setEmail(e.target.value)} required />
-					</div>
-					<div>
-							<Button style={styles.button} onClick={() => handleAdd()} autoFocus >Add</Button>
-					</div>
+				<div>
+					<Input style={styles.blank} type="email" placeholder="User email" onChange={(e) => setEmail(e.target.value)} required />
+				</div>
+				<div>
+					<Button style={styles.button} onClick={() => handleAdd()} autoFocus >Add</Button>
+				</div>
 			</div>
 		</DialogContent>
 		<DialogActions>
@@ -165,11 +173,13 @@ export const AddUserDialog = (props) => {
 
 export const DeleteUserDialog = (props) => {
 	const [email, setEmail] = useState('')
+	const navigate = useNavigate()
 
 	const handleDelete = async () => {
 		await deleteEmailFromEvent(props.eventId, email)
 		//props.setUserDeleted(prev => !prev)
 		props.setContent(null)
+		navigate(`/event/${props.eventId}`) // only works for the first time
 	}
 
 	const styles = {
