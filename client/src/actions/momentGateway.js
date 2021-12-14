@@ -1,4 +1,4 @@
-import { post } from '.'
+import { post, del } from '.'
 //import {post} from 'axios'
 
 import { baseEndpoint } from '.'
@@ -23,14 +23,14 @@ export const getMomentsByEvent = async (eventId) => {
 }
 
 
-export const getMomentsBetweenDates = async (eventId, after, before) => {
-    const data = { query: { events: [eventId], dates: { after, before } } }
+export const getMomentsBetweenDates = async (eventId, after, before, emails) => {
+    const data = { query: { events: [eventId], dates: { after, before }, emails } }
     return (await post(baseEndpoint + servicePath + '/search', data)).moments
 }
 
 export const addEmailToMoment = async (momentId, email) => {
     try {
-        return (await post(baseEndpoint + servicePath + `/email/${momentId}`, {email})).results
+        return (await post(baseEndpoint + servicePath + `/email/${momentId}`, { email })).results
     } catch (err) {
         console.error(err)
         return err

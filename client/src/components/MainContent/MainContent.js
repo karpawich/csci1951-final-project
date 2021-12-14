@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 export const MainContent = (props) => {
-	const { event, setEventCreated, setDialogContent, startDate, endDate, sortType, filterSort } = props
+	const { event, setEventCreated, setDialogContent, startDate, endDate, sortType, filterSort, selectedPeople } = props
 
 	const [moments, setMoments] = useState([])
 
@@ -20,17 +20,19 @@ export const MainContent = (props) => {
 	
 	useEffect(() => {
 		(async () => {
-			const filtered = await getMomentsBetweenDates(event, startDate, endDate)
-			console.log(filtered)
+            const filtered = await getMomentsBetweenDates(event, startDate, endDate, selectedPeople)
 			setMoments([...filtered.sort((m1, m2) => sortType === 'old->new' ? Date.parse(m1.timestamp) -  Date.parse(m2.timestamp) : Date.parse(m2.timestamp) -  Date.parse(m1.timestamp))])
 		})()
-	}, [filterSort])
+	}, [filterSort, selectedPeople])
+
 
 	useEffect(() => {
 		(async () => {
 			setMoments(await getMomentsByEvent(event))
 		})()
-	}, [event])
+    }, [event])
+    
+
 
 
 

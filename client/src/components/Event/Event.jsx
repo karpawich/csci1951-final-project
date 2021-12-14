@@ -53,7 +53,7 @@ export const Event = (props) => {
           />
         </div>
         <div className="main">
-          <MainContent event={event} setDialogContent={setDialogContent} filterSort={filterSort} startDate={startDate} endDate={endDate} sortType={sortType}/>
+          <MainContent event={event} setDialogContent={setDialogContent} filterSort={filterSort} startDate={startDate} endDate={endDate} sortType={sortType} selectedPeople={selectedPeople}/>
         </div>
       </div> 
     </>
