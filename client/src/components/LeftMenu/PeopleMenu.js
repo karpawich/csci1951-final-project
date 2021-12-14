@@ -10,18 +10,30 @@ import { useNavigate } from 'react-router-dom'
 import CancelIcon from '@mui/icons-material/Cancel'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { addEmailToEvent, deleteEmailFromEvent, emailToName} from '../../actions';
+import { addEmailToEvent, deleteEmailFromEvent, emailToName, getEvent} from '../../actions';
 
 export const PeopleMenu = (props) => {
 	// can make this async from db, doesn't need to be a prop
-	const { event, selectedPeople, setSelectedPeople, setDialogContent, updatePeopleList } = props;
+	const { event, selectedPeople, setSelectedPeople, setDialogContent } = props;
 
-	useEffect(() => {
-		setSearchedPeople(event?.emails ?? [])
-	}, [event, updatePeopleList])
+	const [updatePeople, setUpdatePeople] = useState(false)
 
 	// const [searchedPeople, setSearchedPeople] = useState(event.emails) // this throws an error
 	const [searchedPeople, setSearchedPeople] = useState(event?.emails ?? [])
+
+	useEffect(() => {
+		setSearchedPeople(event?.emails ?? [])
+	}, [event])
+
+	useEffect(() => {
+		(async () => {
+			const ppl = (await getEvent(event._id)).event.emails
+			console.log(ppl)
+			setSearchedPeople(ppl)
+		})()
+	}, [updatePeople])
+
+	
 
 	const removeSelectedPerson = (email) => setSelectedPeople(arr => arr.filter(person => person !== email))
 
@@ -44,7 +56,7 @@ export const PeopleMenu = (props) => {
 		// make set to be more efficient for lookups
 		const emailSet = selectedPeople.reduce((s, person) => s.add(person), new Set())
 
-		return searchedPeople.map(person =>
+		return (searchedPeople ?? []).map(person =>
 
 			( <ListItemButton key={person} disabled={emailSet.has(person)} selected={emailSet.has(person.email) }
 			onClick={() => setSelectedPeople(people => [...people, person])}>
@@ -91,11 +103,11 @@ export const PeopleMenu = (props) => {
 				</List>
 			</div>
 
-			<IconButton onClick={() => setDialogContent(<AddUserDialog setContent={setDialogContent} event={event} />)}>
+			<IconButton onClick={() => setDialogContent(<AddUserDialog setContent={setDialogContent} event={event} setUpdatePeople={setUpdatePeople}/>)}>
 				<AddIcon color="grey"/>
 			</IconButton>
 
-			<IconButton onClick={() => setDialogContent(<DeleteUserDialog setContent={setDialogContent} event={event}/>)}>
+			<IconButton onClick={() => setDialogContent(<DeleteUserDialog setContent={setDialogContent} event={event} setUpdatePeople={setUpdatePeople}/>)}>
 				<DeleteIcon color="grey"/>
 			</IconButton>
 		</>
@@ -109,7 +121,8 @@ export const AddUserDialog = (props) => {
 	const handleAdd = async () => {
 		await addEmailToEvent(props.event._id, email)
 		//props.setUserAdded(prev => !prev)
-		navigate(`/event/${props.event._id}`)
+		//navigate(`/event/${props.event._id}`, { state: props.event })
+		props.setUpdatePeople(prev => !prev)
 		props.setContent(null)
 		
 	}
@@ -154,7 +167,8 @@ export const DeleteUserDialog = (props) => {
 	const handleDelete = async () => {
 		await deleteEmailFromEvent(props.event._id, email)
 		//props.setUserDeleted(prev => !prev)
-		navigate(`/event/${props.event._id}`)// only works for the first time
+		//navigate(`/event/${props.event._id}`, { state: props.event })// only works for the first time
+		props.setUpdatePeople(prev => !prev)
 		props.setContent(null)
 	}
 
