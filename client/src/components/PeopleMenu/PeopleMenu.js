@@ -68,10 +68,10 @@ export const PeopleMenu = (props) => {
 	const queryBoolean = (person, queryString) => person.includes(queryString) 
 
 	const handlePersonSearch = event => {
-			const query = event.target.value;
-			const allPeople = event?.emails ?? [];
-			query.trim() ? setSearchedPeople(allPeople.filter(person => queryBoolean(person, query)))
-					: setSearchedPeople(allPeople)
+		const query = event.target.value;
+		const allPeople = event?.emails ?? [];
+		query.trim() ? setSearchedPeople(allPeople.filter(person => queryBoolean(person, query)))
+				: setSearchedPeople(allPeople)
 	}
 
 			
@@ -108,11 +108,11 @@ export const PeopleMenu = (props) => {
 				</List>
 			</div>
 
-			<IconButton onClick={() => setDialogContent(<AddUserDialog setContent={setDialogContent}/>)}>
+			<IconButton onClick={() => setDialogContent(<AddUserDialog setContent={setDialogContent} eventId={event._id} />)}>
 				<AddIcon color="grey"/>
 			</IconButton>
 
-			<IconButton onClick={() => setDialogContent(<DeleteUserDialog setContent={setDialogContent}/>)}>
+			<IconButton onClick={() => setDialogContent(<DeleteUserDialog setContent={setDialogContent} eventId={event._id}/>)}>
 				<DeleteIcon color="grey"/>
 			</IconButton>
 
@@ -145,12 +145,12 @@ export const AddUserDialog = (props) => {
 		</DialogTitle>
 		<DialogContent>
 			<div>
-					<div>
-							<Input style={styles.blank} type="email" placeholder="User email" onChange={(e) => setEmail(e.target.value)} required />
-					</div>
-					<div>
-							<Button style={styles.button} onClick={() => handleAdd()} autoFocus >Add</Button>
-					</div>
+				<div>
+					<Input style={styles.blank} type="email" placeholder="User email" onChange={(e) => setEmail(e.target.value)} required />
+				</div>
+				<div>
+					<Button style={styles.button} onClick={() => handleAdd()} autoFocus >Add</Button>
+				</div>
 			</div>
 		</DialogContent>
 		<DialogActions>
