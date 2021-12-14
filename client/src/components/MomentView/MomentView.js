@@ -78,6 +78,14 @@ export const MomentView = (props) => {
 
 	}
 
+	const handleDownload = () => {
+		const l = document.createElement("a");
+		const url = moment.media.mediaUrl
+		l.download = `moment${url.substring(url.indexOf('.'))}`
+		l.href = url;
+		l.setAttribute("target", "_blank")
+		l.click();
+  	};
 
 	return (
 		<>
@@ -121,6 +129,9 @@ export const MomentView = (props) => {
 			<DialogActions>
 				<Button style={{"position": 'absolute', "left": 10}} autoFocus onClick={() => handleDelete()}> 
 					Delete Moment
+				</Button>
+				<Button autoFocus onClick={handleDownload}> 
+					Download
 				</Button>
 				<Button autoFocus onClick={() => props.setContent(null)}>
 					Close
