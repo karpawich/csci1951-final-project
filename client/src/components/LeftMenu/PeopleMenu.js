@@ -21,7 +21,7 @@ export const PeopleMenu = (props) => {
 	}, [event, updatePeopleList])
 
 	// const [searchedPeople, setSearchedPeople] = useState(event.emails) // this throws an error
-	const [searchedPeople, setSearchedPeople] = useState([])
+	const [searchedPeople, setSearchedPeople] = useState(event?.emails ?? [])
 
 	const removeSelectedPerson = (email) => setSelectedPeople(arr => arr.filter(person => person !== email))
 
@@ -91,11 +91,11 @@ export const PeopleMenu = (props) => {
 				</List>
 			</div>
 
-			<IconButton onClick={() => setDialogContent(<AddUserDialog setContent={setDialogContent} eventId={event._id} />)}>
+			<IconButton onClick={() => setDialogContent(<AddUserDialog setContent={setDialogContent} event={event} />)}>
 				<AddIcon color="grey"/>
 			</IconButton>
 
-			<IconButton onClick={() => setDialogContent(<DeleteUserDialog setContent={setDialogContent} eventId={event._id}/>)}>
+			<IconButton onClick={() => setDialogContent(<DeleteUserDialog setContent={setDialogContent} event={event}/>)}>
 				<DeleteIcon color="grey"/>
 			</IconButton>
 		</>
@@ -107,9 +107,9 @@ export const AddUserDialog = (props) => {
 	const navigate = useNavigate()
 
 	const handleAdd = async () => {
-		await addEmailToEvent(props.eventId, email)
+		await addEmailToEvent(props.event._id, email)
 		//props.setUserAdded(prev => !prev)
-		navigate(`/event/${props.eventId}`)
+		navigate(`/event/${props.event._id}`)
 		props.setContent(null)
 		
 	}
@@ -152,10 +152,10 @@ export const DeleteUserDialog = (props) => {
 	const navigate = useNavigate()
 
 	const handleDelete = async () => {
-		await deleteEmailFromEvent(props.eventId, email)
+		await deleteEmailFromEvent(props.event._id, email)
 		//props.setUserDeleted(prev => !prev)
+		navigate(`/event/${props.event._id}`)// only works for the first time
 		props.setContent(null)
-		navigate(`/event/${props.eventId}`) // only works for the first time
 	}
 
 	const styles = {

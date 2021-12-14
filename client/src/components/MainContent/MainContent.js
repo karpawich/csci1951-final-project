@@ -70,6 +70,7 @@ export const MainContent = (props) => {
 		await deleteEvent(event._id)
 		navigate(`/event/`)
 		//setEventCreated(prev => !prev)
+
 	}
 	
 

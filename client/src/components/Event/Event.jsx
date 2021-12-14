@@ -16,7 +16,7 @@ export const Event = (props) => {
   const [userDeleted, setUserDeleted] = useState(false)
   const [updatePeopleList, setUpdatePeopleList] = useState(false)
 
-  const [startDate, setStartDate] = useState(new Date(event.startTimestamp))
+  const [startDate, setStartDate] = useState(new Date(event?.startTimestamp) ?? new Date(2021, 0, 1))
   const [endDate, setEndDate] = useState(new Date())
   const [sortType, setSortType] = useState('new->old')
   const [filterSort, setFilterSort] = useState(false)
@@ -26,6 +26,7 @@ export const Event = (props) => {
       (async () => {
         const { event } = await getEvent(id);
         setEvent(event);
+        setStartDate(event.startTimestamp);
       })()
     }
   }, [e, id])
