@@ -7,6 +7,10 @@ import { baseEndpoint } from '.'
 const servicePath = '/scrapbook'
 
 export const getScrapbooksByEventId = async (eventId) => {
-  return (await get(baseEndpoint + servicePath +  `/event/${eventId}`)).scrapbook
+  return (await get(baseEndpoint + servicePath +  `/event/${eventId}`)).scrapbooks
+}
+
+export const getScrapbook = async (id) => {
+  return (await get(baseEndpoint + servicePath +  `/${id}`)).scrapbook
 }
 

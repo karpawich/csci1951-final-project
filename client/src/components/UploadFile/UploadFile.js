@@ -12,7 +12,7 @@ import './UploadFile.css';
 
 export const AddButton = (props) =>
   (<div className="fab-wrapper">
-  <Fab className="fab" variant="extended" color="primary" aria-label="add" onClick={() => props.setDialogContent(<UploadFile setContent={props.setDialogContent} eventId={props.event._id}/>)}>
+  <Fab className="fab" variant="extended" color="primary" aria-label="add" onClick={() => props.setDialogContent(<UploadFile setContent={props.setDialogContent} eventId={props.event._id} setMomentsUpdate={props.setMomentsUpdate}/>)}>
         <AddIcon sx={{ mr: 1 }} />
         Add Moments
       </Fab>
@@ -21,7 +21,7 @@ export const AddButton = (props) =>
 
 
 export const UploadFile = (props) => {
-  const { setContent, eventId } = props
+  const { setContent, eventId, setMomentsUpdate } = props
 
   const getEmail = useGetEmail()
   const location = useLocation()
@@ -70,11 +70,11 @@ export const UploadFile = (props) => {
 
     // reset the form
     fileInputRef.current.value = null;
+    setMomentsUpdate(prev => !prev)
     setSelectedEvent(null)
   }
 
-  const handleClose = async () => {
-    navigate(`/event/${eventId}`)
+  const handleClose = () => {
     setContent(null)
   }
 

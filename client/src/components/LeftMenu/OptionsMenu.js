@@ -56,7 +56,7 @@ export const OptionsMenu = (props) => {
                 <TuneIcon color="grey"/>
             </ToggleButton>
             {isOpen ? (<div className="option-flex-col">
-                <DateTimePicker label="Start Date" dateValue={startDate} handleDateChange={setStartDate} />
+                <DateTimePicker label="Start Date" dateValue={startDate} handleDateChange={setStartDate}/>
                 <DateTimePicker label="End Date" dateValue={endDate} handleDateChange={setEndDate}/>
                 <SortSelection setSortType={setSortType} sortType={sortType}/>
                 <Button variant="contained" onClick={() => setFilterSort(prev => !prev)}>Apply</Button>

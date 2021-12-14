@@ -12,9 +12,8 @@ export const Event = (props) => {
 
   const [event, setEvent] = useState(e);
   const [selectedPeople, setSelectedPeople] = useState([])
-  const [userAdded, setUserAdded] = useState(false)
-  const [userDeleted, setUserDeleted] = useState(false)
-  const [updatePeopleList, setUpdatePeopleList] = useState(false)
+
+  const [momentsUpdate, setMomentsUpdate] = useState(false)
 
   const [startDate, setStartDate] = useState(new Date(event?.startTimestamp) ?? new Date(2021, 0, 1))
   const [endDate, setEndDate] = useState(new Date())
@@ -40,9 +39,6 @@ export const Event = (props) => {
             setSelectedPeople={setSelectedPeople}
             event={event}
             setDialogContent={setDialogContent}
-            userAdded={userAdded}
-            userDeleted={userDeleted}
-            updatePeopleList={updatePeopleList}
             setStartDate={setStartDate}
             setEndDate={setEndDate}
             setSortType={setSortType}
@@ -54,10 +50,10 @@ export const Event = (props) => {
           />
         </div>
         <div className="main">
-          <MainContent event={event} setDialogContent={setDialogContent} filterSort={filterSort} startDate={startDate} endDate={endDate} sortType={sortType} selectedPeople={selectedPeople}/>
+          <MainContent event={event} setDialogContent={setDialogContent} filterSort={filterSort} startDate={startDate} endDate={endDate} sortType={sortType} selectedPeople={selectedPeople} momentsUpdate={momentsUpdate}/>
         </div>
       </div> 
-      <AddButton setDialogContent={setDialogContent} event={event}/>
+      <AddButton setDialogContent={setDialogContent} event={event} setMomentsUpdate={setMomentsUpdate}/>
     </>
   ))
 }

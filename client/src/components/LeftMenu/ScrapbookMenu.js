@@ -3,9 +3,11 @@ import './PeopleMenu.css';
 
 // material components
 import { useNavigate } from 'react-router-dom'
+import { getScrapbooksByEventId } from '../../actions';
 
 // icons
 import CancelIcon from '@mui/icons-material/Cancel'
+import {List, ListItemButton, ListItemText} from '@mui/material'
 
 
 export const ScrapbookMenu = (props) => {

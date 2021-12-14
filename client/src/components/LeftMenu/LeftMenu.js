@@ -57,7 +57,7 @@ export const LeftMenu = (props) => {
                     {scrapbookOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                 </IconButton>
             </div>
-            {scrapbookOpen ? <ScrapbookMenu /> : <></>}
+            {scrapbookOpen ? <ScrapbookMenu event={event}/> : <></>}
 
 		</div>
 	);

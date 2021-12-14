@@ -33,6 +33,9 @@ html, body {
 
   background-color: #FFFAFA;
 
+  position: fixed;
+  height: 100vh;
+
 }
 .main {
   grid-area: main;
