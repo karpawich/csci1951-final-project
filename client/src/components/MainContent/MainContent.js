@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import './MainContent.css';
 
-import { VideoMoment, AudioMoment, ImageMoment, OptionsMenu } from '..';
+import {IconButton} from '@mui/material'
+import { VideoMoment, AudioMoment, ImageMoment, OptionsMenu, MomentView } from '..';
 import { deleteEvent, getMomentsByEvent, getMomentsBetweenDates } from '../../actions';
 import { useNavigate } from 'react-router-dom'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 export const MainContent = (props) => {
 	const { event, setEventCreated, setDialogContent, startDate, endDate, sortType, filterSort } = props
@@ -12,6 +14,9 @@ export const MainContent = (props) => {
 
     const navigate = useNavigate()
 
+	const styles = {
+		'momentButton': {"marginTop": 0, "padding": 3, "borderRadius": 10, "backgroundColor": '#FFE4E1', "position": "absolute", "right": 80},
+	}
 	
 	useEffect(() => {
 		(async () => {
@@ -28,18 +33,37 @@ export const MainContent = (props) => {
 	}, [event])
 
 
+
+	const wrapMoment = (moment) => {
+		return (
+			<>
+				{displayMedia(moment)}
+				<div>
+					{/* <IconButton style={styles.momentButton}> */}
+					<IconButton style={styles.momentButton} onClick={() => setDialogContent(<MomentView setContent={setDialogContent} moment={moment}/>)}>
+						<MoreHorizIcon color="grey"/>
+					</IconButton>
+				</div>
+			</>
+		)
+	}
+
+
 	const displayMedia = (moment) => {
 		const { media, _id } = moment
 		switch (media.mediaType) {
 			case 'video':
-				return <VideoMoment url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/>
+				return <VideoMoment style={{"marginBottom": 30 }} url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/> 
 			case 'audio':
-				return <AudioMoment url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/>
+				return <AudioMoment style={{"marginBottom": 30 }} url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/>
 			case 'image':
-				return <ImageMoment url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/>
+				return <ImageMoment style={{"padding": 0 }} url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/>
 			default:
 				return <p>downloadMoment @ {media.mediaUrl}</p>
 		}
+		
+
+
 	}
 
 	const handleDelete = async () => {
@@ -56,8 +80,8 @@ export const MainContent = (props) => {
 				{event?.name ?? 'No event selected'}
 				<button className="delete-button" onClick={() => handleDelete()} color={'warning'}>
 				{/* <DeleteForeverIcon color="grey"/> */}
-						Delete Event
-				</button>	
+					Delete Event
+				</button>
 			</div>
 
 			<div className="main-subtitle" hidden={event?.location}>
@@ -65,9 +89,9 @@ export const MainContent = (props) => {
 			</div>
 
 			<div className="moments-list">
-				{moments.map(moment => displayMedia(moment))}
+				{moments.map(moment => wrapMoment(moment))}
 			</div>
-				
+
 		</div>
 	);
 }

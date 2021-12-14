@@ -146,7 +146,6 @@ export const AddUserDialog = (props) => {
   )
 }
 
-
 export const DeleteUserDialog = (props) => {
 	const [email, setEmail] = useState('')
 	const navigate = useNavigate()
