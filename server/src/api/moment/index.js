@@ -3,6 +3,8 @@ const { handleErrors } = require('../../util/api');
 const {
   createMoment,
   deleteMoments,
+  addEmailToMomentById,
+  removeEmailFromMomentById,
   addEmailToMomentsByEventId,
   removeEmailFromMomentsByEventId,
   getMoment,
@@ -31,7 +33,7 @@ routes.post('/', handleErrors(async (req, res) => {
   res.status(201).json({ moment });
 }));
 
-routes.post('/email/:id', handleErrors(async (req, res) => {
+routes.post('/email/event/:id', handleErrors(async (req, res) => {
   const { id } = req.params;
   const { email } = req.body;
   // TODO: check if the user's email is in the moment's event's emails
@@ -39,7 +41,7 @@ routes.post('/email/:id', handleErrors(async (req, res) => {
   res.status(200).json({ results });
 }));
 
-routes.delete('/email/:id', handleErrors(async (req, res) => {
+routes.delete('/email/event/:id', handleErrors(async (req, res) => {
   const { id } = req.params;
   const { email } = req.body;
   // TODO: check if the user's email is in the moment's event's emails
@@ -47,8 +49,24 @@ routes.delete('/email/:id', handleErrors(async (req, res) => {
   res.status(200).json({ results });
 }));
 
+routes.post('/email/:id', handleErrors(async (req, res) => {
+  const { id } = req.params;
+  const { email } = req.body;
+  // TODO: check if the user's email is in the moment's event's emails
+  const results = await addEmailToMomentById(id, email);
+  res.status(200).json({ results });
+}));
+
+routes.delete('/email/:id', handleErrors(async (req, res) => {
+  const { id } = req.params;
+  const { email } = req.body;
+  // TODO: check if the user's email is in the moment's event's emails
+  const results = await removeEmailFromMomentById(id, email);
+  res.status(200).json({ results });
+}));
+
 routes.delete('/:id', handleErrors(async (req, res) => {
-  const { ids } = req.params;
+  const { ids } = req.body;
   // TODO: check if the user's email is in the moment's event's emails
   const results = await deleteMoments(ids);
   await deleteLinksByAnchors(ids.map((id) => ({
