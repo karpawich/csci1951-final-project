@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Moment = require('./moment');
 
 const { ObjectId } = mongoose.SchemaTypes;
 
@@ -12,6 +13,7 @@ const groupSchema = new mongoose.Schema({
   },
   momentIds: [{
     type: ObjectId,
+    ref: Moment,
   }],
   eventId: {
     type: ObjectId,

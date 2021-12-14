@@ -1,3 +1,4 @@
+const { Types: { ObjectId } } = require('mongoose');
 const Moment = require('../models/moment');
 
 async function createMoment(options) {
@@ -36,6 +37,12 @@ async function removeEmailFromMomentsByEventId(eventId, email) {
 async function getMoment(id) {
   const moment = await Moment.findById(id);
   return moment;
+}
+
+async function getMomentsByIds(ids) {
+  const momentIds = ids.map((id) => ObjectId(id));
+  const moments = await Moment.find({ _id: { $in: momentIds } });
+  return moments;
 }
 
 async function searchMoments(options) {
@@ -84,5 +91,6 @@ module.exports = {
   addEmailToMomentsByEventId,
   removeEmailFromMomentsByEventId,
   getMoment,
+  getMomentsByIds,
   searchMoments,
 };

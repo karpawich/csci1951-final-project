@@ -6,11 +6,19 @@ const {
   addEmailToMomentsByEventId,
   removeEmailFromMomentsByEventId,
   getMoment,
+  getMomentsByIds,
   searchMoments,
 } = require('../../actions/moment');
 const {
   deleteLinksByAnchors,
 } = require('../../actions/link');
+
+routes.post('/ids', handleErrors(async (req, res) => {
+  const { ids } = req.body;
+  // TODO: check if the user's email is in the moment's event's emails
+  const moments = await getMomentsByIds(ids);
+  res.status(200).json({ moments });
+}));
 
 routes.post('/', handleErrors(async (req, res) => {
   const { moment: m } = req.body;

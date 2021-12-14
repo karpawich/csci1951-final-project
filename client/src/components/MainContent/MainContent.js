@@ -52,22 +52,6 @@ export const MainContent = (props) => {
 				<div className="moments-list">
 						{moments.map(moment => displayMedia(moment.media))}
 				</div>
-
-			{/* <div>
-				<IconButton>
-					<SupervisedUserCircleIcon color="grey" />
-				</IconButton>
-			</div> */}
-			
-			<div className="main-subtitle" hidden={event?.location}>
-					{event?.location ?? ''}
-			</div>
-
-
-			<div className="moments-list">
-					{moments.map(moment => displayMedia(moment.media))}
-			</div>
-				
 		</div>
 	);
 }

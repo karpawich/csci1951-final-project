@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import { useParams, useLocation } from 'react-router-dom'
-import {MainContent, PeopleMenu } from '..'
+import {MainContent, PeopleMenu, AddButton } from '..'
 import { getEvent } from '../../actions'
 import './Event.css';
 
@@ -43,6 +43,7 @@ export const Event = (props) => {
           <MainContent event={event}/>
         </div>
       </div> 
+      <AddButton setDialogContent={setDialogContent}/>
     </>
   ))
 }

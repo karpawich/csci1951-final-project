@@ -1,4 +1,4 @@
-import { post } from '.'
+import { post, get } from '.'
 //import {post} from 'axios'
 
 import { baseEndpoint } from '.'
@@ -21,4 +21,12 @@ export const uploadMoment = async (mediaUrl, mediaType, emails, timestamp, event
 export const getMomentsByEvent = async (eventId) => {
     const data = { query: { events: [eventId] } }
     return (await post(baseEndpoint + servicePath + '/search', data)).moments
+}
+
+export const getMomentById = async (id) => {
+    return (await get(baseEndpoint + servicePath + '/' + id)).moment
+}
+
+export const getMomentsByIds = async (ids) => {
+    return (await post(baseEndpoint + servicePath + '/ids', { ids })).moments
 }

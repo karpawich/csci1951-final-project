@@ -1,3 +1,4 @@
+const { Types: { ObjectId } } = require('mongoose');
 const Group = require('../models/group');
 
 async function createGroup(options) {
@@ -12,6 +13,18 @@ async function createGroup(options) {
   });
   await group.save();
   return group;
+}
+
+async function getGroup(id) {
+  // TODO momentIds should be renamed to moments
+  // when the array gets populated
+  const group = await Group.findById(id).populate('momentIds');
+  return group;
+}
+async function getGroupsByIds(ids) {
+  const groupIds = ids.map((id) => ObjectId(id));
+  const groups = await Group.find({ _id: { $in: groupIds } });
+  return groups;
 }
 
 async function deleteGroup(id) {
@@ -35,6 +48,8 @@ async function removeMomentIdFromGroup(id, momentId) {
 }
 
 module.exports = {
+  getGroup,
+  getGroupsByIds,
   createGroup,
   deleteGroup,
   changeGroupTitle,
