@@ -57,7 +57,7 @@ export const OptionsMenu = (props) => {
 	// 	'trial': {"margin": '0 auto'},
 	// 	'blank1': {"width": 200, "marginTop": 20},
 	// 	'blank': {"margin": '10px'}
-	}
+	// }
     
     return (
         <>

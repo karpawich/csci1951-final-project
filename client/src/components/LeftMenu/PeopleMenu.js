@@ -19,22 +19,18 @@ export const PeopleMenu = (props) => {
 	const [updatePeople, setUpdatePeople] = useState(false)
 
 	// const [searchedPeople, setSearchedPeople] = useState(event.emails) // this throws an error
-	const [searchedPeople, setSearchedPeople] = useState(event?.emails ?? [])
+	const [searchedPeople, setSearchedPeople] = useState([])
+	const [allPeople, setAllPeople] = useState([])
 
 	useEffect(() => {
-		setSearchedPeople(event?.emails ?? [])
+		setSearchedPeople([...event?.emails] ?? [])
 	}, [event])
 
 	useEffect(() => {
-		(async () => {
-			const ppl = (await getEvent(event._id)).event.emails
-			console.log(ppl)
-			setSearchedPeople(ppl)
-		})()
-	}, [updatePeople])
+		(async () => setAllPeople([...(await getEvent(event._id)).event.emails]))()
+	}, [event, updatePeople])
 
 	
-
 	const removeSelectedPerson = (email) => setSelectedPeople(arr => arr.filter(person => person !== email))
 
 	const selectedPeopleMap = () =>
@@ -73,9 +69,8 @@ export const PeopleMenu = (props) => {
 	// const queryBoolean = (person, queryString) => person.includes(queryString)
 	const queryBoolean = (person, queryString) => person.includes(queryString) 
 
-	const handlePersonSearch = event => {
-		const query = event.target.value;
-		const allPeople = event?.emails ?? [];
+	const handlePersonSearch = e => {
+		const query = e.target.value;
 		query.trim() ? setSearchedPeople(allPeople.filter(person => queryBoolean(person, query)))
 				: setSearchedPeople(allPeople)
 	}

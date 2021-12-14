@@ -8,7 +8,7 @@ import { AbsoluteCenter } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 export const MomentView = (props) => {
-	const { event, moment, setContent } = props
+	const { event, moment, setContent, setRefreshDelete } = props
 
 	const [emails, setEmails] = useState(moment.emails)
 	const [email, setEmail] = useState('')
@@ -33,6 +33,7 @@ export const MomentView = (props) => {
 			return
 		}
 		setEmails(prev => [...prev, email])
+		setRefreshDelete(prev => !prev)
 	}
 
 	const handleDeletePeople = async (email) => {
@@ -42,6 +43,7 @@ export const MomentView = (props) => {
 			return
 		}
 		setEmails(prev => prev.filter(e => e !== email))
+		setRefreshDelete(prev => !prev)
 	}
 
 	const handleDelete = async () => {
@@ -50,7 +52,7 @@ export const MomentView = (props) => {
 		} catch (err) {
 			return
 		}
-		navigate(`/event/${event._id}`)
+		setRefreshDelete(prev => !prev)
 		setContent(null)
 	}
 
