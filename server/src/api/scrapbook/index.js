@@ -7,6 +7,7 @@ const {
   changeScrapbookStart,
   getScrapbook,
   getScrapbooksByAuthor,
+  getScrapbooksByEventId,
 } = require('../../actions/scrapbook');
 const {
   deleteLinksByScrapbookId,
@@ -43,6 +44,13 @@ routes.post('/author', handleErrors(async (req, res) => {
   const { author } = req.body;
   // TODO: check if the user is either the scrapbook author or in the scrapbook's event
   const scrapbooks = await getScrapbooksByAuthor(author);
+  res.status(200).json({ scrapbooks });
+}));
+
+routes.get('/event/:id', handleErrors(async (req, res) => {
+  const { id } = req.params;
+  // TODO: check if the user is either the scrapbook author or in the scrapbook's event
+  const scrapbooks = await getScrapbooksByEventId(id);
   res.status(200).json({ scrapbooks });
 }));
 

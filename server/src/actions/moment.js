@@ -24,6 +24,16 @@ async function deleteMoments(ids) {
   return results;
 }
 
+async function addEmailToMomentById(id, email) {
+  const results = await Moment.findByIdAndUpdate(id, { $addToSet: { emails: email } });
+  return results;
+}
+
+async function removeEmailFromMomentById(id, email) {
+  const results = await Moment.findByIdAndUpdate(id, { $pull: { emails: email } });
+  return results;
+}
+
 async function addEmailToMomentsByEventId(eventId, email) {
   const results = await Moment.updateMany({ eventId }, { $addToSet: { emails: email } });
   return results;
@@ -88,6 +98,8 @@ async function searchMoments(options) {
 module.exports = {
   createMoment,
   deleteMoments,
+  addEmailToMomentById,
+  removeEmailFromMomentById,
   addEmailToMomentsByEventId,
   removeEmailFromMomentsByEventId,
   getMoment,

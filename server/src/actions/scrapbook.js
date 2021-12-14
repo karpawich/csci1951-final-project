@@ -1,3 +1,4 @@
+const { Types: { ObjectId } } = require('mongoose');
 const Scrapbook = require('../models/scrapbook');
 
 async function createScrapbook(options) {
@@ -43,6 +44,11 @@ async function getScrapbooksByAuthor(author) {
   return scrapbooks;
 }
 
+async function getScrapbooksByEventId(eventId) {
+  const scrapbooks = await Scrapbook.find({ eventId: ObjectId(eventId) });
+  return scrapbooks;
+}
+
 module.exports = {
   createScrapbook,
   deleteScrapbook,
@@ -50,4 +56,5 @@ module.exports = {
   changeScrapbookStart,
   getScrapbook,
   getScrapbooksByAuthor,
+  getScrapbooksByEventId,
 };
