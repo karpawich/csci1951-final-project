@@ -12,6 +12,7 @@ import CancelIcon from '@mui/icons-material/Cancel'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoIcon from '@mui/icons-material/Info';
 import { grey, pink } from '@mui/material/colors';
 import { textAlign } from '@mui/system';
@@ -22,6 +23,7 @@ import { addEmailToEvent, deleteEmailFromEvent} from '../../actions';
 export const PeopleMenu = (props) => {
 	// can make this async from db, doesn't need to be a prop
 	const { event, selectedPeople, setSelectedPeople, setDialogContent, updatePeopleList } = props;
+	const navigate = useNavigate()
 
 	useEffect(() => {
 			setSearchedPeople(event?.emails ?? [])
@@ -75,16 +77,19 @@ export const PeopleMenu = (props) => {
 				: setSearchedPeople(allPeople)
 	}
 
+	const handleBack = async () => {
+		navigate(`/event/`)
+	}
+
 			
 
 	return (
 		<div className="container">
-			{/* <div className="home-btn">
-					<IconButton style={{"margin": '0 auto'}}>
-	
-							<MenuBookIcon style={{"fontSize": 40}} color="green"/>
-					</IconButton>
-			</div> */}
+			<div className="home-btn">
+				<IconButton style={{"margin": '0 auto'}} onClick={() => handleBack()}>
+					<ArrowBackIcon style={{"fontSize": 40}} color="green"/>
+				</IconButton>
+			</div>
 
 			<div style={{"marginTop":20, "marginBottom":10, "marginLeft":5, "fontSize":30, "fontWeight":'bold'}}>
 				People
