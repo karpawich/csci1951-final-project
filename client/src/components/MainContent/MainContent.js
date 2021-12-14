@@ -6,15 +6,11 @@ import { deleteEvent, getMomentsByEvent, getMomentsBetweenDates } from '../../ac
 import { useNavigate } from 'react-router-dom'
 
 export const MainContent = (props) => {
-	const { event, setEventCreated, setDialogContent } = props
+	const { event, setEventCreated, setDialogContent, startDate, endDate, sortType, filterSort } = props
 
 	const [moments, setMoments] = useState([])
 
-	const [startDate, setStartDate] = useState(new Date(event.startTimestamp))
-	const [endDate, setEndDate] = useState(new Date())
-	const [sortType, setSortType] = useState('new->old')
-	const [filterSort, setFilterSort] = useState(false)
-	const navigate = useNavigate()
+    const navigate = useNavigate()
 
 	
 	useEffect(() => {
@@ -55,7 +51,6 @@ export const MainContent = (props) => {
 
 	return (
 		<div className="main-container">
-			<OptionsMenu startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} setFilterSort={setFilterSort} setSortType={setSortType} sortType={sortType} />
 
 			<div className="main-title">
 				{event?.name ?? 'No event selected'}

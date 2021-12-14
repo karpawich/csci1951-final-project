@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import './OptionMenu.css';
 
-import { IconButton, Stack, FormControl, Select, InputLabel, MenuItem, Button, TextField } from '@mui/material'
+import { IconButton, Stack, FormControl, Select, InputLabel, MenuItem, Button, TextField, ToggleButton } from '@mui/material'
 import TuneIcon from '@mui/icons-material/Tune';
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
@@ -50,20 +51,17 @@ export const OptionsMenu = (props) => {
     const [isOpen, setIsOpen] = useState(false)
     
     return (
-        !isOpen ? (
-            <IconButton onClick={() => setIsOpen(true)}>
+        <>
+            <ToggleButton selected={isOpen} onChange={() => setIsOpen(prev=>!prev)}>
                 <TuneIcon color="grey"/>
-            </IconButton>)
-            : (
-            <Stack spacing={2} direction="row">
-                <IconButton onClick={() => setIsOpen(false)}>
-                    <TuneIcon color="red"/>
-                </IconButton> 
+            </ToggleButton>
+            {isOpen ? (<div className="option-flex-col">
                 <DateTimePicker label="Start Date" dateValue={startDate} handleDateChange={setStartDate} />
                 <DateTimePicker label="End Date" dateValue={endDate} handleDateChange={setEndDate}/>
-                    <SortSelection setSortType={setSortType} sortType={sortType}/>
+                <SortSelection setSortType={setSortType} sortType={sortType}/>
                 <Button variant="contained" onClick={() => setFilterSort(prev => !prev)}>Apply</Button>
-            </Stack>
-            )   
+            </div>
+            ) : <></>}
+        </>      
     )
 }

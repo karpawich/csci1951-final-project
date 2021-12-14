@@ -16,6 +16,11 @@ export const Event = (props) => {
   const [userDeleted, setUserDeleted] = useState(false)
   const [updatePeopleList, setUpdatePeopleList] = useState(false)
 
+  const [startDate, setStartDate] = useState(new Date(event.startTimestamp))
+  const [endDate, setEndDate] = useState(new Date())
+  const [sortType, setSortType] = useState('new->old')
+  const [filterSort, setFilterSort] = useState(false)
+
   useEffect(() => {
     if (!e) {
       (async () => {
@@ -37,10 +42,18 @@ export const Event = (props) => {
             userAdded={userAdded}
             userDeleted={userDeleted}
             updatePeopleList={updatePeopleList}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            setSortType={setSortType}
+            setFilterSort={setFilterSort}
+            startDate={startDate}
+            endDate={endDate}
+            sortType={sortType}
+            filterSort={filterSort}
           />
         </div>
         <div className="main">
-          <MainContent event={event} setDialogContent={setDialogContent}/>
+          <MainContent event={event} setDialogContent={setDialogContent} filterSort={filterSort} startDate={startDate} endDate={endDate} sortType={sortType}/>
         </div>
       </div> 
     </>
