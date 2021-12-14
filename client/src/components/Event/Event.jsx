@@ -15,7 +15,7 @@ export const Event = (props) => {
 
   const [momentsUpdate, setMomentsUpdate] = useState(false)
 
-  const [startDate, setStartDate] = useState(new Date(event?.startTimestamp) ?? new Date(2021, 0, 1))
+  const [startDate, setStartDate] = useState(new Date(event?.startTimestamp))
   const [endDate, setEndDate] = useState(new Date())
   const [sortType, setSortType] = useState('new->old')
   const [filterSort, setFilterSort] = useState(false)
@@ -25,7 +25,7 @@ export const Event = (props) => {
       (async () => {
         const { event } = await getEvent(id);
         setEvent(event);
-        setStartDate(event.startTimestamp);
+
       })()
     }
   }, [e, id])
