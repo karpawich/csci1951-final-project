@@ -53,17 +53,15 @@ export const MainContent = (props) => {
 		const { media, _id } = moment
 		switch (media.mediaType) {
 			case 'video':
-				return <VideoMoment style={{"marginBottom": 30 }} url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/> 
+				return <VideoMoment url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/> 
 			case 'audio':
-				return <AudioMoment style={{"marginBottom": 30 }} url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/>
+				return <AudioMoment url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/>
 			case 'image':
-				return <ImageMoment style={{"padding": 0 }} url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/>
+				return <ImageMoment url={media.mediaUrl} momentId={_id} setDialogContent={setDialogContent}/>
 			default:
 				return <p>downloadMoment @ {media.mediaUrl}</p>
 		}
 		
-
-
 	}
 
 	const handleDelete = async () => {

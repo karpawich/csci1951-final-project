@@ -108,21 +108,21 @@ export const UploadFile = (props) => {
           </Select>
         </div>
 
-        <div style={styles.subtitle}>
+        {/* <div style={styles.subtitle}>
           Add People
-        </div>
+        </div> */}
 
         {/* <div>
           <Input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} required />
         </div> */}
-        <div>
+        {/* <div>
           <Input type="text" placeholder="Email" onChange={(e) => setName(e.target.value)} required />
         </div>
         <div>
           <IconButton>
             <AddIcon style={styles.trial} color="grey"/>
           </IconButton>
-        </div>
+        </div> */}
 
       </DialogContent>
       <DialogActions>

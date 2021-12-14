@@ -7,4 +7,4 @@ export * from './firebaseStorage'
 export * from './httpHelpers'
 export * from './momentGateway'
 
-export const emailToName = (email) => email.substring(0, person.indexOf('@')).replaceAll('_', ' ')
+export const emailToName = (email) => email.substring(0, email.indexOf('@')).replaceAll('_', ' ')
