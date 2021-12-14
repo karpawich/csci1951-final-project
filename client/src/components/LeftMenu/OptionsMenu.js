@@ -45,10 +45,19 @@ export const DateTimePicker = (props) => {
 }
 
 export const OptionsMenu = (props) => {
-    const {startDate, setStartDate, endDate, setEndDate, setFilterSort, setSortType, sortType } = props
+	const {startDate, setStartDate, endDate, setEndDate, setFilterSort, setSortType, sortType } = props
 
 
-    const [isOpen, setIsOpen] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
+
+	// const styles = {
+	// 	'button': {"marginTop": 10, "marginLeft": 130, "backgroundColor": '#FFFAF0'},
+	// 	'subtitle': {"marginTop": 20},
+	// 	'icon': {"marginLeft": 60},
+	// 	'trial': {"margin": '0 auto'},
+	// 	'blank1': {"width": 200, "marginTop": 20},
+	// 	'blank': {"margin": '10px'}
+	}
     
     return (
         <>
