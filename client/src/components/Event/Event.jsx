@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import { useParams, useLocation } from 'react-router-dom'
-import {MainContent, LeftMenu } from '..'
+import {MainContent, LeftMenu, AddButton } from '..'
 import { getEvent } from '../../actions'
 import './Event.css';
 
@@ -56,6 +56,7 @@ export const Event = (props) => {
           <MainContent event={event} setDialogContent={setDialogContent} filterSort={filterSort} startDate={startDate} endDate={endDate} sortType={sortType} selectedPeople={selectedPeople}/>
         </div>
       </div> 
+      <AddButton setDialogContent={setDialogContent}/>
     </>
   ))
 }

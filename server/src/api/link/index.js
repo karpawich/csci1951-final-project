@@ -1,10 +1,23 @@
 const routes = require('express').Router();
 const { handleErrors } = require('../../util/api');
 const {
+  getLinksByAnchor,
   doesLinkExist,
   createLink,
   deleteLink,
 } = require('../../actions/link');
+
+routes.post('/anchor', handleErrors(async (req, res) => {
+  const { anchor: a } = req.body;
+  if (typeof a !== 'object') {
+    res.status(400).json({ error: 'Invalid request' });
+    return;
+  }
+  const links = await getLinksByAnchor(a);
+  // TODO: check if the user is either the link's scrapbook author
+  // or in the link's scrapbook's event
+  res.status(200).json({ links });
+}));
 
 routes.post('/', handleErrors(async (req, res) => {
   const { link: l } = req.body;
