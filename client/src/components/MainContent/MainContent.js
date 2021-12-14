@@ -20,6 +20,7 @@ export const MainContent = (props) => {
 		'momentButton': {"marginTop": 0, "padding": 3, "borderRadius": 10, "backgroundColor": '#FFE4E1', "position": "absolute", "right": 80},
 	}
 
+
 	useEffect(() => {
 		(async () => {
 			const filtered = await getMomentsBetweenDates(event, startDate, new Date(), selectedPeople)
@@ -41,9 +42,15 @@ export const MainContent = (props) => {
 		(async () => {
 			setMoments(await getMomentsByEvent(event))
 		})()
-    }, [event])
-    
+	}, [event])
+	
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setRefreshDelete(prev => !prev)
+		}, 5000);
 
+		return () => clearInterval(interval); // thanks @Luca D'Amico
+	}, [])
 
 
 

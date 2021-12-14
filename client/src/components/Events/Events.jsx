@@ -15,13 +15,24 @@ export const Events = (props) => {
   const [events, setEvents] = useState([])
   const navigate = useNavigate()
 
-  useEffect(() => {
-    (async () => {
+  const fetchEvents = async () => {
       const email = getEmail()
       const events = await getEventsByEmail(email)
       setEvents(events)
-    })()
+  }
+
+  useEffect(() => {
+    (async () => await fetchEvents())()
   }, [getEmail])
+
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      (async () => await fetchEvents())()
+		}, 5000);
+
+		return () => clearInterval(interval); // thanks @Luca D'Amico
+	}, [])
 
   function navigateToEvent(event) {
     navigate(`/event/${event._id}`, { state: event })

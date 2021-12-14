@@ -25,7 +25,6 @@ export const Event = (props) => {
       (async () => {
         const { event } = await getEvent(id);
         setEvent(event);
-
       })()
     }
   }, [e, id])

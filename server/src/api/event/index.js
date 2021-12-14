@@ -53,7 +53,7 @@ routes.post('/email/:id', handleErrors(async (req, res) => {
   const { email } = req.body;
   // TODO: make sure that the user's email is in the event
   const event = await addEmailToEvent(id, email);
-  await addEmailToMomentsByEventId(id, email);
+  //await addEmailToMomentsByEventId(id, email);
   res.status(200).json({ event });
 }));
 
@@ -62,7 +62,7 @@ routes.delete('/email/:id', handleErrors(async (req, res) => {
   const { email } = req.body;
   // TODO: make sure that the user's email is in the event
   const event = await removeEmailFromEvent(id, email);
-  await removeEmailFromMomentsByEventId(id, email);
+  //await removeEmailFromMomentsByEventId(id, email);
   res.status(200).json({ event });
 }));
 
