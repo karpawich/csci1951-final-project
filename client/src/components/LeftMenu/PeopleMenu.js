@@ -23,8 +23,8 @@ export const PeopleMenu = (props) => {
 	const [allPeople, setAllPeople] = useState([])
 
 	useEffect(() => {
-		setSearchedPeople([...event?.emails] ?? [])
-	}, [event])
+		setSearchedPeople([...allPeople] ?? [])
+	}, [allPeople])
 
 	useEffect(() => {
 		(async () => setAllPeople([...(await getEvent(event._id)).event.emails]))()
