@@ -22,8 +22,8 @@ export const LeftMenu = (props) => {
 		navigate(`/event/`)
     }
 
-    const [peopleOpen, setPeopleOpen] = useState(false)
-    const [scrapbookOpen, setScrapbookOpen] = useState(false)
+    const [peopleOpen, setPeopleOpen] = useState(true)
+    const [scrapbookOpen, setScrapbookOpen] = useState(true)
 
 
 	return (
