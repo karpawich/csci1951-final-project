@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
 
-import { addEmailToMoment, deleteEmailFromMoment, emailToName } from '../../actions'
+import { addEmailToMoment, deleteEmailFromMoment, emailToName, deleteMoment } from '../../actions'
 import { VideoMoment, AudioMoment, ImageMoment } from '..'
 import { Fab, Dialog, DialogActions, DialogContent, DialogContentText, ListItem, IconButton, List, ListItemText, DialogTitle, Input, Button, useMediaQuery, useTheme } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AbsoluteCenter } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 export const MomentView = (props) => {
-	const { moment, setContent } = props
+	const { event, moment, setContent } = props
 
 	const [emails, setEmails] = useState(moment.emails)
 	const [email, setEmail] = useState('')
 	const [listPeople, setListPeople] = useState([])
+	const navigate = useNavigate()
 
 	const styles = {
 		'button': {"marginTop": 10, "marginLeft": 130, "backgroundColor": '#FFFAF0'},
@@ -25,7 +27,7 @@ export const MomentView = (props) => {
 
 	const handleAdd = async () => {
 		try {
-			console.log(await addEmailToMoment(moment._id, email))
+			// console.log(await addEmailToMoment(moment._id, email))
 			setEmail('')
 		} catch (err) {
 			return
@@ -33,7 +35,7 @@ export const MomentView = (props) => {
 		setEmails(prev => [...prev, email])
 	}
 
-	const handleDelete = async (email) => {
+	const handleDeletePeople = async (email) => {
 		try {
 			await deleteEmailFromMoment(moment._id, email)
 		} catch (err) {
@@ -41,6 +43,17 @@ export const MomentView = (props) => {
 		}
 		setEmails(prev => prev.filter(e => e !== email))
 	}
+
+	const handleDelete = async () => {
+		try {
+			await deleteMoment(moment._id)
+		} catch (err) {
+			return
+		}
+		navigate(`/event/${event._id}`)
+		setContent(null)
+	}
+
 
 
 	const listPeopleMap = () => {
@@ -90,7 +103,7 @@ export const MomentView = (props) => {
 					<List style={{"marginTop":20}} subheader="Tagged People">
 						{emails.map(e => (	
 							<ListItem key={e} secondaryAction={
-							<IconButton edge="end" aria-label="delete" onClick={() => handleDelete(e)}>
+							<IconButton edge="end" aria-label="delete" onClick={() => handleDeletePeople(e)}>
 								<DeleteIcon />
 							</IconButton>}>
 								
@@ -104,7 +117,7 @@ export const MomentView = (props) => {
 				</div>
 			</DialogContent>
 			<DialogActions>
-				<Button style={{"position": 'absolute', "left": 10}} autoFocus onClick={() => props.setContent(null)}> 
+				<Button style={{"position": 'absolute', "left": 10}} autoFocus onClick={() => handleDelete()}> 
 					Delete Moment
 				</Button>
 				<Button autoFocus onClick={() => props.setContent(null)}>

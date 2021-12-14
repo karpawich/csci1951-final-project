@@ -109,8 +109,9 @@ export const AddUserDialog = (props) => {
 	const handleAdd = async () => {
 		await addEmailToEvent(props.eventId, email)
 		//props.setUserAdded(prev => !prev)
-		props.setContent(null)
 		navigate(`/event/${props.eventId}`)
+		props.setContent(null)
+		
 	}
 
 	const styles = {

@@ -65,7 +65,7 @@ routes.delete('/email/:id', handleErrors(async (req, res) => {
   res.status(200).json({ results });
 }));
 
-routes.delete('/:id', handleErrors(async (req, res) => {
+routes.delete('/', handleErrors(async (req, res) => {
   const { ids } = req.body;
   // TODO: check if the user's email is in the moment's event's emails
   const results = await deleteMoments(ids);

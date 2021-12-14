@@ -56,7 +56,7 @@ export const Event = (props) => {
           <MainContent event={event} setDialogContent={setDialogContent} filterSort={filterSort} startDate={startDate} endDate={endDate} sortType={sortType} selectedPeople={selectedPeople}/>
         </div>
       </div> 
-      <AddButton setDialogContent={setDialogContent}/>
+      <AddButton setDialogContent={setDialogContent} event={event}/>
     </>
   ))
 }

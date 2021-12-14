@@ -42,7 +42,7 @@ export const MainContent = (props) => {
 				{displayMedia(moment)}
 				<div>
 					{/* <IconButton style={styles.momentButton}> */}
-					<IconButton style={styles.momentButton} onClick={() => setDialogContent(<MomentView setContent={setDialogContent} moment={moment}/>)}>
+					<IconButton style={styles.momentButton} onClick={() => setDialogContent(<MomentView setContent={setDialogContent} moment={moment} event={event}/>)}>
 						<MoreHorizIcon color="grey"/>
 					</IconButton>
 				</div>

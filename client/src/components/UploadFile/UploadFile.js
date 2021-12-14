@@ -4,6 +4,7 @@ import { uploadFile } from '../../actions/firebaseStorage'
 import { Fab, DialogActions, DialogContent, DialogTitle, Input, Button, IconButton, Select, MenuItem } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import { useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { useGetEmail, uploadMoment, getEventsByEmail } from '../../actions'
 
@@ -11,7 +12,7 @@ import './UploadFile.css';
 
 export const AddButton = (props) =>
   (<div className="fab-wrapper">
-  <Fab className="fab" variant="extended" color="primary" aria-label="add" onClick={() => props.setDialogContent(<UploadFile setContent={props.setDialogContent}/>)}>
+  <Fab className="fab" variant="extended" color="primary" aria-label="add" onClick={() => props.setDialogContent(<UploadFile setContent={props.setDialogContent} eventId={props.event._id}/>)}>
         <AddIcon sx={{ mr: 1 }} />
         Add Moments
       </Fab>
@@ -20,10 +21,11 @@ export const AddButton = (props) =>
 
 
 export const UploadFile = (props) => {
-  const { setContent } = props
+  const { setContent, eventId } = props
 
   const getEmail = useGetEmail()
   const location = useLocation()
+  const navigate = useNavigate()
 
   const fileInputRef = useRef()
   const [progress, setProgress] = useState(0)
@@ -33,6 +35,7 @@ export const UploadFile = (props) => {
   const email = getEmail()
   const [events, setEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState('')
+  
 
   useEffect(() => {
     (async () => {
@@ -70,6 +73,11 @@ export const UploadFile = (props) => {
     setSelectedEvent(null)
   }
 
+  const handleClose = async () => {
+    navigate(`/event/${eventId}`)
+    setContent(null)
+  }
+
   function onEventSelectChange(e) {
     setSelectedEvent(e.target.value)
   }
@@ -83,6 +91,7 @@ export const UploadFile = (props) => {
     'icon': {"marginLeft": 60},
     'trial': {"margin": '0 auto'}
   }
+
 
   return (
     
@@ -129,7 +138,7 @@ export const UploadFile = (props) => {
         <Button onClick={handleSubmit} autoFocus>
           Submit
         </Button>
-        <Button autoFocus onClick={() => setContent(null)}>
+        <Button autoFocus onClick={() => handleClose()}>
           Close
         </Button>
       </DialogActions>
