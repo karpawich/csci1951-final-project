@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import { useParams, useLocation } from 'react-router-dom'
-import {MainContent, PeopleMenu } from '..'
+import {MainContent, LeftMenu } from '..'
 import { getEvent } from '../../actions'
 import './Event.css';
 
@@ -29,7 +29,7 @@ export const Event = (props) => {
     <>
       <div className="main-grid">
         <div className="people-menu">
-          <PeopleMenu
+          <LeftMenu
             selectedPeople={selectedPeople}
             setSelectedPeople={setSelectedPeople}
             event={event}
