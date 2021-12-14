@@ -27,7 +27,7 @@ export const MomentView = (props) => {
 
 	const handleAdd = async () => {
 		try {
-			// console.log(await addEmailToMoment(moment._id, email))
+			await addEmailToMoment(moment._id, email)
 			setEmail('')
 		} catch (err) {
 			return
