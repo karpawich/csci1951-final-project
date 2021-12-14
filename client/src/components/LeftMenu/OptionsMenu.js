@@ -45,23 +45,32 @@ export const DateTimePicker = (props) => {
 }
 
 export const OptionsMenu = (props) => {
-    const {startDate, setStartDate, endDate, setEndDate, setFilterSort, setSortType, sortType } = props
+	const {startDate, setStartDate, endDate, setEndDate, setFilterSort, setSortType, sortType } = props
 
 
-    const [isOpen, setIsOpen] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
+
+	const styles = {
+		'button': {"marginTop": 10, "marginLeft": 130, "backgroundColor": '#FFFAF0'},
+		'subtitle': {"marginTop": 20},
+		'icon': {"marginLeft": 60},
+		'trial': {"margin": '0 auto'},
+		'blank1': {"width": 200, "marginTop": 20},
+		'blank': {"margin": '10px'}
+	}
     
     return (
-        <>
-            <ToggleButton selected={isOpen} onChange={() => setIsOpen(prev=>!prev)}>
-                <TuneIcon color="grey"/>
-            </ToggleButton>
-            {isOpen ? (<div className="option-flex-col">
-                <DateTimePicker label="Start Date" dateValue={startDate} handleDateChange={setStartDate} />
-                <DateTimePicker label="End Date" dateValue={endDate} handleDateChange={setEndDate}/>
-                <SortSelection setSortType={setSortType} sortType={sortType}/>
-                <Button variant="contained" onClick={() => setFilterSort(prev => !prev)}>Apply</Button>
-            </div>
-            ) : <></>}
-        </>      
+			<>
+				<ToggleButton selected={isOpen} onChange={() => setIsOpen(prev=>!prev)}>
+					<TuneIcon color="grey"/>
+				</ToggleButton>
+				{isOpen ? (<div className="option-flex-col">
+					<DateTimePicker style={styles.blank} label="Start Date" dateValue={startDate} handleDateChange={setStartDate} margin/>
+					<DateTimePicker style={styles.blank} label="End Date" dateValue={endDate} handleDateChange={setEndDate}/>
+					<SortSelection setSortType={setSortType} sortType={sortType}/>
+					<Button variant="contained" onClick={() => setFilterSort(prev => !prev)}>Apply</Button>
+				</div>
+				) : <></>}
+			</>      
     )
 }
