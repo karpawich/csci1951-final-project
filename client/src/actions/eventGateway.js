@@ -40,6 +40,7 @@ export const addEmailToEvent = async (eventId, email) => {
 }
 
 export const deleteEmailFromEvent = async (eventId, email) => {
+    console.log(eventId, email)
 	try {
 		return await del(baseEndpoint + servicePath + `/email/${eventId}`, { email })
 	} catch (err) {

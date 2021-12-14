@@ -1,4 +1,5 @@
-import { get } from '.'
+import { post, del, get } from '.'
+//import {post} from 'axios'
 
 import { baseEndpoint } from '.'
 

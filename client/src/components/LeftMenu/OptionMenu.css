@@ -1,0 +1,7 @@
+.option-flex-col {
+    display: flex;
+    flex-direction: column;
+}
+.option-flex-col > * {
+    width: 100%;
+}

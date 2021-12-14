@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import { useParams, useLocation } from 'react-router-dom'
-import {MainContent, PeopleMenu, AddButton } from '..'
+import {MainContent, LeftMenu, AddButton } from '..'
 import { getEvent } from '../../actions'
 import './Event.css';
 
@@ -16,6 +16,11 @@ export const Event = (props) => {
   const [userDeleted, setUserDeleted] = useState(false)
   const [updatePeopleList, setUpdatePeopleList] = useState(false)
 
+  const [startDate, setStartDate] = useState(new Date(event.startTimestamp))
+  const [endDate, setEndDate] = useState(new Date())
+  const [sortType, setSortType] = useState('new->old')
+  const [filterSort, setFilterSort] = useState(false)
+
   useEffect(() => {
     if (!e) {
       (async () => {
@@ -29,7 +34,7 @@ export const Event = (props) => {
     <>
       <div className="main-grid">
         <div className="people-menu">
-          <PeopleMenu
+          <LeftMenu
             selectedPeople={selectedPeople}
             setSelectedPeople={setSelectedPeople}
             event={event}
@@ -37,10 +42,18 @@ export const Event = (props) => {
             userAdded={userAdded}
             userDeleted={userDeleted}
             updatePeopleList={updatePeopleList}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            setSortType={setSortType}
+            setFilterSort={setFilterSort}
+            startDate={startDate}
+            endDate={endDate}
+            sortType={sortType}
+            filterSort={filterSort}
           />
         </div>
         <div className="main">
-          <MainContent event={event}/>
+          <MainContent event={event} setDialogContent={setDialogContent} filterSort={filterSort} startDate={startDate} endDate={endDate} sortType={sortType} selectedPeople={selectedPeople}/>
         </div>
       </div> 
       <AddButton setDialogContent={setDialogContent}/>

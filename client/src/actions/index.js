@@ -9,3 +9,5 @@ export * from './momentGateway'
 export * from './scrapbookGateway'
 export * from './groupGateway'
 export * from './linkGateway'
+
+export const emailToName = (email) => email.substring(0, email.indexOf('@')).replaceAll('_', ' ')
