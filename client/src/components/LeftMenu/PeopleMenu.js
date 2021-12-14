@@ -72,10 +72,6 @@ export const PeopleMenu = (props) => {
 
 	return (
 		<>
-			<div style={{"marginTop":20, "marginBottom":10, "marginLeft":5, "fontSize":30, "fontWeight":'bold'}}>
-				People
-			</div>
-
 			<div>
 				<OutlinedInput style={{height:30, "marginBottom":10}} type="search" fullWidth={true} placeholder="Search for people" onChange={handlePersonSearch}/>
 			</div>

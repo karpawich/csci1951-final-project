@@ -35,12 +35,6 @@ export const ScrapbookMenu = (props) => {
 
 	return (
 		<div className="container">
-
-			<div style={{"marginTop":20, "marginBottom":10, "marginLeft":5, "fontSize":30, "fontWeight":'bold'}}>
-				Scrapbook
-			</div>
-			
-
 			<div className="search-ppl-list">
 				<List>
                     {}

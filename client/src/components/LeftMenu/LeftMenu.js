@@ -2,13 +2,16 @@ import React, {useEffect, useState} from 'react'
 import './PeopleMenu.css';
 
 // material components
-import { IconButton } from '@mui/material'
+import { IconButton, Stack } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 
 // icons
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
-import { PeopleMenu } from '..'
+import { PeopleMenu } from '.'
 import { ScrapbookMenu } from '.';
 
 export const LeftMenu = (props) => {
@@ -18,7 +21,11 @@ export const LeftMenu = (props) => {
 	const navigate = useNavigate()
 	const handleBack = async () => {
 		navigate(`/event/`)
-	}
+    }
+
+    const [peopleOpen, setPeopleOpen] = useState(false)
+    const [scrapbookOpen, setScrapbookOpen] = useState(false)
+
 
 	return (
 		<div className="container">
@@ -28,13 +35,28 @@ export const LeftMenu = (props) => {
 				</IconButton>
             </div>
             
-            <div>
-                <PeopleMenu event={event} selectedPeople={selectedPeople} setSelectedPeople={setSelectedPeople} setDialogContent={setDialogContent} updatePeopleList={updatePeopleList}/>
+            <div className="title-flex">
+                <div style={{"marginTop":10, "marginBottom":10, "marginLeft":5, "fontSize":30, "fontWeight":'bold'}}>
+				    People
+			    </div>
+                <IconButton style={{"margin": '0 auto'}} onClick={() => setPeopleOpen(prev => !prev)}>
+                    {peopleOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                </IconButton>
             </div>
+            {peopleOpen ?
+                <PeopleMenu event={event} selectedPeople={selectedPeople} setSelectedPeople={setSelectedPeople} setDialogContent={setDialogContent} updatePeopleList={updatePeopleList} />
+                : <></>
+            }
 
-            <div>
-                <ScrapbookMenu event={event}/>
+            <div className="title-flex">
+                <div style={{"marginTop":10, "marginBottom":10, "marginLeft":5, "fontSize":30, "fontWeight":'bold'}}>
+				    Scrapbook
+			    </div>
+                <IconButton style={{"margin": '0 auto'}} onClick={() => setScrapbookOpen(prev => !prev)}>
+                    {scrapbookOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                </IconButton>
             </div>
+            {scrapbookOpen ? <ScrapbookMenu /> : <></>}
 
 		</div>
 	);
