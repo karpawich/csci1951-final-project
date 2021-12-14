@@ -4,6 +4,7 @@ import './PeopleMenu.css';
 // material components
 import {OutlinedInput, IconButton, List, ListItem, ListItemText, ListItemButton, autocompleteClasses} from '@mui/material'
 import { Fab, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Input, Button, useMediaQuery, useTheme } from '@mui/material';
+import { useNavigate } from 'react-router-dom'
 
 // icons
 import CancelIcon from '@mui/icons-material/Cancel'
@@ -122,11 +123,13 @@ export const PeopleMenu = (props) => {
 
 export const AddUserDialog = (props) => {
 	const [email, setEmail] = useState('')
+	const navigate = useNavigate()
 
 	const handleAdd = async () => {
 		await addEmailToEvent(props.eventId, email)
 		//props.setUserAdded(prev => !prev)
 		props.setContent(null)
+		navigate(`/event/${props.eventId}`)
 	}
 
 	const styles = {
@@ -165,11 +168,13 @@ export const AddUserDialog = (props) => {
 
 export const DeleteUserDialog = (props) => {
 	const [email, setEmail] = useState('')
+	const navigate = useNavigate()
 
 	const handleDelete = async () => {
 		await deleteEmailFromEvent(props.eventId, email)
 		//props.setUserDeleted(prev => !prev)
 		props.setContent(null)
+		navigate(`/event/${props.eventId}`) // only works for the first time
 	}
 
 	const styles = {
