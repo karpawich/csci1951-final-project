@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { uploadFile } from '../../actions/firebaseStorage'
 
-import { Fab, DialogActions, DialogContent, DialogTitle, Input, Button, IconButton, Select, MenuItem } from '@mui/material'
+import { Fab, DialogActions, DialogContent, DialogTitle, Input, Button, IconButton, Select, MenuItem, LinearProgress, Typography, Box, PropTypes } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import { useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
@@ -35,6 +35,21 @@ export const UploadFile = (props) => {
   const email = getEmail()
   const [events, setEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState('')
+
+  const LinearProgressWithLabel = (props) => {
+    return (
+      <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '15px' }}>
+        <Box sx={{ width: '100%', mr: 1 }}>
+          <LinearProgress variant="determinate" {...props} />
+        </Box>
+        <Box sx={{ minWidth: 35 }}>
+          <Typography variant="body2" color="text.secondary">{`${Math.round(
+            props.value,
+          )}%`}</Typography>
+        </Box>
+      </Box>
+    );
+  }
   
 
   useEffect(() => {
@@ -102,8 +117,10 @@ export const UploadFile = (props) => {
       </DialogTitle>
       <DialogContent>
         <div>
-            <input type="file" ref={fileInputRef} multiple></input>
-            <p>{progress}</p>
+          <input type="file" ref={fileInputRef} multiple></input>
+           <Box sx={{ width: '100%' }}>
+          <LinearProgressWithLabel value={progress} />
+    </Box>
         </div>
 
         <div style={styles.subtitle}>
